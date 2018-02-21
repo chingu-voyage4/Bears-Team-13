@@ -1,0 +1,15 @@
+{
+  "name": "bears-team-13",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chingu-voyage4/Bears-Team-13"
+  },
+  "author": "",
+  "license": "ISC",
+}
