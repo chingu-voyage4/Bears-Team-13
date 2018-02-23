@@ -4,7 +4,7 @@ const axios = require('axios');
 const keys = require('./keys');
 require('./models/Quotes');
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(process.env.mongoURI || keys.mongoURI);
 
 const app = express();
 
