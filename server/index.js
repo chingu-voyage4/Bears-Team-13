@@ -1,8 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
-const keys = require('./keys');
 require('./models/Quotes');
+
+if (process.env.NODE_ENV === 'production') {
+  const keys = {
+    mongoURI: process.env.mongoURI
+  };
+} else {
+  keys = require('./keys');
+}
 
 mongoose.connect(process.env.mongoURI || keys.mongoURI);
 
