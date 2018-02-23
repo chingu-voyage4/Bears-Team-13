@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run server",
-    "server": "npm run start --prefix server"
+    "server": "npm run start --prefix server",
+    "postinstall": "npm install --prefix server"
   },
   "repository": {
     "type": "git",
