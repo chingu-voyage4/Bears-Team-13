@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run server",
     "server": "npm run start --prefix server"
   },
   "repository": {
