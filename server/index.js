@@ -10,13 +10,12 @@ const app = express();
 
 
 getQuotes = async () => {
-  // let loopText;
   const res = await axios.get("https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json");
   if (res.data.quoteText !== undefined) {
     const Quote = mongoose.model('quotes');
     Quote.remove({}).exec();
     data = (res.data.quoteText === undefined) ? await JSON.parse(res.data) : res.data;
-    console.log(data.quoteText);
+    // console.log(data.quoteText);
     const newQuote = new Quote({
       quoteText: data.quoteText,
       quoteAuthor: data.quoteAuthor
@@ -27,11 +26,13 @@ getQuotes = async () => {
   }
 }
 
-setInterval(getQuotes, 5000);
+setInterval(getQuotes, 10 * 1000);
 
 
-app.get('/api/get_quote', (req, res) => {
-  // console.log(req);
+app.get('/api/get_quote', async (req, res) => {
+  const Quote = mongoose.model('quotes');
+  const currentQuote = await Quote.findOne();
+  res.send(currentQuote);
 });
 
 app.listen(5000);
