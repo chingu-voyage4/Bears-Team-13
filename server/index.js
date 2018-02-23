@@ -8,13 +8,15 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
-
 getQuotes = async () => {
-  const res = await axios.get("https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json");
+  const res = await axios.get(
+    'https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'
+  );
   if (res.data.quoteText !== undefined) {
     const Quote = mongoose.model('quotes');
     Quote.remove({}).exec();
-    data = (res.data.quoteText === undefined) ? await JSON.parse(res.data) : res.data;
+    data =
+      res.data.quoteText === undefined ? await JSON.parse(res.data) : res.data;
     // console.log(data.quoteText);
     const newQuote = new Quote({
       quoteText: data.quoteText,
@@ -24,10 +26,9 @@ getQuotes = async () => {
       if (err) console.log(err);
     });
   }
-}
+};
 
 setInterval(getQuotes, 10 * 1000);
-
 
 app.get('/api/get_quote', async (req, res) => {
   const Quote = mongoose.model('quotes');
@@ -35,4 +36,4 @@ app.get('/api/get_quote', async (req, res) => {
   res.send(currentQuote);
 });
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
