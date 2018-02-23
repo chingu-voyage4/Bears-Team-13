@@ -38,9 +38,13 @@ getQuotes = async () => {
 setInterval(getQuotes, 10 * 1000);
 
 app.get('/api/get_quote', async (req, res) => {
+  console.log('Incoming request');
   const Quote = mongoose.model('quotes');
   const currentQuote = await Quote.findOne();
+  console.log(`Fetched quote : ${currentQuote}`);
   res.send(currentQuote);
 });
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`Listening to port ${process.env.PORT || 5000}`)
+);
