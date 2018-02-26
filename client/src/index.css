@@ -1,0 +1,86 @@
+html {
+    background-color: aquamarine;
+}
+
+body {
+    height: 100%;
+    max-width: 100%;
+}
+
+.center-horizontally {
+    width: 100%;
+    text-align: center;
+}
+
+.quoteHolder {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 99%;
+    height: 5%;
+}
+
+.clock {
+    font-size: 8.5em;
+    margin-top: 17%;
+}
+
+.greeting {
+    font-size: 4em;
+}
+
+.authorLikeTwitter {
+    width: 100%;
+    /*remove this to hide author and mess with hover/transition*/
+    visibility: hidden;
+    /********************************************************************/
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+
+.quoteAuthor, .like, .twitterIcon {
+    display: inline;
+    margin-right: .5%;
+}
+
+.quoteText:hover + .authorLikeTwitter {
+    visibility: visible;
+    opacity: 1;
+
+}
+/*
+.quoteHolder:hover .quoteTextWrapper {
+    background-color: black;
+} 
+*/
+.quoteTextWrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.quoteText {
+    width: 20%;
+    margin: 0 auto;
+}
+
+.focus-question {
+    margin-top: 5%;
+    margin-bottom: 2%;
+    font-size: 3em;
+}
+
+input[type=text] {
+    width: 40%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: transparent;
+    font-size: 2em;
+    text-align: center;
+}
+
+input[type=text]:focus {
+    outline-width: 0;
+}

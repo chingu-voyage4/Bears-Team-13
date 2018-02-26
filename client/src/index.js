@@ -4,6 +4,8 @@ import Clock from './components/clock';
 import Greeting from './components/greeting';
 import moment from 'moment';
 import Quote from './components/quote';
+import Focus from './components/focus';
+import './index.css';
 
 
 class App extends Component{
@@ -37,6 +39,7 @@ class App extends Component{
      <div>
         <Clock />
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
+        <Focus />
         <Quote />
      </div>
     );
