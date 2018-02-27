@@ -1,5 +1,5 @@
 html {
-    background-color: aquamarine;
+    background-color: bisque;
 }
 
 body {
@@ -83,4 +83,45 @@ input[type=text] {
 
 input[type=text]:focus {
     outline-width: 0;
+}
+
+.stack {
+    display: inline-block;
+}
+
+.current-focus-wrapper {
+    margin-top: 4em;
+}
+
+.current-focus {
+    width: 25%;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 1em;
+}
+
+.current-focus:hover .remove-focus, .current-focus:hover .check-box {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.remove-focus:hover, .check-box:hover {
+    cursor: pointer;
+}
+
+.today-text {
+    font-size: 2em;
+    margin-bottom: .5em;
+}
+
+.focus-text {
+    font-size: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.remove-focus, .check-box {
+    visibility: hidden;
+    opacity: 0;
 }
