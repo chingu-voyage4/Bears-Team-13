@@ -6,4 +6,4 @@ const quoteSchema = new Schema({
   quoteAuthor: String
 });
 
-mongoose.model('quotes', quoteSchema);
+mongoose.model('quote', quoteSchema);
