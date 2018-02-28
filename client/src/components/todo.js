@@ -90,7 +90,7 @@ class Todo extends Component {
     }
     checkBox(item){
         if(item.checked === true){
-            return <input className="todo-checkbox" type="checkbox" onChange={this.handleCheckbox} value={item.item} id={item.key} checked/>
+            return <input className="todo-checkbox" type="checkbox" onChange={this.handleCheckbox} value={item.item} id={item.key} defaultChecked/>
         } else {
             return <input className="todo-checkbox" type="checkbox" onChange={this.handleCheckbox} value={item.item} id={item.key} />
         }
@@ -104,7 +104,7 @@ class Todo extends Component {
         const tempObj1 = tempObj.find(check)
         if(tempObj1.checked === true){
             tempObj1.checked = false;
-        } else {
+        } else if (tempObj1.checked === false){
             tempObj1.checked = true;
         }
         this.setState({todo:tempObj})
