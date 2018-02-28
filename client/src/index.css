@@ -17,12 +17,12 @@ body {
     bottom: 0;
     text-align: center;
     width: 99%;
-    height: 5%;
+    /*height: 5%;*/
 }
 
 .clock {
     font-size: 8.5em;
-    margin-top: 17%;
+    /*margin-top: 17%;*/
 }
 
 .greeting {
