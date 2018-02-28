@@ -6,13 +6,15 @@ import moment from 'moment';
 import Quote from './components/quote';
 import Focus from './components/focus';
 import './index.css';
-
+import Todo from './components/todo'
+import './style/main.css'
 
 class App extends Component{
  constructor(props){
      super(props);
      this.state = {
-         timeOfDay: ''
+         timeOfDay: '',
+         img: "https://source.unsplash.com/daily?landscape"
      }
  }
  
@@ -34,13 +36,21 @@ class App extends Component{
  }
 
  render(){
+    const backgroundImgStyles = {
+        backgroundImage: `url("${this.state.img}")`,
+        height: '100vh',
+        backgroundSize: 'cover'
+    };
      //render everything here
      return (
-     <div>
+     <div className="main" style={backgroundImgStyles}>
         <Clock />
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         <Focus />
         <Quote />
+        <div className="bottom-right">
+            <Todo />
+        </div>
      </div>
     );
  }
