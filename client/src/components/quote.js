@@ -9,14 +9,14 @@ class Quote extends Component {
         }
     }
 
-    componentWillMount() {
-        var self = this;
-        axios.get('/sample/quote/route').then(function(res) {
-            //example returned quote data
-            self.setState({quote: res.data.quote});
-            //would then render quote data below via state
-        });
-    }
+    // componentWillMount() {
+    //     var self = this;
+    //     axios.get('/sample/quote/route').then(function(res) {
+    //         //example returned quote data
+    //         self.setState({quote: res.data.quote});
+    //         //would then render quote data below via state
+    //     });
+    // }
 
     render() {
         return (
