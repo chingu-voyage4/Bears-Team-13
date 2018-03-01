@@ -75,10 +75,11 @@ input[type=text] {
     width: 40%;
     box-sizing: border-box;
     border: none;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #fff;
     background-color: transparent;
     font-size: 2em;
     text-align: center;
+    color: #fff;
 }
 
 input[type=text]:focus {
