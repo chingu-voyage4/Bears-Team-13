@@ -33,7 +33,7 @@ getPicture = async () => {
   var res;
   try {
     res = await axios.get(
-      `https://api.unsplash.com/photos/random/?client_id=${keys.unsplashAppId}&orientation=landscape`
+      `https://api.unsplash.com/photos/random/?client_id=${keys.unsplashAppId}&orientation=landscape&query=landscape`
     );
   } catch (err) {
     console.log(err);
