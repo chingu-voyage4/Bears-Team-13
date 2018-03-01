@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
 const keys = require('./config/keys');
+const cors = require('cors');
 require('./models/Quote');
 require('./models/Picture');
 
@@ -10,7 +11,7 @@ mongoose.connect(keys.mongoURI, err => {
 });
 
 const app = express();
-app.use(require('cors')); // TODO: Workaround until Proxy
+app.use(cors()); // TODO: Workaround until Proxy
 getQuote = async () => {
   const res = await axios.get(
     'https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'
