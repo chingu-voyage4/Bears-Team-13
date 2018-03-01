@@ -10,7 +10,7 @@ mongoose.connect(keys.mongoURI, err => {
 });
 
 const app = express();
-
+app.use(require('cors')); // TODO: Workaround until Proxy
 getQuote = async () => {
   const res = await axios.get(
     'https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'
