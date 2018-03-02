@@ -5,12 +5,15 @@ class Todo extends Component {
     constructor(props){
         super(props);
         this.state = {
+            viewBox:"Today",
             term: "",
          todo: []
         };
    this.handleSubmit = this.handleSubmit.bind(this);
    this.dropUp = this.dropUp.bind(this);
-   this.handleCheckbox = this.handleCheckbox.bind(this)
+   this.dropDown = this.dropDown.bind(this);
+   this.handleCheckbox = this.handleCheckbox.bind(this);
+  this.updateViewBox = this.updateViewBox.bind(this);
     }
     
     componentWillMount(){
@@ -47,7 +50,17 @@ class Todo extends Component {
         <button className="btn todo-btn" onClick={this.dropUp}>
             Todo
         </button>  
-        <div id="todo-dropdown" className="todo-panel">
+        <div id="todo-dropdown" className="todo-panel d-up">
+            <div className="dropdown-btn">
+              <button onClick={this.dropDown} className="btn todo-btn">{this.state.viewBox}</button>
+              <div id="myDropdown" className="todo-panel d-down">
+                <ul>
+                    <li onClick={this.updateViewBox} id='Inbox' className='todo-box'>Inbox</li>
+                    <li onClick={this.updateViewBox} id='Today'className='todo-box'>Today</li>
+                    <li onClick={this.updateViewBox} id='Done'className='todo-box'>Done</li>
+                </ul>
+              </div>
+            </div>
             <ul id="todo-list-container">
                 {todoItems}
             </ul>
@@ -64,6 +77,10 @@ class Todo extends Component {
         </div>
     </div>
     )}
+    updateViewBox(box){
+        this.setState({viewBox:box.target.id})
+        
+    }
     
     onInputChange(term){
         this.setState({term});
@@ -87,6 +104,9 @@ class Todo extends Component {
     }
     dropUp(x){
         document.getElementById("todo-dropdown").classList.toggle("show");
+    }
+    dropDown(x){
+        document.getElementById('myDropdown').classList.toggle('show')
     }
     checkBox(item){
         if(item.checked === true){

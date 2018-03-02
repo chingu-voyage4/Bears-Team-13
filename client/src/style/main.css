@@ -4,6 +4,7 @@ body{
 }
 
 .main{
+    opacity: 0;
     position:absolute;
     top:0;
     left:0;
@@ -11,14 +12,22 @@ body{
     right:0;
     height:100%;
     width:100%;
-}
-
-.background{
-    width:100%;
-    height:100%;
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: -1;
+    animation-name: fadeIn;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .bottom-right{
@@ -43,9 +52,14 @@ body{
     width:300px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
     z-index: 1;
+    color:white;
+}
+.d-up{
     bottom:100%;
     right:6px;
-    color:white;
+}
+.d-down{
+    background: rgb(15,15,15);
 }
 
 .todo-btn{
@@ -103,6 +117,12 @@ body{
 .unchecked{
     text-decoration: none;
 }
+
+.todo-box{
+    font-size:16px;
+    list-style: none;
+}
+
 ::-webkit-input-placeholder,
 ::-moz-placeholder,
 :-ms-input-placeholder,
