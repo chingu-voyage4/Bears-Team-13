@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 class Focus extends Component {
     constructor(props) {
@@ -14,10 +14,13 @@ class Focus extends Component {
     }
 
     componentWillMount() {
-        localStorage.getItem('focus') && this.setState({
-            focus: JSON.parse(localStorage.getItem('focus')),
+        const getLocalFocus = localStorage.getItem('focus');
+        if(JSON.parse(getLocalFocus) !== ''){
+        getLocalFocus && this.setState({
+            focus: JSON.parse(getLocalFocus),
             hasTodo: true
         });
+        }
     }
 
     componentWillUpdate(nextProps, nextState) {

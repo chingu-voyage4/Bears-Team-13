@@ -23,8 +23,9 @@ class App extends Component{
  }
  
  componentWillMount() {
+    const getLocalBackground = localStorage.getItem('background');
          //Receive background image
-    const storedTime = JSON.parse(localStorage.getItem('background'))
+    const storedTime = JSON.parse(getLocalBackground)
     let timeElapsed;
     if(storedTime !== null){
      timeElapsed = new Date().getTime() - storedTime.time
@@ -42,8 +43,8 @@ class App extends Component{
 			console.log('Error happened during fetching!', err);
         })
     } else {
-        localStorage.getItem('background') && this.setState({
-            background:JSON.parse(localStorage.getItem('background'))
+        getLocalBackground && this.setState({
+            background:JSON.parse(getLocalBackground)
         });
     }
     
@@ -73,7 +74,7 @@ class App extends Component{
     };
      //render everything here
      return (
-     <div className="main" style={backgroundImgStyles}>
+     <div className="main fadeIn" style={backgroundImgStyles}>
         <Weather />
         <Clock />
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />

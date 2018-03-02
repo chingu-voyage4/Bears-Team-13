@@ -20,6 +20,9 @@ body{
     justify-content: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.fadeIn{
     animation-name: fadeIn;
     animation-iteration-count: 1;
     animation-timing-function: ease-in-out;
