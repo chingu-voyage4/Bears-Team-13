@@ -172,5 +172,79 @@ input[type=text]#focus-item {
 }
 
 .dropdown-wrapper {
-    
+
 }
+
+.weather-widget-row-small {
+    height: 25%;
+    width: 100%;
+}
+
+.weather-widget-row-large {
+    height: 50%;
+    width: 100%;
+}
+
+.five-day-wrapper {
+    height: 100%;
+    width: 20%;
+    display: inline-block;
+    text-align: center;
+}
+
+.day-header {
+    font-size: .75em;
+}
+
+.five-day-weather-triple {
+    display: inline;
+    padding: 0 5% 0 5%;
+    font-size: .75em;
+}
+
+.active-day {
+    background-color: rgba(37, 37, 37, 0.3);
+}
+
+.city-holder, .more-options-ellipsis-wrapper, .large-weather-icon, .large-current-temperature {
+    width: 50%;
+    display: inline-block;
+    height: 100%;
+}
+
+.city-holder {
+    padding-left: 2%;
+}
+
+.city-name {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.more-options-ellipsis {
+    position: absolute;
+    top: -10%;
+    right: 3%;
+    font-size: 2em;
+}
+
+.more-options-ellipsis:hover {
+    cursor: pointer;
+}
+
+.large-weather-icon, .large-current-temperature {
+    line-height: 100%;
+}
+
+.large-weather-icon {
+    text-align: right;
+    font-size: 4em;
+    color: #f9d71c;
+    padding-right: 2.5%;
+}
+
+.large-current-temperature {
+    font-size: 4em;
+    padding-left: 2.5%;
+}
+
