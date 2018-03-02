@@ -5,16 +5,17 @@ class Quote extends Component {
     constructor(props){
         super(props);
         this.state = {
-            quote: {}
+            text: '',
+            author: ''
         }
     }
 
     componentWillMount() {
         var self = this;
-        axios.get('/sample/quote/route').then(function(res) {
+        axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
             //example returned quote data
-            self.setState({quote: res.data.quote});
-            //would then render quote data below via state
+            self.setState({text: res.data.quoteText, author: res.data.quoteAuthor});
+            console.log(res.data);
         });
     }
 
@@ -23,11 +24,11 @@ class Quote extends Component {
             <div className="quoteHolder">
                 <div className="quoteTextWrapper">
                     <div className="quoteText">
-                        "I came. I saw. I conquered."
+                        "{this.state.text}"
                     </div>
                     <div className="authorLikeTwitter">
                         <div className="quoteAuthor">
-                            Julius Caesar
+                            - {this.state.author}
                         </div>
                         <div className="like">
                             <i className="far fa-heart"></i>

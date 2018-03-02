@@ -1,9 +1,13 @@
 body{
     width:100%;
     height:100%;
+    color: #fff;
+    text-shadow: 0 1px 5px rgba(0,0,0,.1);
+    caret-color: #fff;
 }
 
 .main{
+<<<<<<< HEAD
     opacity: 0;
     position:absolute;
     top:0;
@@ -12,6 +16,19 @@ body{
     right:0;
     height:100%;
     width:100%;
+=======
+    height:100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.background{
+    width:100%;
+    height:100%;
+>>>>>>> 838d6eb8543c1ce21ac8441ba674887d50254808
     background-size: cover;
     background-repeat: no-repeat;
     animation-name: fadeIn;

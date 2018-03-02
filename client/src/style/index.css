@@ -1,0 +1,176 @@
+body {
+    height: 100%;
+    max-width: 100%;
+    color: white;
+}
+
+.center-horizontally {
+    width: 100%;
+    text-align: center;
+}
+
+.quoteHolder {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 99%;
+}
+
+.clock {
+    font-size: 8.5em;
+}
+
+.greeting {
+    font-size: 4em;
+}
+
+.authorLikeTwitter {
+    width: 100%;
+    /*remove this to hide author and mess with hover/transition*/
+    visibility: hidden;
+    /********************************************************************/
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+
+.quoteAuthor, .like, .twitterIcon {
+    display: inline;
+    margin-right: .5%;
+}
+
+.quoteTextWrapper:hover .authorLikeTwitter {
+    visibility: visible;
+    opacity: 1;
+}
+
+.like:hover {
+    color: #EE2625;
+    cursor: pointer;
+    transition: color 0.3s linear;
+}
+
+.twitterIcon:hover {
+    color: #1dcaff;
+    cursor: pointer;
+    transition: color 0.3s linear;
+}
+
+.quoteTextWrapper {
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.quoteText {
+    width: 50%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.focus-question {
+    margin-top: 5%;
+    margin-bottom: 2%;
+    font-size: 3em;
+}
+
+input[type=text] {
+    width: 40%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid white;
+    background-color: transparent;
+    font-size: 2em;
+    text-align: center;
+}
+
+input[type=text]:focus {
+    outline-width: 0;
+}
+
+.stack {
+    display: inline-block;
+}
+
+input[type=text]#focus-item {
+    color: white;
+}
+
+
+.current-focus {
+    width: 25%;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 1em;
+    display: inline;
+}
+
+.current-focus:hover .remove-focus, .current-focus:hover .check-box {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.remove-focus:hover, .check-box:hover {
+    cursor: pointer;
+}
+
+.today-text {
+    font-size: 2em;
+    margin-bottom: .5em;
+}
+
+.focus-text {
+    font-size: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.remove-focus, .check-box {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.focus-element {
+    min-height: 16.5em;
+}
+
+.current-focus-wrapper {
+    padding-top: 4em;
+}
+
+.weather-wrapper {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+}
+
+.weather-icon {
+    color: #f9d71c;
+    display: inline;
+}
+
+.weather-temperature {
+    display: inline;
+}
+
+.button-updates {
+    background-color: transparent;
+    color: white;
+    padding-left: 20rem;
+}
+
+.button-updates:focus {
+    box-shadow: none;
+}
+
+.weather-wrapper .dropdown-menu {
+    width: 25rem;
+    height: 12rem;
+    background-color: rgba(37, 37, 37, 0.7);
+    color: white;
+}
+
+.dropdown-wrapper {
+    
+}

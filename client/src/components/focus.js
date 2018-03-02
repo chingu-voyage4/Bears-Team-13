@@ -6,7 +6,7 @@ class Focus extends Component {
         super(props);
         this.state = {
             focus: '',
-            hasTodo: false,
+            hasTodo: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,14 +14,21 @@ class Focus extends Component {
     }
 
     componentWillMount() {
-        //hit server to check if there is a current focus to preload into component before rendering
+        localStorage.getItem('focus') && this.setState({
+            focus: JSON.parse(localStorage.getItem('focus')),
+            hasTodo: true
+        });
     }
 
-    getTodo() {
+    componentWillUpdate(nextProps, nextState) {
+        localStorage.setItem('focus', JSON.stringify(nextState.focus));
+    }
+
+    setFocus() {
         return (
-            <div className="center-horizontally">
+            <div className="center-horizontally focus-element">
                 <div className="focus-question">
-                    What is your focus today?
+                    What is your main focus for today?
                 </div>
                 <div>
                     <form id="focus-input" onSubmit={this.handleSubmit}>
@@ -34,9 +41,9 @@ class Focus extends Component {
         ); 
     }
 
-    showTodo() {
+    showFocus() {
         return (
-            <div className="current-focus-wrapper">
+            <div className="current-focus-wrapper focus-element">
                 <div className="current-focus">
                     <div className="today-text">
                         Today
@@ -59,7 +66,7 @@ class Focus extends Component {
 
     render() {
         return (
-            this.state.hasTodo ? this.showTodo() : this.getTodo() 
+            this.state.hasTodo ? this.showFocus() : this.setFocus() 
         );
     }
 
@@ -70,7 +77,7 @@ class Focus extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.setState({hasTodo: true});
-        axios.post('/submitFocus?focus=' + this.state.focus);
+        //axios.post('/submitFocus?focus=' + this.state.focus);
     }
 
     getNewTodo() {
