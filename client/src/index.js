@@ -15,11 +15,38 @@ class App extends Component{
      super(props);
      this.state = {
          timeOfDay: '',
-         img: "https://source.unsplash.com/daily?landscape"
+         background: {
+             img: '',
+             time: ''
+         }
      }
  }
  
  componentWillMount() {
+         //Receive background image
+    const storedTime = JSON.parse(localStorage.getItem('background'))
+    let timeElapsed;
+    if(storedTime !== null){
+     timeElapsed = new Date().getTime() - storedTime.time
+    } else {
+     timeElapsed = null;
+    }
+    if(timeElapsed > 3600000 || timeElapsed === null){
+      fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
+        .then(res => res.json())
+        .then(data => {
+            const time = new Date().getTime();
+            this.setState({background:{img: data.pictureUrl, time: time} })
+            })
+        .catch(err => {
+			console.log('Error happened during fetching!', err);
+        })
+    } else {
+        localStorage.getItem('background') && this.setState({
+            background:JSON.parse(localStorage.getItem('background'))
+        });
+    }
+    
      //determine what to use in the greeting
     var currentHour = moment().get('hour');
     if (currentHour > 4 && currentHour < 12) {
@@ -34,10 +61,13 @@ class App extends Component{
         this.setState({timeOfDay: 'evening'});
     }
  }
+    componentWillUpdate(nextProps, nextState){
+        localStorage.setItem('background', JSON.stringify(nextState.background));
 
+    }
  render(){
     const backgroundImgStyles = {
-        backgroundImage: `url("${this.state.img}")`,
+        backgroundImage: `url("${this.state.background.img}")`,
         height: '100vh',
         backgroundSize: 'cover'
     };

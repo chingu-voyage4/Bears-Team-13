@@ -4,10 +4,10 @@ class Weather extends Component {
     render() {
         return (
             <div className="weather-wrapper">
-                <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle button-updates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div className="btn-group">
+                    <button type="button" className="btn dropdown-toggle button-updates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div className="weather-icon">
-                            <i class="fas fa-sun"></i>
+                            <i className="fas fa-sun"></i>
                         </div>
                         <div className="weather-temperature">
                             70&deg;
@@ -16,7 +16,7 @@ class Weather extends Component {
                             Miami
                         </div>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-left dropdown-wrapper">
+                    <div className="dropdown-menu dropdown-menu-left dropdown-wrapper">
                         Hello wolrld
                     </div>
                 </div>

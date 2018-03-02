@@ -15,7 +15,6 @@ class Quote extends Component {
         axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
             //example returned quote data
             self.setState({text: res.data.quoteText, author: res.data.quoteAuthor});
-            console.log(res.data);
         });
     }
 
