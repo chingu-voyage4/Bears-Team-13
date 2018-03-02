@@ -5,7 +5,8 @@ import Greeting from './components/greeting';
 import moment from 'moment';
 import Quote from './components/quote';
 import Focus from './components/focus';
-import './index.css';
+import Weather from './components/weather';
+import './style/index.css';
 import Todo from './components/todo'
 import './style/main.css'
 
@@ -21,7 +22,6 @@ class App extends Component{
  componentWillMount() {
      //determine what to use in the greeting
     var currentHour = moment().get('hour');
-    console.log(currentHour);
     if (currentHour > 4 && currentHour < 12) {
         this.setState({timeOfDay: 'morning'});
     }
@@ -44,6 +44,7 @@ class App extends Component{
      //render everything here
      return (
      <div className="main" style={backgroundImgStyles}>
+        <Weather />
         <Clock />
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         <Focus />

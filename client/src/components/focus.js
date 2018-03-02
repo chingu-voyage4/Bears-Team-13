@@ -19,7 +19,7 @@ class Focus extends Component {
 
     getTodo() {
         return (
-            <div className="center-horizontally">
+            <div className="center-horizontally focus-element">
                 <div className="focus-question">
                     What is your focus today?
                 </div>
@@ -36,7 +36,7 @@ class Focus extends Component {
 
     showTodo() {
         return (
-            <div className="current-focus-wrapper">
+            <div className="current-focus-wrapper focus-element">
                 <div className="current-focus">
                     <div className="today-text">
                         Today
