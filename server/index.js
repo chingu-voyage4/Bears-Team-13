@@ -1,77 +1,52 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const axios = require('axios');
-const keys = require('./config/keys');
-const cors = require('cors');
-require('./models/Quote');
-require('./models/Picture');
+const express = require("express");
+const mongoose = require("mongoose");
+const axios = require("axios");
+const keys = require("./config/keys");
+const cors = require("cors");
+const passport = require("passport");
+const cookieSession = require("cookie-session");
+require("./models/Quote");
+require("./models/Picture");
+require("./models/User");
+require("./services/passport");
 
-mongoose.connect(keys.mongoURI, err => {
-  if (err) console.log(err);
-});
+mongoose.connect(keys.mongoURI);
 
 const app = express();
-app.use(cors()); // TODO: Workaround until Proxy
-getQuote = async () => {
-  const res = await axios.get(
-    'https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'
+
+app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
   );
-  if (res.data.quoteText !== undefined && res.data.quoteText.length > 0) {
-    const Quote = mongoose.model('quote');
-    Quote.remove({}).exec();
-    const newQuote = new Quote({
-      quoteText: res.data.quoteText,
-      quoteAuthor: res.data.quoteAuthor
-    });
-    newQuote.save(err => {
-      if (err) console.log(err);
-    });
+  if ("OPTIONS" == req.method) {
+    res.send(200);
+  } else {
+    next();
   }
-};
+});
 
-getPicture = async () => {
-  var res;
-  try {
-    res = await axios.get(
-      `https://api.unsplash.com/photos/random/?client_id=${keys.unsplashAppId}&orientation=landscape&query=landscape`
-    );
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-  if (res.data.urls.full !== undefined && res.data.urls.full.length > 0) {
-    const Picture = mongoose.model('picture');
-    Picture.remove({}).exec();
-    const newPicture = new Picture({
-      pictureUrl: res.data.urls.full,
-      pictureAttribution: `Photo by <a href="https://unsplash.com/${
-        res.data.user.username
-        }?utm_source=Momentum_Clone&utm_medium=referral">${
-        res.data.user.name
-        }</a> on <a href="https://unsplash.com/?utm_source=Momentum_Clone&utm_medium=referral">Unsplash</a>`
-    });
-    newPicture.save(err => {
-      if (err) console.log(err);
-    });
-  }
-};
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-setInterval(function () {
-  getQuote();
-  getPicture();
+require("./routes/globalRoutes")(app);
+require("./routes/authRoutes")(app);
+
+setInterval(function() {
+  require("./utils/getPicture")();
+  require("./utils/getQuote")();
 }, 90 * 1000);
-
-app.get('/api/get_quote', async (req, res) => {
-  const Quote = mongoose.model('quote');
-  const currentQuote = await Quote.findOne({});
-  res.send(currentQuote);
-});
-
-app.get('/api/get_picture', async (req, res) => {
-  const Photo = mongoose.model('picture');
-  const currentPhoto = await Photo.findOne({});
-  res.send(currentPhoto);
-});
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(`Listening to port ${process.env.PORT || 5000}`)

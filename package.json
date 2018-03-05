@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run server",
     "server": "npm run start --prefix server",
+    "client": "npm run start -prefix client",
     "postinstall": "npm install --prefix server"
   },
   "repository": {
