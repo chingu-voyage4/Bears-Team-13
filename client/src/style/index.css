@@ -2,6 +2,7 @@ body {
     height: 100%;
     max-width: 100%;
     color: white;
+    overflow: hidden;
 }
 
 .center-horizontally {
@@ -12,8 +13,9 @@ body {
 .quoteHolder {
     position: absolute;
     bottom: 0;
+    margin-bottom: 10px;
     text-align: center;
-    width: 99%;
+    width: 100%;
 }
 
 .clock {
@@ -23,25 +25,71 @@ body {
 .greeting {
     font-size: 4em;
 }
-
-.authorLikeTwitter {
-    width: 100%;
-    /*remove this to hide author and mess with hover/transition*/
-    visibility: hidden;
-    /********************************************************************/
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
-}
-
-
+  
 .quoteAuthor, .like, .twitterIcon {
     display: inline;
     margin-right: .5%;
 }
 
+.authorLikeTwitter {
+    width: 100%;
+    opacity: 0;
+}
+
+/** Hover animations **/
+@keyframes reset {
+    0% {
+       transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 15px, 0);
+    }
+}
+@keyframes shiftUp {
+    0% {
+       transform: translate3d(0, 15px, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }    
+}
+@keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -20px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+}
+@keyframes fadeInUp {
+    0% {
+      opacity: 1;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(0, -20px, 0);
+    }
+}
+.quoteTextWrapper,
+.authorLikeTwitter {
+    animation-duration: .5s;
+    transition-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+.quoteTextWrapper {
+    animation-name: reset;
+}
+.quoteTextWrapper:hover {
+    animation-name: shiftUp;
+}
+.authorLikeTwitter {
+    animation-name: fadeInUp;
+}
 .quoteTextWrapper:hover .authorLikeTwitter {
-    visibility: visible;
-    opacity: 1;
+    animation-name: fadeInDown;
 }
 
 .like:hover {
@@ -58,12 +106,10 @@ body {
 
 .quoteTextWrapper {
     position: relative;
-    width: 50%;
     margin: 0 auto;
 }
 
 .quoteText {
-    width: 50%;
     margin: 0 auto;
     height: 100%;
 }
