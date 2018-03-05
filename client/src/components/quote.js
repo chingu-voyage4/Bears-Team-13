@@ -21,11 +21,11 @@ class Quote extends Component {
     render() {
         return (
             <div className="quoteHolder">
-                <div className="quoteTextWrapper">
+                <div className="quoteTextWrapper animation-element">
                     <div className="quoteText">
                         "{this.state.text}"
                     </div>
-                    <div className="authorLikeTwitter">
+                    <div className="authorLikeTwitter animation-element">
                         <div className="quoteAuthor">
                             - {this.state.author}
                         </div>

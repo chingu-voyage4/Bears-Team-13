@@ -5,6 +5,33 @@ body {
     overflow: hidden;
 }
 
+/** Links widget **/
+.links-wrapper {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.links-wrapper button {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+}
+.links-wrapper button:focus {
+    outline:0;
+}
+.links-wrapper ul {
+    opacity: 0;
+    transform: translate3d(0, -5px, 0);
+    list-style-type: none;
+    background: rgba(15,15,15,.65);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
+    color:white;
+    margin: 10px 0 0 0;
+    padding: 10px;
+    width: 240px;
+}
 .center-horizontally {
     width: 100%;
     text-align: center;
@@ -36,7 +63,7 @@ body {
     opacity: 0;
 }
 
-/** Hover animations **/
+/** Css animations **/
 @keyframes reset {
     0% {
        transform: translate3d(0, 0, 0);
@@ -73,11 +100,39 @@ body {
       transform: translate3d(0, -20px, 0);
     }
 }
-.quoteTextWrapper,
-.authorLikeTwitter {
-    animation-duration: .5s;
+@keyframes fadePanelDown {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -5px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+}
+@keyframes fadePanelUp {
+    0% {
+      opacity: 1;
+      transform: none;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(0, -10px, 0);
+    }
+}
+/* Utility class for an animated element */
+.animation-element {
+    animation-duration: .3s;
     transition-timing-function: ease-in-out;
     animation-fill-mode: both;
+}
+/* Utility class to fade down a panel */
+.fadePanelDown {
+    animation-name: fadePanelDown;
+}
+/* Utility class to fade up a panel */
+.fadePanelUp {
+    animation-name: fadePanelUp;
 }
 .quoteTextWrapper {
     animation-name: reset;
