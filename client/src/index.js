@@ -6,6 +6,7 @@ import moment from 'moment';
 import Quote from './components/quote';
 import Focus from './components/focus';
 import Weather from './components/weather';
+import Links from './components/links';
 import './style/index.css';
 import Todo from './components/todo'
 import './style/main.css'
@@ -75,6 +76,7 @@ class App extends Component{
      //render everything here
      return (
      <div className="main fadeIn" style={backgroundImgStyles}>
+        <Links />
         <Weather />
         <Clock />
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
