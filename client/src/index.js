@@ -8,8 +8,9 @@ import Focus from './components/focus';
 import Weather from './components/weather';
 import Links from './components/links';
 import './style/index.css';
-import Todo from './components/todo'
-import './style/main.css'
+import Todo from './components/todo';
+import './style/main.css';
+import Settings from './components/settings';
 
 class App extends Component{
  constructor(props){
@@ -82,9 +83,8 @@ class App extends Component{
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         <Focus />
         <Quote />
-        <div className="bottom-right">
-            <Todo />
-        </div>
+        <Todo />
+        <Settings />
      </div>
     );
  }

@@ -18,7 +18,7 @@ class Todo extends Component {
     }
     
     dropUp(x){
-        document.getElementById("todo-dropdown").classList.toggle("show");
+        document.getElementById("todo-dropup").classList.toggle("show");
     }
     
     dropDown(x){
@@ -27,11 +27,11 @@ class Todo extends Component {
     
     render(){
         return(
-        <div className="dropup-btn">
-            <button className="btn todo-btn" id="dropUp" onClick={this.dropUp}>
+        <div className="bottom-right">
+            <button className="btn todo-btn" onClick={this.dropUp}>
                 Todo
             </button>  
-            <div id="todo-dropdown" className="todo-panel d-up">
+            <div id="todo-dropup" className="todo-panel d-up">
                 <div className="dropdown-btn">
                     <button onClick={this.dropDown} id="dropDown" className="btn todo-btn">{this.state.viewBox}</button>
                     <div id="myDropdown" className="todo-panel d-down">
