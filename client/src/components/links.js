@@ -16,24 +16,24 @@ class Links extends Component {
 
     handleClick() {
         var linksButton = document.getElementById('links-button');
-        var linksList = document.getElementById('links-list');
-        
-        linksButton.addEventListener('click', function() {
-            if (linksList.className === 'animation-element fadePanelUp') {
-                linksList.className = 'animation-element fadePanelDown';
-            } else {
-                linksList.className = 'animation-element fadePanelUp';
-            }
-        });
+        var linksPanel = document.getElementById('links-panel');
+     
+        // Toggle fade classes  
+        if (linksPanel.className === 'animation-element fadePanelUp') {
+            linksPanel.className = 'animation-element fadePanelDown';
+        } else {
+            linksPanel.className = 'animation-element fadePanelUp';
+        }
     }
 
     render() {
         return (
             <div className="links-wrapper">
                 <button id="links-button" onClick={this.handleClick}>Links</button>
-                <ul id="links-list" className="animation-element fadePanelUp">
-                    <li><a>Chrome Tab</a></li>
-                    <li><a>Apps</a></li>
+                <ul id="links-panel" className="animation-element fadePanelUp">
+                    <li><a href="chrome-search://local-ntp/local-ntp.html"><i className="fab fa-chrome"></i>Chrome Tab</a></li>
+                    <li><a href="chrome://apps"><i className="fab fa-google"></i>Apps</a></li>
+                    <li><input id="links-input" type="text" placeholder="New Link" /></li>
                 </ul>
             </div>
         )

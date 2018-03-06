@@ -27,10 +27,31 @@ body {
     list-style-type: none;
     background: rgba(15,15,15,.65);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
-    color:white;
     margin: 10px 0 0 0;
     padding: 10px;
     width: 240px;
+}
+.links-wrapper ul a {
+    color:#fff;
+    text-decoration: none;
+    opacity: .7;
+    transition: all .1s;
+}
+.links-wrapper ul a:hover {
+    opacity: 1;
+}
+.links-wrapper ul svg {
+    margin-right: 5px;
+}
+#links-input {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    opacity: .9;
+    font-size: .9em;
+}
+#links-input:focus {
+    outline: 0;
 }
 .center-horizontally {
     width: 100%;
@@ -63,7 +84,7 @@ body {
     opacity: 0;
 }
 
-/** Css animations **/
+/** CSS animations **/
 @keyframes reset {
     0% {
        transform: translate3d(0, 0, 0);
@@ -120,7 +141,7 @@ body {
       transform: translate3d(0, -10px, 0);
     }
 }
-/* Utility class for an animated element */
+/* Utility class to set general rules for an animated element. Apply this on all elements that will animate */
 .animation-element {
     animation-duration: .3s;
     transition-timing-function: ease-in-out;
@@ -134,15 +155,19 @@ body {
 .fadePanelUp {
     animation-name: fadePanelUp;
 }
+/* Animate to default position off hover */
 .quoteTextWrapper {
     animation-name: reset;
 }
-.quoteTextWrapper:hover {
-    animation-name: shiftUp;
-}
+/* Animate to default position off hover  */
 .authorLikeTwitter {
     animation-name: fadeInUp;
 }
+/* Animate to new position on hover */
+.quoteTextWrapper:hover {
+    animation-name: shiftUp;
+}
+/* Animate to new position on hover */
 .quoteTextWrapper:hover .authorLikeTwitter {
     animation-name: fadeInDown;
 }
@@ -175,7 +200,7 @@ body {
     font-size: 3em;
 }
 
-input[type=text] {
+#focus-item {
     width: 40%;
     box-sizing: border-box;
     border: none;
@@ -185,7 +210,7 @@ input[type=text] {
     text-align: center;
 }
 
-input[type=text]:focus {
+#focus-item:focus {
     outline-width: 0;
 }
 
