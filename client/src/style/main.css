@@ -45,6 +45,12 @@ body{
     position: absolute;
 }
 
+.bottom-left{
+    bottom:10px;
+    left:10px;
+    position: absolute;
+}
+
 #todo-input{
     width:100%;
     padding:0 15px 5px;
@@ -66,6 +72,9 @@ body{
 .d-up{
     bottom:100%;
     right:6px;
+}
+.s-up{
+    bottom:100%;
 }
 .d-down{
     background: rgb(15,15,15);
@@ -130,6 +139,7 @@ body{
 .todo-box{
     font-size:16px;
     list-style: none;
+    cursor: pointer;
 }
 
 ::-webkit-input-placeholder,
@@ -137,4 +147,8 @@ body{
 :-ms-input-placeholder,
 :-moz-placeholder{
   color: white;
+}
+
+.getUser{
+    cursor: pointer;
 }
