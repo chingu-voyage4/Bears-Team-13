@@ -278,7 +278,7 @@ input[type=text]#focus-item {
 
 .weather-widget-row-small {
     height: 25%;
-    width: 100%;
+    margin: 0% 1% 0% 1%;
 }
 
 .weather-widget-row-large {
@@ -349,3 +349,10 @@ input[type=text]#focus-item {
     padding-left: 2.5%;
 }
 
+.crossout {
+    text-decoration: line-through;
+}
+
+.hidden {
+    display: none;
+}
