@@ -62,7 +62,7 @@ class Focus extends Component {
                                 <i className="far fa-square"></i>
                             </div>
                             <div className={this.state.group2}>
-                                <i class="far fa-check-square"></i>
+                                <i className="far fa-check-square"></i>
                             </div>
                         </div>
                         <div className={this.state.todoTextClasses}>
@@ -73,7 +73,7 @@ class Focus extends Component {
                                 <i className="fas fa-trash-alt"></i>
                             </div>
                             <div className={this.state.group2}>
-                                <i class="fas fa-plus"></i>
+                                <i className="fas fa-plus"></i>
                             </div>
                         </div>
                     </div>
