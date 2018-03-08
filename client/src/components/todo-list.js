@@ -8,7 +8,7 @@ class TodoList extends Component {
         this.state = {
             todo: []
         };
-
+    this.dropDown = this.dropDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -63,6 +63,17 @@ class TodoList extends Component {
             return <input className="todo-checkbox" type="checkbox" onChange={this.handleCheckbox} value={item.item} id={item.key} />;
         }
     }
+    
+    dropDown(xx){ 
+        var panels = document.querySelectorAll('.todo-panel-o')
+        var currentPanel = document.getElementById(`${xx}-o`);
+        panels.forEach((x)=> {
+            if(x.classList.contains('show') && x.id !== currentPanel.id){
+                x.classList.remove('show')
+            } 
+        })
+        currentPanel.classList.toggle('show')
+    }
 
     
     
@@ -80,7 +91,17 @@ class TodoList extends Component {
                                 {this.checkBox(item)}
                             </label>
                             <span className={checked}> {item.item} </span>
-                            <i className="todo-destroy" onClick={event => this.handleDelete(item.key)}>✕</i>
+                            <button className="btn todo-btn todo-options" onClick={e => this.dropDown(item.key)}>
+                            <i className="fas fa-ellipsis-h"></i>
+                            </button>
+                            <div id={`${item.key}-o`}className="todo-panel-o">
+                            <ul className="todo-ul-o">
+                                <li className="todo-box-o">Edit</li>
+                                <li className="todo-box-o">Move To...</li>
+                                <li className="todo-box-o" onClick={event => this.handleDelete(item.key)}>Delete</li>
+                            </ul>
+
+                            </div>
                         </li>;
         if(viewBox === "Today"){
             return TDList;
