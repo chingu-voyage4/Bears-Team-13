@@ -6,11 +6,16 @@ class Focus extends Component {
         super(props);
         this.state = {
             focus: '',
-            hasTodo: false
+            hasTodo: false,
+            isComplete: false,
+            todoTextClasses: 'focus-text stack',
+            group1: '',
+            group2: 'hidden'
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getNewTodo = this.getNewTodo.bind(this);
+        this.completeTodo = this.completeTodo.bind(this);
     }
 
     componentWillMount() {
@@ -52,14 +57,24 @@ class Focus extends Component {
                         Today
                     </div>
                     <div>
-                        <div className="check-box stack">
-                            <i className="far fa-square"></i>
+                        <div className="check-box stack" onClick={this.completeTodo}>
+                            <div className={this.state.group1}>
+                                <i className="far fa-square"></i>
+                            </div>
+                            <div className={this.state.group2}>
+                                <i className="far fa-check-square"></i>
+                            </div>
                         </div>
-                        <div className="focus-text stack">
+                        <div className={this.state.todoTextClasses}>
                             {this.state.focus}
                         </div>
                         <div className="remove-focus stack" onClick={this.getNewTodo}>
-                            <i className="fas fa-trash-alt"></i>
+                            <div className={this.state.group1}>
+                                <i className="fas fa-trash-alt"></i>
+                            </div>
+                            <div className={this.state.group2}>
+                                <i className="fas fa-plus"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,6 +102,16 @@ class Focus extends Component {
         //TODO
         //call back end to delete the stored focus
         this.setState({hasTodo: false, focus: ''});
+    }
+
+    completeTodo() {
+        if (this.state.isComplete) {
+            this.setState({todoTextClasses: 'focus-text stack', group1: '', group2: 'hidden',isComplete: false});
+        }
+
+        else {
+            this.setState({todoTextClasses: 'focus-text stack crossout', group1: 'hidden', group2: '', isComplete: true});
+        }
     }
 }
 

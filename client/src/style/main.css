@@ -20,6 +20,7 @@ body{
     justify-content: center;
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: -1;
 }
 
 .fadeIn{
@@ -45,6 +46,12 @@ body{
     position: absolute;
 }
 
+.bottom-left{
+    bottom:10px;
+    left:10px;
+    position: absolute;
+}
+
 #todo-input{
     width:100%;
     padding:0 15px 5px;
@@ -52,6 +59,8 @@ body{
     border: 1px solid rgba(15,15,15,0);
     color:white;
     opacity: .8;
+    z-index:0;
+    position: relative;
 }
 
 .todo-panel {
@@ -60,15 +69,19 @@ body{
     background: rgba(15,15,15,.65);
     width:300px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
-    z-index: 1;
     color:white;
+    z-index: 0;
 }
 .d-up{
     bottom:100%;
     right:6px;
 }
+.s-up{
+    bottom:100%;
+}
 .d-down{
     background: rgb(15,15,15);
+    z-index:1;
 }
 
 .todo-btn{
@@ -78,19 +91,38 @@ body{
     box-shadow:none !important;
     color: white;
 }
+.todo-panel-o{
+    display: none;
+    position: absolute;
+    background: gray;
+    width:125px;
+    height:100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
+    right:3em;
+    color:white;
+    vertical-align: middle;
+    z-index: 1;
+}
 
 .show {
     display:block;
 }
 
-.todo-destroy{
-    padding: 5px 3px 0 10px;
+/*.todo-destroy{*/
+/*    padding: 5px 3px 0 10px;*/
+/*    cursor: pointer;*/
+/*    font-size: 10px;*/
+/*    font-style: normal;*/
+/*    position: absolute;*/
+/*    right: 9px;*/
+/*    top:7px;*/
+/*}*/
+.todo-options{
+    padding-top: 3px;
     cursor: pointer;
-    font-size: 10px;
-    font-style: normal;
     position: absolute;
     right: 9px;
-    top:7px;
+    top:11px;
 }
 
 .todo-item{
@@ -102,6 +134,7 @@ body{
     padding: 10px 0 10px 0;
     margin: 10px 0;
     position: relative;
+    z-index: 0;
 }
 
 .todo-item label{
@@ -110,7 +143,8 @@ body{
     float:left;
 }
 
-.todo-panel ul{
+.todo-panel ul,
+.todo-panel-o ul{
     margin-left: 0;
     padding-left:0;
     position: relative;
@@ -127,9 +161,14 @@ body{
     text-decoration: none;
 }
 
-.todo-box{
+.todo-box,
+.todo-box-o{
     font-size:16px;
     list-style: none;
+    cursor: pointer;
+}
+.todo-box-o{
+    padding-left: 8px;
 }
 
 ::-webkit-input-placeholder,
@@ -137,4 +176,11 @@ body{
 :-ms-input-placeholder,
 :-moz-placeholder{
   color: white;
+}
+.todo-ul-o{
+    margin-top:12px;
+    line-height:24px;
+}
+.getUser{
+    cursor: pointer;
 }
