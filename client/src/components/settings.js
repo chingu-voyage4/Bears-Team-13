@@ -11,7 +11,7 @@ class Settings extends Component{
         document.getElementById("settings-dropup").classList.toggle("show");
     }
     getUser(x){
-        axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user').then(function(res) {
+        axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(function(res) {
             console.log(res);
         });
     }
