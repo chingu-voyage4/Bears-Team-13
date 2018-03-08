@@ -318,6 +318,11 @@ input[type=text]#focus-item {
     text-align: center;
 }
 
+.five-day-wrapper:hover {
+    cursor: pointer;
+    background-color: rgba(37, 37, 37, 0.3);
+}
+
 .day-header {
     font-size: .75em;
 }
@@ -372,6 +377,11 @@ input[type=text]#focus-item {
 .large-current-temperature {
     font-size: 4em;
     padding-left: 2.5%;
+}
+
+.low-temp {
+    font-size: .7em;
+    color: #DCDCDC;
 }
 
 .crossout {
