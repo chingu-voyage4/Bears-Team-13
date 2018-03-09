@@ -337,6 +337,12 @@ input[type=text]#focus-item {
     background-color: rgba(37, 37, 37, 0.3);
 }
 
+.active-day-name {
+    font-size: .75em;
+    opacity: .7;
+    font-weight: normal;
+}
+
 .city-holder, .more-options-ellipsis-wrapper, .large-weather-icon, .large-current-temperature {
     width: 50%;
     display: inline-block;

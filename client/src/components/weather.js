@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import moment from 'moment';
 class Weather extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +34,8 @@ class Weather extends Component {
                     todayHighTemp: res.data.query.results.channel.item.condition.temp,
                     activeTemp: res.data.query.results.channel.item.condition.temp,
                     activeDescription: res.data.query.results.channel.item.forecast[0].text,
+                    activeDayName: 'Today',
+                    showLowTemp: 'hidden',
                     day1: res.data.query.results.channel.item.forecast[0],
                     day2: res.data.query.results.channel.item.forecast[1],
                     day3: res.data.query.results.channel.item.forecast[2],
@@ -51,14 +54,17 @@ class Weather extends Component {
         }
     }
 
-    highlightDay(day, isToday) {
+    highlightDay(day, isToday, e) {
         if (isToday) {
-
+            this.setState({todayHighTemp: this.state.activeTemp, todayLowTemp: '', activeDescription: this.state.day1.text, showLowTemp: 'hidden'});
         }
 
         else {
-            this.setState({todayHighTemp: day.high, todayLowTemp: day.low, activeDescription: day.text});    
+            this.setState({todayHighTemp: day.high, todayLowTemp: day.low, activeDescription: day.text, showLowTemp: 'low-temp'});    
         }
+
+        this.setState({activeDayName: moment(day.date).format('dddd')});
+        //console.log(e.target);
     }
 
     render() {
@@ -80,7 +86,7 @@ class Weather extends Component {
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
                                 <div className="city-name">
-                                    {this.state.city} 
+                                    {this.state.city} <span className="active-day-name">{this.state.activeDayName}</span> 
                                 </div>
                                 <div className="current-weather-description">
                                     {this.state.activeDescription}
@@ -97,11 +103,11 @@ class Weather extends Component {
                                 <i className="fas fa-sun"></i>
                             </div>
                             <div className="large-current-temperature">
-                                {this.state.todayHighTemp}&deg;<span className="low-temp">{this.state.todayLowTemp}&deg;</span>
+                                {this.state.todayHighTemp}&deg;<span className={this.state.showLowTemp}>{this.state.todayLowTemp}&deg;</span>
                             </div>
                         </div>
                         <div className="weather-widget-row-small"> 
-                            <div className="five-day-wrapper  active-day" onClick={() => this.highlightDay(this.state.day1, true)}>
+                            <div className="five-day-wrapper  active-day" onClick={(e) => this.highlightDay(this.state.day1, true, e)}>
                                 <div className="day-header">
                                     {this.state.day1.day}
                                 </div>
