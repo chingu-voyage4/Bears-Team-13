@@ -58,7 +58,6 @@ body{
     background: rgba(15,15,15,0);
     border: 1px solid rgba(15,15,15,0);
     color:white;
-    opacity: .8;
     z-index:0;
     position: relative;
 }
@@ -94,14 +93,17 @@ body{
 .todo-panel-o{
     display: none;
     position: absolute;
-    background: gray;
-    width:125px;
+    background: rgba(37, 37, 37, 0.7);
+    width:75px;
     height:100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
     right:3em;
     color:white;
     vertical-align: middle;
     z-index: 1;
+    transform:none !important;
+    left: unset !important;
+    min-width: 100px;
 }
 
 .show {
@@ -121,20 +123,18 @@ body{
     padding-top: 3px;
     cursor: pointer;
     position: absolute;
-    right: 9px;
+    right: 19px;
     top:11px;
 }
 
 .todo-item{
     height:auto;
-    opacity: .9;
     line-height: 1.2em;
     list-style: none;
     word-wrap: break-word;
     padding: 10px 0 10px 0;
     margin: 10px 0;
     position: relative;
-    z-index: 0;
 }
 
 .todo-item label{
@@ -143,8 +143,7 @@ body{
     float:left;
 }
 
-.todo-panel ul,
-.todo-panel-o ul{
+.todo-panel ul{
     margin-left: 0;
     padding-left:0;
     position: relative;
@@ -169,6 +168,7 @@ body{
 }
 .todo-box-o{
     padding-left: 8px;
+    position:relative;
 }
 
 ::-webkit-input-placeholder,

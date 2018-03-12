@@ -1,32 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class TodoListInput extends Component {
-    constructor(props){
-        super(props);
-        this.state ={
-            term:''
-        }
-    }
-    
-    onInputChange(term){
-        this.setState({term});
-    }
-
-    render(){
+const TodoListInput = (props) => {
         return(
             <div>
-                <form onSubmit={(e) => {e.preventDefault(); this.props.handleSubmit(this.state.term); this.setState({term:""})}}> 
+                <form onSubmit={(e) => {e.preventDefault(); props.handleSubmit(props.term); }}> 
                     <input
                         id="todo-input"
                         placeholder = "New Todo"
-                        value = {this.state.term}
-                        onChange={event => this.onInputChange(event.target.value)} 
+                        value = {props.term}
+                        onChange={event => props.onInputChange(event.target.value)} 
+                        onMouseDown={ (e) => e.target.focus() }
                         />
                 </form>
             </div>
         )
     }
-    
-}
 
 export default TodoListInput;
+
+// https://github.com/react-dnd/react-dnd/issues/463

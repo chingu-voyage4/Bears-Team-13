@@ -10,6 +10,7 @@ import Links from './components/links';
 import './style/index.css';
 import Todo from './components/todo';
 import './style/main.css';
+import './style/weather-icons.css'
 import Settings from './components/settings';
 
 class App extends Component{
