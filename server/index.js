@@ -5,6 +5,7 @@ const keys = require("./config/keys");
 const cors = require("cors");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
+const bodyParser = require("body-parser");
 require("./models/Quote");
 require("./models/Picture");
 require("./models/User");
@@ -37,6 +38,9 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 

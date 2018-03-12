@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 import TodoListInput from './todo-list-input';
 
@@ -22,6 +23,14 @@ class TodoList extends Component {
 
     componentWillUpdate(nextProps, nextState){
         localStorage.setItem('todo', JSON.stringify(nextState.todo));
+        
+        axios('http://localhost:5000/api/update_todo', {
+            method: 'post',
+            data: localStorage.getItem('todo'),
+            withCredentials: true
+        });
+       
+        // axios.get('http://localhost:5000/api/current_user', {withCredentials: true}).then(res => console.log(res));
     }
         
     generateKey(x){
