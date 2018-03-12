@@ -272,12 +272,12 @@ input[type=text]#focus-item {
 }
 
 .weather-icon {
-    color: #f9d71c;
     display: inline;
 }
 
 .weather-temperature {
     display: inline;
+    margin-left: .2em;
 }
 
 .button-updates {
@@ -376,7 +376,6 @@ input[type=text]#focus-item {
 .large-weather-icon {
     text-align: right;
     font-size: 4em;
-    color: #f9d71c;
     padding-right: 2.5%;
 }
 

@@ -32,15 +32,21 @@ class Weather extends Component {
                     city: res.data.query.results.channel.location.city,
                     activeDay: res.data.query.results.channel.item.forecast[0],
                     todayHighTemp: res.data.query.results.channel.item.condition.temp,
+                    todayActiveIconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
                     activeTemp: res.data.query.results.channel.item.condition.temp,
                     activeDescription: res.data.query.results.channel.item.forecast[0].text,
                     activeDayName: 'Today',
                     showLowTemp: 'hidden',
                     day1: res.data.query.results.channel.item.forecast[0],
+                    day1IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
                     day2: res.data.query.results.channel.item.forecast[1],
+                    day2IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[1].code,
                     day3: res.data.query.results.channel.item.forecast[2],
+                    day3IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[2].code,
                     day4: res.data.query.results.channel.item.forecast[3],
+                    day4IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[3].code,
                     day5: res.data.query.results.channel.item.forecast[4],
+                    day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code,
                 });
             });
         }
@@ -54,7 +60,7 @@ class Weather extends Component {
         }
     }
 
-    highlightDay(day, isToday, e) {
+    highlightDay(day, isToday) {
         if (isToday) {
             this.setState({todayHighTemp: this.state.activeTemp, todayLowTemp: '', activeDescription: this.state.day1.text, showLowTemp: 'hidden'});
         }
@@ -73,7 +79,7 @@ class Weather extends Component {
                 <div className="btn-group">
                     <button type="button" className="btn dropdown-toggle button-updates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div className="weather-icon">
-                            <i className="fas fa-sun"></i>
+                            <i className={this.state.todayActiveIconClass}></i>
                         </div>
                         <div className="weather-temperature">
                             {this.state.activeTemp}&deg;
@@ -100,19 +106,19 @@ class Weather extends Component {
                         </div>
                         <div className="weather-widget-row-large">
                             <div className="large-weather-icon">
-                                <i className="fas fa-sun"></i>
+                                <i className={this.state.day1IconClass}></i>
                             </div>
                             <div className="large-current-temperature">
                                 {this.state.todayHighTemp}&deg;<span className={this.state.showLowTemp}>{this.state.todayLowTemp}&deg;</span>
                             </div>
                         </div>
                         <div className="weather-widget-row-small"> 
-                            <div className="five-day-wrapper  active-day" onClick={(e) => this.highlightDay(this.state.day1, true, e)}>
+                            <div className="five-day-wrapper  active-day" onClick={() => this.highlightDay(this.state.day1, true)}>
                                 <div className="day-header">
                                     {this.state.day1.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className="fas fa-bolt"></i>
+                                    <i className={this.state.day1IconClass}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day1.high}&deg;
@@ -126,7 +132,7 @@ class Weather extends Component {
                                     {this.state.day2.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className="fas fa-cloud"></i>
+                                    <i className={this.state.day2IconClass}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day2.high}&deg;
@@ -140,7 +146,7 @@ class Weather extends Component {
                                     {this.state.day3.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className="fas fa-sun"></i>
+                                    <i className={this.state.day3IconClass}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day3.high}&deg;
@@ -154,7 +160,7 @@ class Weather extends Component {
                                     {this.state.day4.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className="fas fa-bolt"></i>
+                                    <i className={this.state.day4IconClass}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day4.high}&deg;
@@ -168,7 +174,7 @@ class Weather extends Component {
                                     {this.state.day5.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className="fas fa-cloud"></i>
+                                    <i className={this.state.day5IconClass}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day5.high}&deg;
