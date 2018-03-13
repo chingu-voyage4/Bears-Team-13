@@ -396,3 +396,13 @@ input[type=text]#focus-item {
 .hidden {
     display: none;
 }
+
+.top-button-identifier {
+    /***
+    /*** Do not add styles to this class
+    /*** Serves as Id for onClick handler ***/
+}
+
+.dropdown-menu:focus {
+    outline: none;
+}

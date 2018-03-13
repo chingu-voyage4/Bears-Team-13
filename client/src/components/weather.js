@@ -15,10 +15,13 @@ class Weather extends Component {
             day2: {},
             day3: {},
             day4: {},
-            day5: {}
+            day5: {},
+            dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper',
+            showingWeather: false
         };
 
         this.highlightDay = this.highlightDay.bind(this);
+        this.onFocus = this.onFocus.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +35,7 @@ class Weather extends Component {
                     city: res.data.query.results.channel.location.city,
                     activeDay: res.data.query.results.channel.item.forecast[0],
                     todayHighTemp: res.data.query.results.channel.item.condition.temp,
-                    todayActiveIconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
+                    todayActiveIconClass: 'top-button-identifier wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
                     activeTemp: res.data.query.results.channel.item.condition.temp,
                     activeDescription: res.data.query.results.channel.item.forecast[0].text,
                     activeDayName: 'Today',
@@ -70,25 +73,36 @@ class Weather extends Component {
         }
 
         this.setState({activeDayName: moment(day.date).format('dddd')});
-        //console.log(e.target);
+    }
+
+    onFocus(event) {
+        if (event.target.classList.contains('top-button-identifier')) {
+            if (this.state.showingWeather) {
+            this.setState({showingWeather: false, dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper'});
+            }
+
+            else {
+                this.setState({showingWeather: true, dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper show'});
+            }
+        }
     }
 
     render() {
         return (
             <div className="weather-wrapper">
-                <div className="btn-group">
-                    <button type="button" className="btn dropdown-toggle button-updates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div className="weather-icon">
+                <div className="btn-group" onClick={(event) => {this.onFocus(event)}}>
+                    <button type="button" className="btn button-updates top-button-identifier">
+                        <div className="weather-icon top-button-identifier">
                             <i className={this.state.todayActiveIconClass}></i>
                         </div>
-                        <div className="weather-temperature">
+                        <div className="weather-temperature top-button-identifier">
                             {this.state.activeTemp}&deg;
                         </div>
-                        <div>
+                        <div className="top-button-identifier">
                             {this.state.city}
                         </div>
                     </button>
-                    <div className="dropdown-menu dropdown-menu-left dropdown-wrapper">
+                    <div className={this.state.dropdownClasses} tabIndex="0">
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
                                 <div className="city-name">
