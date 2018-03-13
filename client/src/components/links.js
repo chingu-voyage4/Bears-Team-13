@@ -15,7 +15,6 @@ class Links extends Component {
     }
 
     handleClick() {
-        var linksButton = document.getElementById('links-button');
         var linksPanel = document.getElementById('links-panel');
      
         // Toggle fade classes  

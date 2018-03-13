@@ -13,4 +13,20 @@ module.exports = app => {
     const currentPhoto = await Photo.findOne({});
     res.send(currentPhoto);
   });
+
+  app.post("/api/update_todo", async (req, res) => {
+    if (!req.user) {
+      return res.status(401).send("Please login to Sync");
+    }
+    const User = mongoose.model("users");
+    const newUser = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        todo: JSON.stringify(req.body)
+      },
+      { new: true }
+    );
+    console.log(newUser);
+    res.send("Todo Updated");
+  });
 };

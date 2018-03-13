@@ -63,7 +63,7 @@ body {
     bottom: 0;
     margin-bottom: 10px;
     text-align: center;
-    width: 100%;
+    max-width: 50%;
 }
 
 .clock {
