@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const pictureSchema = new Schema({
   pictureUrl: String,
+  pictureLink: String,
   pictureByUsername: String,
   pictureByName: String,
   pictureLocation: String,
