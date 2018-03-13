@@ -15,7 +15,4 @@ const TodoListInput = (props) => {
             </div>
         )
     }
-
 export default TodoListInput;
-
-// https://github.com/react-dnd/react-dnd/issues/463

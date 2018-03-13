@@ -12,15 +12,20 @@ import Todo from './components/todo';
 import './style/main.css';
 import './style/weather-icons.css'
 import Settings from './components/settings';
-
+import BackgroundCredit from './components/background-credit';
 class App extends Component{
  constructor(props){
      super(props);
      this.state = {
          timeOfDay: '',
          background: {
-             img: '',
-             time: ''
+            img: '',
+            time: '',
+            link: '',
+            pictureByName:'',
+            pictureByUsername:'',
+            pictureLocation:'',
+            pictureUrl:''
          }
      }
  }
@@ -39,8 +44,18 @@ class App extends Component{
       fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             const time = new Date().getTime();
-            this.setState({background:{img: data.pictureUrl, time: time} })
+            this.setState({
+                background:{
+                    img: data.pictureUrl, 
+                    time: time, 
+                    pictureLink:data.pictureLink,
+                    pictureByName:data.pictureByName,
+                    pictureByUsername:data.pictureByUsername,
+                    pictureLocation:data.pictureLocation,
+                    pictureUrl:data.pictureUrl
+                } })
             })
         .catch(err => {
 			console.log('Error happened during fetching!', err);
@@ -85,6 +100,13 @@ class App extends Component{
         <Focus />
         <Quote />
         <Todo />
+        <BackgroundCredit
+            pictureLink={this.state.background.pictureLink}
+            pictureByName={this.state.background.pictureByName}
+            pictureByUsername={this.state.background.pictureByUsername}
+            pictureLocation={this.state.background.pictureLocation}
+            pictureUrl={this.state.background.pictureUrl}
+        />
         <Settings />
      </div>
     );

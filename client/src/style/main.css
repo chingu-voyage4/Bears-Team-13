@@ -51,7 +51,14 @@ body{
     left:10px;
     position: absolute;
 }
-
+.BGHolder{
+    position: absolute;
+    bottom: 0;
+    left:55px;
+    margin-bottom:15px;
+    max-width: 20%;
+    font-size:80%;
+}
 #todo-input{
     width:100%;
     padding:0 15px 5px;
@@ -61,7 +68,11 @@ body{
     z-index:0;
     position: relative;
 }
-
+.unsplash-link,
+.unsplash-link:hover{
+    text-decoration: none;
+    color: inherit;
+}
 .todo-panel {
     display: none;
     position: absolute;
@@ -110,15 +121,6 @@ body{
     display:block;
 }
 
-/*.todo-destroy{*/
-/*    padding: 5px 3px 0 10px;*/
-/*    cursor: pointer;*/
-/*    font-size: 10px;*/
-/*    font-style: normal;*/
-/*    position: absolute;*/
-/*    right: 9px;*/
-/*    top:7px;*/
-/*}*/
 .todo-options{
     padding-top: 3px;
     cursor: pointer;
@@ -184,3 +186,4 @@ body{
 .getUser{
     cursor: pointer;
 }
+
