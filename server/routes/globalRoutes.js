@@ -19,10 +19,14 @@ module.exports = app => {
       return res.status(401).send("Please login to Sync");
     }
     const User = mongoose.model("users");
-    console.log(JSON.stringify(req.body));
-    const newUser = await User.findByIdAndUpdate(req.user.id, {
-      todo: JSON.stringify(req.body)
-    });
+    const newUser = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        todo: JSON.stringify(req.body)
+      },
+      { new: true }
+    );
     console.log(newUser);
+    res.send("Todo Updated");
   });
 };

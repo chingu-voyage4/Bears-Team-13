@@ -11,7 +11,7 @@ class Settings extends Component{
         document.getElementById("settings-dropup").classList.toggle("show");
     }
     getUser(x){
-        axios.get('http://localhost:5000/api/current_user', {withCredentials: true}).then(function(res) {
+        axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(function(res) {
             console.log(res);
         });
     }
@@ -23,8 +23,8 @@ class Settings extends Component{
                 </button>
                 <div id="settings-dropup" className="todo-panel s-up">
                 <ul>
-                    <li><a href="http://localhost:5000/auth/google">Login with Google</a></li>
-                    <li><a href="http://localhost:5000/api/logout">Logout</a></li>
+                    <li><a href="https://momentum-server-bt13.herokuapp.com/auth/google">Login with Google</a></li>
+                    <li><a href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li>
                     <li className="getUser" onClick={this.getUser}>Get User</li>
                 </ul>
                 </div>

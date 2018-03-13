@@ -33,14 +33,16 @@ class TodoList extends Component {
 
     componentWillUpdate(nextProps, nextState){
         localStorage.setItem('todo', JSON.stringify(nextState.todo));
-        
-        axios('http://localhost:5000/api/update_todo', {
+        axios('https://momentum-server-bt13.herokuapp.com/api/update_todo', {
             method: 'post',
-            data: localStorage.getItem('todo'),
-            withCredentials: true
-        });
-       
-        // axios.get('http://localhost:5000/api/current_user', {withCredentials: true}).then(res => console.log(res));
+            data: JSON.stringify(localStorage.getItem('todo')),
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+        }).then(res => console.log(res))
+        .catch(err => console.log(err));
+
     }
 
     onInputChange(term){

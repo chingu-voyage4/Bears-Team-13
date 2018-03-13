@@ -19,6 +19,11 @@ module.exports = async () => {
     Picture.remove({}).exec();
     const newPicture = new Picture({
       pictureUrl: res.data.urls.full,
+      pictureByUsername: res.data.user.username,
+      pictureByName: res.data.user.name,
+      pictureLocation: res.data.location
+        ? res.data.location.title || "unknown"
+        : "unknown",
       pictureAttribution: `Photo by <a href="https://unsplash.com/${
         res.data.user.username
       }?utm_source=Momentum_Clone&utm_medium=referral">${

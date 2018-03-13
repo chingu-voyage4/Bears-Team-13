@@ -39,7 +39,7 @@ app.use(
   })
 );
 
-app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -47,10 +47,10 @@ app.use(passport.session());
 require("./routes/globalRoutes")(app);
 require("./routes/authRoutes")(app);
 
-setInterval(function() {
-  require("./utils/getPicture")();
-  require("./utils/getQuote")();
-}, 90 * 1000);
+// setInterval(function() {
+require("./utils/getPicture")();
+require("./utils/getQuote")();
+// }, 90 * 1000);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(`Listening to port ${process.env.PORT || 5000}`)
