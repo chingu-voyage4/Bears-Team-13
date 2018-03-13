@@ -19,6 +19,7 @@ module.exports = async () => {
     Picture.remove({}).exec();
     const newPicture = new Picture({
       pictureUrl: res.data.urls.full,
+      pictureLink: res.data.links.html,
       pictureByUsername: res.data.user.username,
       pictureByName: res.data.user.name,
       pictureLocation: res.data.location
