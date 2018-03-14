@@ -44,7 +44,6 @@ class App extends Component{
       fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             const time = new Date().getTime();
             this.setState({
                 background:{

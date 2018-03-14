@@ -22,6 +22,16 @@ body{
     background-repeat: no-repeat;
     z-index: -1;
 }
+a, 
+a:hover{
+    text-decoration: none;
+    color:inherit;
+}
+ul, ol {
+    padding:0;
+    margin:0;
+    list-style:none;
+}
 
 .fadeIn{
     animation-name: fadeIn;
@@ -46,11 +56,7 @@ body{
     position: absolute;
 }
 
-.bottom-left{
-    bottom:10px;
-    left:10px;
-    position: absolute;
-}
+
 .BGHolder{
     position: absolute;
     bottom: 0;
@@ -68,11 +74,7 @@ body{
     z-index:0;
     position: relative;
 }
-.unsplash-link,
-.unsplash-link:hover{
-    text-decoration: none;
-    color: inherit;
-}
+
 .todo-panel {
     display: none;
     position: absolute;
@@ -82,13 +84,12 @@ body{
     color:white;
     z-index: 0;
 }
+
 .d-up{
     bottom:100%;
     right:6px;
 }
-.s-up{
-    bottom:100%;
-}
+
 .d-down{
     background: rgb(15,15,15);
     z-index:1;
@@ -117,9 +118,7 @@ body{
     min-width: 100px;
 }
 
-.show {
-    display:block;
-}
+
 
 .todo-options{
     padding-top: 3px;
@@ -183,7 +182,120 @@ body{
     margin-top:12px;
     line-height:24px;
 }
-.getUser{
-    cursor: pointer;
+
+
+
+/****************** Settings ******************/
+.bottom-left{
+    bottom:10px;
+    left:10px;
+    position: absolute;
+}
+.s-up{
+    bottom:100%;
 }
 
+.settings-container{
+    height: 450px;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.settings-nav{
+    position: relative;
+    height: 450px;
+    width: 180px;
+    margin-top: 0;
+    padding: 28px 0 0 20px;
+    float: left;
+    overflow: hidden;
+    list-style:none;
+}
+.settings-nav-item{
+    padding: 6px 20px;
+    display: block;
+    cursor: pointer;
+    opacity: 0.6;
+    color:white;
+}
+.settings-panel {
+    height:450px;
+    display: none;
+    position: absolute;
+    background: rgba(15,15,15,.65);
+    width:700px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
+    color:white;
+    z-index: 0;
+}
+.login-nav{
+    bottom:0;
+    position:absolute;
+    width:100%;
+    margin: 0 10px 12px;
+    padding: 10px 12px;
+    cursor: pointer;
+}
+.input-toggle{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+.label-toggle {
+	cursor: pointer;
+	width: 35px;
+	height: 20px;
+	background: grey;
+	border-radius: 100px;
+	position: relative;
+	float:right;
+}
+.text-toggle{
+    cursor: pointer;
+   	position: relative;
+	float:right; 
+}
+.label-toggle:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 12px;
+	height: 12px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+.input-toggle:checked + .label-toggle:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+.label-toggle:active:after {
+	width: 25px;
+}
+.slide-toggle {
+    padding: 9px 0;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+.settings-list li{
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+.settings-header{
+    font-size: 90%;
+    margin-bottom:10px;
+    text-transform:uppercase;
+    margin-top:40px;
+}
+.bottom-toggle{
+    border-bottom:1px solid rgba(255,255,255,0.15);
+}
+/****************** Show/Hide ******************/
+.show {
+    display:block;
+}
