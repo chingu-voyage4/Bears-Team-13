@@ -30,6 +30,10 @@ class Weather extends Component {
             axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
             + position.coords.latitude + ',' + position.coords.longitude + ')%22)&format=json').then(function(res) {
                 console.log(res.data);
+
+                if (res.data.query.results === null) {
+                    return;
+                }
                 //load response into state for rendering
                 self.setState({
                     city: res.data.query.results.channel.location.city,

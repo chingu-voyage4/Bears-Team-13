@@ -51,7 +51,7 @@ class Focus extends Component {
 
     showFocus() {
         return (
-            <div className="current-focus-wrapper focus-element">
+            <div className="current-focus-wrapper focus-element fadeIn">
                 <div className="current-focus">
                     <div className="today-text">
                         Today
@@ -101,7 +101,7 @@ class Focus extends Component {
     getNewTodo() {
         //TODO
         //call back end to delete the stored focus
-        this.setState({hasTodo: false, focus: ''});
+        this.setState({hasTodo: false, focus: '', isComplete: false, group1: '', group2: 'hidden', todoTextClasses: 'focus-text stack'});
     }
 
     completeTodo() {
