@@ -6,7 +6,11 @@ function toggle(index){
     
 return <span><input className="input-toggle" type="checkbox" id={index} /><label className="label-toggle" htmlFor={index}></label></span>
 }
-
+function getUser() {
+    axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(function(res) {
+        console.log(res);
+    });
+    }
 const genTab = (
     <div>
         <h3>General</h3>
@@ -66,10 +70,10 @@ const loginTab =(
         <ul className="settings-list">
             <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/auth/google">Login with Google</a></li>
             <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li>
-            <li className="slide-toggle bottom-toggle" onClick={this.getUser}>Get User</li>
+            <li className="slide-toggle bottom-toggle" onClick={getUser}>Get User</li>
         </ul>
     </div>
-)
+);
 
 class Settings extends Component{
     constructor(props){
@@ -98,11 +102,7 @@ class Settings extends Component{
     //     target.addEventListener('blur', ()=>target.classList.toggle('show'));
     // }
 
-    getUser(x){
-        axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(function(res) {
-            console.log(res);
-        });
-    }
+
     pickTab(tab){
         this.setState({active:tab});
     }
