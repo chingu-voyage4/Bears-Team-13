@@ -39,7 +39,8 @@ class Weather extends Component {
                     city: res.data.query.results.channel.location.city,
                     activeDay: res.data.query.results.channel.item.forecast[0],
                     todayHighTemp: res.data.query.results.channel.item.condition.temp,
-                    todayActiveIconClass: 'top-button-identifier wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
+                    todayIconClass: 'top-button-identifier wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
+                    activeIconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
                     activeTemp: res.data.query.results.channel.item.condition.temp,
                     activeDescription: res.data.query.results.channel.item.forecast[0].text,
                     activeDayName: 'Today',
@@ -76,7 +77,7 @@ class Weather extends Component {
             this.setState({todayHighTemp: day.high, todayLowTemp: day.low, activeDescription: day.text, showLowTemp: 'low-temp'});    
         }
 
-        this.setState({activeDayName: moment(day.date).format('dddd')});
+        this.setState({activeDayName: moment(day.date).format('dddd'), activeIconClass: 'wi wi-yahoo-' + day.code});
     }
 
     onFocus(event) {
@@ -97,7 +98,7 @@ class Weather extends Component {
                 <div className="btn-group" onClick={(event) => {this.onFocus(event)}}>
                     <button type="button" className="btn button-updates top-button-identifier">
                         <div className="weather-icon top-button-identifier">
-                            <i className={this.state.todayActiveIconClass}></i>
+                            <i className={this.state.todayIconClass}></i>
                         </div>
                         <div className="weather-temperature top-button-identifier">
                             {this.state.activeTemp}&deg;
@@ -106,7 +107,7 @@ class Weather extends Component {
                             {this.state.city}
                         </div>
                     </button>
-                    <div className={this.state.dropdownClasses} tabIndex="0">
+                    <div className={this.state.dropdownClasses}>
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
                                 <div className="city-name">
@@ -124,7 +125,7 @@ class Weather extends Component {
                         </div>
                         <div className="weather-widget-row-large">
                             <div className="large-weather-icon">
-                                <i className={this.state.day1IconClass}></i>
+                                <i className={this.state.activeIconClass}></i>
                             </div>
                             <div className="large-current-temperature">
                                 {this.state.todayHighTemp}&deg;<span className={this.state.showLowTemp}>{this.state.todayLowTemp}&deg;</span>
