@@ -27,7 +27,7 @@ class Links extends Component {
 
     render() {
         return (
-            <div className="links-wrapper">
+            <div className={`links-wrapper ${this.props.visibility}`}>
                 <button id="links-button" onClick={this.handleClick}>Links</button>
                 <ul id="links-panel" className="animation-element fadePanelUp">
                     <li><a href="chrome-search://local-ntp/local-ntp.html"><i className="fab fa-chrome"></i>Chrome Tab</a></li>

@@ -93,7 +93,7 @@ class Weather extends Component {
 
     render() {
         return (
-            <div className="weather-wrapper">
+            <div className={`weather-wrapper ${this.props.visibility}`}>
                 <div className="btn-group" onClick={(event) => {this.onFocus(event)}}>
                     <button type="button" className="btn button-updates top-button-identifier">
                         <div className="weather-icon top-button-identifier">

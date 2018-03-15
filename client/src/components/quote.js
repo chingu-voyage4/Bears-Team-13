@@ -20,7 +20,7 @@ class Quote extends Component {
 
     render() {
         return (
-            <div className="quoteHolder">
+            <div className={`quoteHolder ${this.props.visibility}`}>
                 <div className="quoteTextWrapper animation-element">
                     <div className="quoteText">
                         "{this.state.text}"

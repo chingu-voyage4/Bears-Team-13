@@ -27,7 +27,7 @@ class Todo extends Component {
     
     render(){
         return(
-        <div className="bottom-right">
+        <div className={`bottom-right ${this.props.visibility}`}>
             <button className="btn todo-btn" onClick={this.dropUp}>
                 Todo
             </button>  

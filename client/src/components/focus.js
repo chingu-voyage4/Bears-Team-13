@@ -34,7 +34,7 @@ class Focus extends Component {
 
     setFocus() {
         return (
-            <div className="center-horizontally focus-element">
+            <div className={`center-horizontally focus-element ${this.props.visibility}`}>
                 <div className="focus-question">
                     What is your main focus for today?
                 </div>
@@ -51,7 +51,7 @@ class Focus extends Component {
 
     showFocus() {
         return (
-            <div className="current-focus-wrapper focus-element fadeIn">
+            <div className={`current-focus-wrapper focus-element fadeIn ${this.props.visibility}`}>
                 <div className="current-focus">
                     <div className="today-text">
                         Today

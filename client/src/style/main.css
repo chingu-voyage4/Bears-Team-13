@@ -62,7 +62,7 @@ ul, ol {
     bottom: 0;
     left:55px;
     margin-bottom:15px;
-    max-width: 20%;
+    max-width: 25%;
     font-size:80%;
 }
 #todo-input{
@@ -295,7 +295,40 @@ ul, ol {
 .bottom-toggle{
     border-bottom:1px solid rgba(255,255,255,0.15);
 }
+
+.settings-subnav {
+    margin: 0 -30px;
+    padding: 6px 30px;
+    align-items: center;
+}
+.settings-subnav h4 {
+    margin-bottom: 0;
+    padding: 12px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 85.714%;
+    opacity: 0.6 !important;
+    text-transform: uppercase;
+}
+.settings-img{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100px;
+    height:75px;
+}
+.settings-img:hover{
+    box-shadow: 0 0 2px 1px red;
+}
+.settings-img-container{
+    padding-right:15px;
+    padding-top:15px;
+    
+}
 /****************** Show/Hide ******************/
+.hide{
+    visibility:hidden;
+}
 .show {
     display:block;
 }

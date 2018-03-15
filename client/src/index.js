@@ -13,20 +13,28 @@ import './style/main.css';
 import './style/weather-icons.css'
 import Settings from './components/settings';
 import BackgroundCredit from './components/background-credit';
+
+
 class App extends Component{
  constructor(props){
      super(props);
      this.state = {
-         timeOfDay: '',
-         background: {
+        timeOfDay: '',
+        background: {
             img: '',
             time: '',
             link: '',
             pictureByName:'',
-            pictureByUsername:'',
             pictureLocation:'',
             pictureUrl:''
-         }
+         },
+        customGeneral: {
+            displayLink: true,
+            displayWeather:true,
+            displayFocus:true,
+            displayQuote:true,
+            displayTodo:true
+        }
      }
  }
  
@@ -51,9 +59,7 @@ class App extends Component{
                     time: time, 
                     pictureLink:data.pictureLink,
                     pictureByName:data.pictureByName,
-                    pictureByUsername:data.pictureByUsername,
                     pictureLocation:data.pictureLocation,
-                    pictureUrl:data.pictureUrl
                 } })
             })
         .catch(err => {
@@ -78,35 +84,55 @@ class App extends Component{
     else {
         this.setState({timeOfDay: 'evening'});
     }
+    //General Settings Tab
+    const getGeneralSettings = localStorage.getItem('customGeneral');
+    getGeneralSettings && this.setState({
+        customGeneral: JSON.parse(getGeneralSettings)
+    });
  }
     componentWillUpdate(nextProps, nextState){
         localStorage.setItem('background', JSON.stringify(nextState.background));
+        localStorage.setItem('customGeneral', JSON.stringify(nextState.customGeneral))
 
     }
+    updateCustomGeneral(widget, checked){
+        this.setState( prevState =>({
+          customGeneral:{
+          ...prevState.customGeneral,[widget]: checked
+          }
+        }
+      ));
+    }
+    
  render(){
     const backgroundImgStyles = {
         backgroundImage: `url("${this.state.background.img}")`,
         height: '100vh',
         backgroundSize: 'cover'
     };
+    
+    const obj = this.state.customGeneral;
      //render everything here
      return (
      <div className="main fadeIn" style={backgroundImgStyles}>
-        <Links />
-        <Weather />
+        <Settings general={this.state.customGeneral}
+                  toggle={(a, b) => this.updateCustomGeneral(a, b)} 
+        />
+        {obj.displayLink ? <Links /> : <Links visibility='hide' />}
+        {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
         <Clock />
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
-        <Focus />
-        <Quote />
-        <Todo />
+        {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
+        {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}
+        {obj.displayTodo ? <Todo/> : <Todo visibility='hide' />}
+        
         <BackgroundCredit
             pictureLink={this.state.background.pictureLink}
             pictureByName={this.state.background.pictureByName}
-            pictureByUsername={this.state.background.pictureByUsername}
             pictureLocation={this.state.background.pictureLocation}
             pictureUrl={this.state.background.pictureUrl}
         />
-        <Settings />
+
      </div>
     );
  }
