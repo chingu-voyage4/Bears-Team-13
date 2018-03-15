@@ -75,7 +75,7 @@ class Weather extends Component {
         }
 
         else {
-            this.setState({todayHighTemp: day.high, todayLowTemp: day.low, activeDescription: day.text, showLowTemp: 'low-temp', showingDay: dayNumber});    
+            this.setState({todayHighTemp: day.high, todayLowTemp: day.low, activeDescription: day.text, showLowTemp: 'low-temp', showingDay: dayNumber.toString()});    
         }
 
         this.setState({activeDayName: moment(day.date, 'DD MMM YYY').format('dddd'), activeIconClass: 'wi wi-yahoo-' + day.code});
@@ -133,7 +133,7 @@ class Weather extends Component {
                             </div>
                         </div>
                         <div className="weather-widget-row-small"> 
-                            <div className={this.state.showingDay == 1 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day1, true)}>
+                            <div className={this.state.showingDay === '1' ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day1, true)}>
                                 <div className="day-header">
                                     {this.state.day1.day}
                                 </div>
@@ -147,7 +147,7 @@ class Weather extends Component {
                                     {this.state.day1.low}&deg;
                                 </div>
                             </div>
-                            <div className={this.state.showingDay == 2 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day2, false, 2)}>
+                            <div className={this.state.showingDay === '2' ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day2, false, 2)}>
                                 <div className="day-header">
                                     {this.state.day2.day}
                                 </div>
@@ -161,7 +161,7 @@ class Weather extends Component {
                                     {this.state.day2.low}&deg;
                                 </div>
                             </div>
-                            <div className={this.state.showingDay == 3 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day3, false, 3)}>
+                            <div className={this.state.showingDay === '3' ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day3, false, 3)}>
                                 <div className="day-header">
                                     {this.state.day3.day}
                                 </div>
@@ -175,7 +175,7 @@ class Weather extends Component {
                                     {this.state.day3.low}&deg;
                                 </div>
                             </div>
-                            <div className={this.state.showingDay == 4 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day4, false, 4)}>
+                            <div className={this.state.showingDay === '4' ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day4, false, 4)}>
                                 <div className="day-header">
                                     {this.state.day4.day}
                                 </div>
@@ -189,7 +189,7 @@ class Weather extends Component {
                                     {this.state.day4.low}&deg;
                                 </div>
                             </div>
-                            <div className={this.state.showingDay == 5 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day5, false, 5)}>
+                            <div className={this.state.showingDay === '5' ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day5, false, 5)}>
                                 <div className="day-header">
                                     {this.state.day5.day}
                                 </div>
