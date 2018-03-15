@@ -44,6 +44,7 @@ class Weather extends Component {
                     activeTemp: res.data.query.results.channel.item.condition.temp,
                     activeDescription: res.data.query.results.channel.item.forecast[0].text,
                     activeDayName: 'Today',
+                    showingDay: '1',
                     showLowTemp: 'hidden',
                     day1: res.data.query.results.channel.item.forecast[0],
                     day1IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
@@ -68,16 +69,16 @@ class Weather extends Component {
         }
     }
 
-    highlightDay(day, isToday) {
+    highlightDay(day, isToday, dayNumber) {
         if (isToday) {
-            this.setState({todayHighTemp: this.state.activeTemp, todayLowTemp: '', activeDescription: this.state.day1.text, showLowTemp: 'hidden'});
+            this.setState({todayHighTemp: this.state.activeTemp, todayLowTemp: '', activeDescription: this.state.day1.text, showLowTemp: 'hidden', showingDay: '1'});
         }
 
         else {
-            this.setState({todayHighTemp: day.high, todayLowTemp: day.low, activeDescription: day.text, showLowTemp: 'low-temp'});    
+            this.setState({todayHighTemp: day.high, todayLowTemp: day.low, activeDescription: day.text, showLowTemp: 'low-temp', showingDay: dayNumber});    
         }
 
-        this.setState({activeDayName: moment(day.date).format('dddd'), activeIconClass: 'wi wi-yahoo-' + day.code});
+        this.setState({activeDayName: moment(day.date, 'DD MMM YYY').format('dddd'), activeIconClass: 'wi wi-yahoo-' + day.code});
     }
 
     onFocus(event) {
@@ -132,7 +133,7 @@ class Weather extends Component {
                             </div>
                         </div>
                         <div className="weather-widget-row-small"> 
-                            <div className="five-day-wrapper  active-day" onClick={() => this.highlightDay(this.state.day1, true)}>
+                            <div className={this.state.showingDay == 1 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day1, true)}>
                                 <div className="day-header">
                                     {this.state.day1.day}
                                 </div>
@@ -146,7 +147,7 @@ class Weather extends Component {
                                     {this.state.day1.low}&deg;
                                 </div>
                             </div>
-                            <div className="five-day-wrapper" onClick={() => this.highlightDay(this.state.day2, false)}>
+                            <div className={this.state.showingDay == 2 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day2, false, 2)}>
                                 <div className="day-header">
                                     {this.state.day2.day}
                                 </div>
@@ -160,7 +161,7 @@ class Weather extends Component {
                                     {this.state.day2.low}&deg;
                                 </div>
                             </div>
-                            <div className="five-day-wrapper" onClick={() => this.highlightDay(this.state.day3, false)}>
+                            <div className={this.state.showingDay == 3 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day3, false, 3)}>
                                 <div className="day-header">
                                     {this.state.day3.day}
                                 </div>
@@ -174,7 +175,7 @@ class Weather extends Component {
                                     {this.state.day3.low}&deg;
                                 </div>
                             </div>
-                            <div className="five-day-wrapper" onClick={() => this.highlightDay(this.state.day4, false)}>
+                            <div className={this.state.showingDay == 4 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day4, false, 4)}>
                                 <div className="day-header">
                                     {this.state.day4.day}
                                 </div>
@@ -188,7 +189,7 @@ class Weather extends Component {
                                     {this.state.day4.low}&deg;
                                 </div>
                             </div>
-                            <div className="five-day-wrapper" onClick={() => this.highlightDay(this.state.day5, false)}>
+                            <div className={this.state.showingDay == 5 ? 'five-day-wrapper active-day' : 'five-day-wrapper'} onClick={() => this.highlightDay(this.state.day5, false, 5)}>
                                 <div className="day-header">
                                     {this.state.day5.day}
                                 </div>
