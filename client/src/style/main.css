@@ -57,14 +57,7 @@ ul, ol {
 }
 
 
-.BGHolder{
-    position: absolute;
-    bottom: 0;
-    left:55px;
-    margin-bottom:15px;
-    max-width: 25%;
-    font-size:80%;
-}
+
 #todo-input{
     width:100%;
     padding:0 15px 5px;
@@ -182,8 +175,40 @@ ul, ol {
     margin-top:12px;
     line-height:24px;
 }
+/****************** Background-Credit ******************/
+.BGHolder{
+    position: absolute;
+    bottom: 0;
+    left:55px;
+    margin-bottom:15px;
+    max-width: 25%;
+    font-size:80%;
+}
 
+.BGAuthor {
+    display: inline;
+}
 
+.BGTextWrapper{
+    animation-name: reset;
+}
+
+.BGTextWrapper:hover{
+    animation-name: shiftUp;
+}
+
+.BGTextWrapper:hover .authorLikeTwitter{
+    animation-name: fadeInDown;
+}
+
+.BGTextWrapper{
+    position: relative;
+    margin: 0 auto;
+}
+.BGText{
+    margin: 0 auto;
+    height: 100%;
+}
 
 /****************** Settings ******************/
 .bottom-left{
@@ -332,3 +357,5 @@ ul, ol {
 .show {
     display:block;
 }
+
+

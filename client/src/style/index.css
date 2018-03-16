@@ -74,7 +74,7 @@ body {
     font-size: 4em;
 }
   
-.quoteAuthor, .like, .twitterIcon, .BGAuthor {
+.quoteAuthor, .like, .twitterIcon {
     display: inline;
     margin-right: .5%;
 }
@@ -156,8 +156,7 @@ body {
     animation-name: fadePanelUp;
 }
 /* Animate to default position off hover */
-.quoteTextWrapper,
-.BGTextWrapper{
+.quoteTextWrapper{
     animation-name: reset;
 }
 /* Animate to default position off hover  */
@@ -165,13 +164,11 @@ body {
     animation-name: fadeInUp;
 }
 /* Animate to new position on hover */
-.quoteTextWrapper:hover,
-.BGTextWrapper:hover{
+.quoteTextWrapper:hover{
     animation-name: shiftUp;
 }
 /* Animate to new position on hover */
-.quoteTextWrapper:hover .authorLikeTwitter,
-.BGTextWrapper:hover .authorLikeTwitter{
+.quoteTextWrapper:hover .authorLikeTwitter{
     animation-name: fadeInDown;
 }
 
@@ -187,14 +184,12 @@ body {
     transition: color 0.3s linear;
 }
 
-.quoteTextWrapper,
-.BGTextWrapper{
+.quoteTextWrapper{
     position: relative;
     margin: 0 auto;
 }
 
-.quoteText,
-.BGText{
+.quoteText{
     margin: 0 auto;
     height: 100%;
 }
