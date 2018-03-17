@@ -348,7 +348,7 @@ ul, ol {
 .settings-img-container{
     padding-right:15px;
     padding-top:15px;
-    
+    display: inline-block;
 }
 /****************** Show/Hide ******************/
 .hide{

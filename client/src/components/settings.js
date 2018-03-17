@@ -20,10 +20,6 @@ class Settings extends Component{
     dropUp(x){
         document.getElementById("settings-dropup").classList.toggle("show");
     }
-    handleToggle(el){                
-        this.props.toggle(el.target.id, el.target.checked)
-    }
-    
     toggle(index){
         return(
             this.props.general[index] ? 
@@ -32,9 +28,16 @@ class Settings extends Component{
             <span><input className="input-toggle" type="checkbox" id={index} onChange={x=>this.handleToggle(x)}/><label className="label-toggle" htmlFor={index}></label></span>
         )
     }
+    handleToggle(el){ 
+        if(el.target.id === "todoBlur"){
+            document.getElementById("todo-dropup").classList.remove("show");
+        }
+        this.props.toggle(el.target.id, el.target.checked)
+    }
+    
     loginTab(x){
         return(
-            <div>
+            <div key="loginTab">
                 <h3>Log In</h3>
                 <p>Sign in or sign up!</p>
                 <ul className="settings-list">
@@ -47,7 +50,7 @@ class Settings extends Component{
     }
     genTab(x){
         return(
-            <div>
+            <div key="genTab">
                 <h3>General</h3>
                 <p>Customize your dashboard</p>
                 <h4 className="settings-header">Show</h4>
@@ -70,14 +73,14 @@ class Settings extends Component{
         )
     }
 
-    todoTab(x){ 
+    todoTab(x){
         return(
-            <div>
+            <div key="todoTab">
                 <h3>Todo</h3>
                 <p>Break your goals into manageable pieces</p>
                 <h4 className="settings-header">Settings</h4>
                 <ul className="settings-list">
-                    <li className="slide-toggle bottom-toggle"> <span>Stay Open</span>{this.toggle(9)} </li>
+                    <li className="slide-toggle bottom-toggle"> <span>Stay Open</span>{this.toggle("todoBlur")}</li>
                 </ul>
             </div>
         )
@@ -85,44 +88,46 @@ class Settings extends Component{
 
     photoTab(x){ 
         return(
-            <div>
+            <div key="photoTab">
                 <h3>Photos</h3>
                 <p>See a new inspiring photo each day</p>
                 <div className="settings-subnav">
                     <h4>Favorites</h4><h4>History</h4>
                 </div>
+                
                 <div>
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                </a>
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                </a>
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                </a>
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                </a>
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                </a>
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                </a>        
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                </a>
-                <a className="settings-img-container"target="_blank" href="">
-                    <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                </a>
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
+                    </a>
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
+                    </a>
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
+                    </a>
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
+                    </a>
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
+                    </a>
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
+                    </a>        
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
+                    </a>
+                    <a className="settings-img-container"target="_blank" href="">
+                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
+                    </a>
                 </div>
+                
             </div>
         )
     }
     quoteTab(x){
         return(
-            <div>
+            <div key="quoteTab">
                 <h3>Quotes</h3>
                 <p>A daily reminder for inspiration and growth</p>
                 <div className="settings-subnav">
@@ -133,11 +138,11 @@ class Settings extends Component{
     }
     linkTab(x){
         return(
-            <div>
+            <div key="linkTab">
                 <h3>Links & Bookmarks Bar</h3>
                 <p>Quick access to your favorite links</p>
                 <ul className="settings-list">
-                    <li className="slide-toggle"> <span>Show Links</span>{this.toggle(10)} </li>
+                    <li className="slide-toggle"> <span>Show Links</span>{this.toggle('displayLink')} </li>
                     <li className="slide-toggle"> <span>Show Bookmarks Bar</span>{this.toggle(11)} </li>
                     <li className="slide-toggle"> <span>Show Chrome Tab in</span><span className="text-toggle">Links | Bookmarks | Dash | None</span> </li>
                     <li className="slide-toggle"> <span>Show Apps in</span><span className="text-toggle">Links | Bookmarks | Dash | None</span> </li>
@@ -158,6 +163,7 @@ class Settings extends Component{
             </div>
         )
     }
+
 
     pickTab(tab){
         this.setState({active:tab});

@@ -10,6 +10,7 @@ class Todo extends Component {
     this.updateViewBox = this.updateViewBox.bind(this);
     this.dropUp = this.dropUp.bind(this);
     this.dropDown = this.dropDown.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     }
     
     updateViewBox(box){
@@ -24,10 +25,21 @@ class Todo extends Component {
     dropDown(x){
         document.getElementById('myDropdown').classList.toggle('show')
     }
+     onBlur(e) {
+    var currentTarget = e.currentTarget;
+    if(this.props.blurOn !== true){
+    setTimeout(function() {
+      if (!currentTarget.contains(document.activeElement)) {
+          document.getElementById("todo-dropup").classList.toggle("show");
+      }
+    }, 0);
+    }
+  }
+    
     
     render(){
         return(
-        <div className={`bottom-right ${this.props.visibility}`}>
+        <div className={`bottom-right ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
             <button className="btn todo-btn" onClick={this.dropUp}>
                 Todo
             </button>  

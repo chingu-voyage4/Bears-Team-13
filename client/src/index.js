@@ -21,26 +21,25 @@ class App extends Component{
      this.state = {
         timeOfDay: '',
         background: {
-            img: '',
-            time: '',
-            link: '',
-            pictureByName:'',
-            pictureLocation:'',
-            pictureUrl:''
-         },
+        },
+        backgroundHistory: [],
         customGeneral: {
             displayLink: true,
             displayWeather:true,
             displayFocus:true,
             displayQuote:true,
-            displayTodo:true
+            displayTodo:true,
+            todoBlur:true,
+            customTimer: 900000
         }
      }
  }
  
  componentWillMount() {
     const getLocalBackground = localStorage.getItem('background');
-         //Receive background image
+    const backgroundHistory = localStorage.getItem('backgroundHistory');
+    
+     //Receive background image
     const storedTime = JSON.parse(getLocalBackground)
     let timeElapsed;
     if(storedTime !== null){
@@ -48,7 +47,15 @@ class App extends Component{
     } else {
      timeElapsed = null;
     }
-    if(timeElapsed > 3600000 || timeElapsed === null){
+    
+    //Store background history in localStorage
+    if(timeElapsed > this.state.customTimer){
+        const tempObj = Object.assign({}, JSON.parse(getLocalBackground));
+        var newArray = JSON.parse(backgroundHistory);
+        newArray.push(tempObj);   
+        localStorage.setItem('backgroundHistory', JSON.stringify(newArray))
+    }
+    if(timeElapsed > this.state.customTimer || timeElapsed === null){
       fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
         .then(res => res.json())
         .then(data => {
@@ -57,6 +64,7 @@ class App extends Component{
                 background:{
                     img: data.pictureUrl, 
                     time: time, 
+                    date: moment().format('YYYY-MM-DD'),
                     pictureLink:data.pictureLink,
                     pictureByName:data.pictureByName,
                     pictureLocation:data.pictureLocation,
@@ -112,10 +120,11 @@ class App extends Component{
     };
     
     const obj = this.state.customGeneral;
+    
      //render everything here
      return (
      <div className="main fadeIn" style={backgroundImgStyles}>
-        <Settings general={this.state.customGeneral}
+        <Settings general={obj}
                   toggle={(a, b) => this.updateCustomGeneral(a, b)} 
         />
         {obj.displayLink ? <Links /> : <Links visibility='hide' />}
@@ -124,8 +133,7 @@ class App extends Component{
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
         {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}
-        {obj.displayTodo ? <Todo/> : <Todo visibility='hide' />}
-        
+        {obj.displayTodo ? <Todo blurOn={obj.todoBlur}/> : <Todo visibility='hide' blurOn={obj.todoBlur} />}
         <BackgroundCredit
             pictureLink={this.state.background.pictureLink}
             pictureByName={this.state.background.pictureByName}
