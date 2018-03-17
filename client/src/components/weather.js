@@ -25,6 +25,11 @@ class Weather extends Component {
     }
 
     componentDidMount() {
+        
+        function convertToC(value) { 
+            return Math.round((parseInt(value) - 32) * (5/9), 0);
+        }
+
         var self = this;
         function showPosition(position) {
             axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
@@ -34,6 +39,7 @@ class Weather extends Component {
                 if (res.data.query.results === null) {
                     return;
                 }
+                
                 //load response into state for rendering
                 self.setState({
                     city: res.data.query.results.channel.location.city,
@@ -55,8 +61,29 @@ class Weather extends Component {
                     day4: res.data.query.results.channel.item.forecast[3],
                     day4IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[3].code,
                     day5: res.data.query.results.channel.item.forecast[4],
-                    day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code,
+                    day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code
                 });
+
+                var altUnits = {
+                    activeTemp: 0,
+                    first: {},
+                    second: {},
+                    third: {},
+                    fourth: {},
+                    fifth: {},
+                };
+
+                altUnits.activeTemp = convertToC(res.data.query.results.channel.item.condition.temp);
+                altUnits.first.high = convertToC(res.data.query.results.channel.item.forecast[0].high);
+                altUnits.first.low = convertToC(res.data.query.results.channel.item.forecast[0].low);
+                altUnits.second.high = convertToC(res.data.query.results.channel.item.forecast[1].high);
+                altUnits.second.low = convertToC(res.data.query.results.channel.item.forecast[1].low);
+                altUnits.third.high = convertToC(res.data.query.results.channel.item.forecast[2].high);
+                altUnits.third.low = convertToC(res.data.query.results.channel.item.forecast[2].low);
+                altUnits.fourth.high = convertToC(res.data.query.results.channel.item.forecast[3].high);
+                altUnits.fourth.low = convertToC(res.data.query.results.channel.item.forecast[3].low);
+                altUnits.fifth.high = convertToC(res.data.query.results.channel.item.forecast[4].high);
+                altUnits.fifth.low = convertToC(res.data.query.results.channel.item.forecast[4].low);
             });
         }
 
