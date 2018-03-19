@@ -13,7 +13,7 @@ import './style/main.css';
 import './style/weather-icons.css'
 import Settings from './components/settings';
 import BackgroundCredit from './components/background-credit';
-
+import axios from 'axios';
 
 class App extends Component{
  constructor(props){
@@ -31,7 +31,8 @@ class App extends Component{
             displayTodo:true,
             todoBlur:true,
             customTimer: 900000
-        }
+        },
+        loggedInUser: false                //Non-logged in user: False | Logged in user: First name of user
      }
  }
  
@@ -97,6 +98,10 @@ class App extends Component{
     getGeneralSettings && this.setState({
         customGeneral: JSON.parse(getGeneralSettings)
     });
+
+    axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(res => {
+        this.setState({loggedInUser: res.data.name})
+    });
  }
     componentWillUpdate(nextProps, nextState){
         localStorage.setItem('background', JSON.stringify(nextState.background));
@@ -125,7 +130,8 @@ class App extends Component{
      return (
      <div className="main fadeIn" style={backgroundImgStyles}>
         <Settings general={obj}
-                  toggle={(a, b) => this.updateCustomGeneral(a, b)} 
+                  toggle={(a, b) => this.updateCustomGeneral(a, b)}
+                  loggedInUser={this.state.loggedInUser} 
         />
         {obj.displayLink ? <Links /> : <Links visibility='hide' />}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}

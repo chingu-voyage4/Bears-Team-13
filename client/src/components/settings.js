@@ -38,12 +38,12 @@ class Settings extends Component{
     loginTab(x){
         return(
             <div key="loginTab">
-                <h3>Log In</h3>
+                <h3>{this.props.loggedInUser ? `Hi ${this.props.loggedInUser}` : `Log In`}</h3>
                 <p>Sign in or sign up!</p>
                 <ul className="settings-list">
-                    <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/auth/google">Login with Google</a></li>
-                    <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li>
-                    <li className="slide-toggle bottom-toggle" onClick={this.getUser}>Get User</li>
+                    {!this.props.loggedInUser ? <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/auth/google">Login with Google</a></li> : ""}
+                    {this.props.loggedInUser ? <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li> : ""}
+                    {/* <li className="slide-toggle bottom-toggle" onClick={this.getUser}>Get User</li> */}
                 </ul>
             </div>
         )
