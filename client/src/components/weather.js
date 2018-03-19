@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import WeatherSettings from './weather-settings';
 class Weather extends Component {
     constructor(props) {
         super(props);
@@ -17,11 +18,13 @@ class Weather extends Component {
             day4: {},
             day5: {},
             dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper',
-            showingWeather: false
+            showingWeather: false, 
+            showFahr: true
         };
 
         this.highlightDay = this.highlightDay.bind(this);
         this.onFocus = this.onFocus.bind(this);
+        this.changeUnits = this.changeUnits.bind(this);
     }
 
     componentDidMount() {
@@ -120,6 +123,10 @@ class Weather extends Component {
         }
     }
 
+    changeUnits(thing) {
+        this.setState({showFahr: !this.state.showFahr})
+    }
+
     render() {
         return (
             <div className={`weather-wrapper ${this.props.visibility}`}>
@@ -147,7 +154,7 @@ class Weather extends Component {
                             </div>
                             <div className="more-options-ellipsis-wrapper">
                                 <div className="more-options-ellipsis">
-                                    ...
+                                    <WeatherSettings showFahr={this.state.showFahr} changeUnits={this.changeUnits}/>
                                 </div>
                             </div>    
                         </div>
