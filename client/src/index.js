@@ -52,17 +52,20 @@ class App extends Component{
      timeElapsed = null;
     }
     //Store background history in localStorage
-    if(timeElapsed > 30000){
+    if(timeElapsed > this.state.customTimer){
         const tempObj = Object.assign({}, JSON.parse(getLocalBackground));
         var newArray = JSON.parse(backgroundHistory);
         // Check if image is already stored
         var found = newArray.find((x)=>{ return x.img === tempObj.img })
         // if not, push new image to history
         if(found === undefined || newArray.length === 0){
-        newArray.push(tempObj);   
+        newArray = [tempObj, ...newArray.slice(0, 14)] 
         localStorage.setItem('backgroundHistory', JSON.stringify(newArray))
         } 
         this.setState({backgroundHistory:newArray});
+    } else{
+    //If history does not need updated, populate photos with current history array 
+        this.setState({backgroundHistory:JSON.parse(backgroundHistory)});
     }
     //Store background in localStorage
     if(timeElapsed > this.state.customTimer || timeElapsed === null){
