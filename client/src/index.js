@@ -37,9 +37,12 @@ class App extends Component{
  
  componentWillMount() {
     const getLocalBackground = localStorage.getItem('background');
+    //Handle first time history storage
+    if(localStorage.getItem('backgroundHistory') === null){
+            localStorage.setItem('backgroundHistory', '[]');
+    }
     const backgroundHistory = localStorage.getItem('backgroundHistory');
-    
-     //Receive background image
+     //Check last time new image was fetched
     const storedTime = JSON.parse(getLocalBackground)
     let timeElapsed;
     if(storedTime !== null){
@@ -47,14 +50,20 @@ class App extends Component{
     } else {
      timeElapsed = null;
     }
-    
     //Store background history in localStorage
-    if(timeElapsed > this.state.customTimer){
+    if(timeElapsed > 30000){
         const tempObj = Object.assign({}, JSON.parse(getLocalBackground));
         var newArray = JSON.parse(backgroundHistory);
+        // Check if image is already stored
+        var found = newArray.find((x)=>{ return x.img === tempObj.img })
+        // if not, push new image to history
+        if(found === undefined || newArray.length === 0){
         newArray.push(tempObj);   
         localStorage.setItem('backgroundHistory', JSON.stringify(newArray))
+        this.setState({backgroundHistory:newArray})
+        }
     }
+    //Store background in localStorage
     if(timeElapsed > this.state.customTimer || timeElapsed === null){
       fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
         .then(res => res.json())
@@ -125,7 +134,8 @@ class App extends Component{
      return (
      <div className="main fadeIn" style={backgroundImgStyles}>
         <Settings general={obj}
-                  toggle={(a, b) => this.updateCustomGeneral(a, b)} 
+                  toggle={(a, b) => this.updateCustomGeneral(a, b)}
+                  backgroundHistory={this.state.backgroundHistory}
         />
         {obj.displayLink ? <Links /> : <Links visibility='hide' />}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
