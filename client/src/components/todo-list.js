@@ -33,16 +33,18 @@ class TodoList extends Component {
 
     componentWillUpdate(nextProps, nextState){
         localStorage.setItem('todo', JSON.stringify(nextState.todo));
-        axios('https://momentum-server-bt13.herokuapp.com/api/update_todo', {
-            method: 'post',
-            data: JSON.parse(localStorage.getItem('todo')),
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'text/plain'
-            }
-        }).then(res => console.log(res))
-        .catch(err => console.log(err));
-
+        var isLoggedIn = this.props.loggedInUser;
+        if(!isLoggedIn){
+            axios('https://momentum-server-bt13.herokuapp.com/api/update_todo', {
+                method: 'post',
+                data: JSON.parse(localStorage.getItem('todo')),
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            }).then(res => console.log(res))
+            .catch(err => console.log(err));
+        }
     }
 
     onInputChange(term){

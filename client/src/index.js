@@ -61,8 +61,8 @@ class App extends Component{
         if(found === undefined || newArray.length === 0){
         newArray.push(tempObj);   
         localStorage.setItem('backgroundHistory', JSON.stringify(newArray))
-        this.setState({backgroundHistory:newArray})
-        }
+        } 
+        this.setState({backgroundHistory:newArray});
     }
     //Store background in localStorage
     if(timeElapsed > this.state.customTimer || timeElapsed === null){
@@ -149,7 +149,7 @@ class App extends Component{
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
         {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}
-        {obj.displayTodo ? <Todo blurOn={obj.todoBlur}/> : <Todo visibility='hide' blurOn={obj.todoBlur} />}
+        {obj.displayTodo ? <Todo blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser}/> : <Todo visibility='hide' blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser} />}
         <BackgroundCredit
             pictureLink={this.state.background.pictureLink}
             pictureByName={this.state.background.pictureByName}
