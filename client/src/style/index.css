@@ -290,7 +290,7 @@ input[type=text]#focus-item {
     box-shadow: none;
 }
 
-.weather-wrapper .dropdown-menu {
+.weather-wrapper .dropdown-menu-left {
     width: 25rem;
     height: 12rem;
     background-color: rgba(37, 37, 37, 0.7);
@@ -298,7 +298,6 @@ input[type=text]#focus-item {
 }
 
 .dropdown-wrapper {
-
 }
 
 .weather-widget-row-small {
@@ -405,4 +404,27 @@ input[type=text]#focus-item {
 
 .dropdown-menu:focus {
     outline: none;
+}
+
+.unstyled-button {
+    background-color: transparent;
+    font-size: 1.2em;
+    color: white;
+}
+
+.unstyled-button:focus {
+    box-shadow: none;
+}
+
+.weather-settings {
+    height: 2em;
+    width: 5em;
+    background-color: rgba(255,255,255,.2);
+    color: white;
+    text-align: center;
+    padding: .25rem;
+}
+
+.activeUnits {
+    font-weight: bold;
 }
