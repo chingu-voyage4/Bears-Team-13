@@ -10,18 +10,14 @@ module.exports = app => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-      res.redirect(
-        "https://momentum-server-bt13.herokuapp.com/api/loginSuccess"
-      );
+      res.redirect("https://momentum1-ehutc00f.c9users.io/");
       res.send();
     }
   );
 
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.redirect(
-      "https://momentum-server-bt13.herokuapp.com/api/logoutSuccess"
-    );
+    res.redirect("https://momentum1-ehutc00f.c9users.io/");
     res.send();
   });
 
