@@ -14,6 +14,14 @@ module.exports = app => {
     res.send(currentPhoto);
   });
 
+  app.get("/api/loginSuccess", (req, res) => {
+    res.sendFile(require("path").join(__dirname + "/login.html"));
+  });
+
+  app.get("/api/logoutSuccess", (req, res) => {
+    res.sendFile(require("path").join(__dirname + "/logout.html"));
+  });
+
   app.post("/api/update_todo", async (req, res) => {
     if (!req.user) {
       return res.status(401).send("Please login to Sync");

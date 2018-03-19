@@ -32,7 +32,7 @@ class App extends Component{
             todoBlur:true,
             customTimer: 900000
         },
-        loggedInUser: false                //Non-logged in user: False | Logged in user: First name of user
+        loggedInUser: false                //Non-logged in user: false | Logged in user: First name of user
      }
  }
  
