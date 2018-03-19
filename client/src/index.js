@@ -140,11 +140,8 @@ class App extends Component{
      <div className="main fadeIn" style={backgroundImgStyles}>
         <Settings general={obj}
                   toggle={(a, b) => this.updateCustomGeneral(a, b)}
-<<<<<<< HEAD
                   backgroundHistory={this.state.backgroundHistory}
-=======
                   loggedInUser={this.state.loggedInUser} 
->>>>>>> d8bf866a66751329eed8e2b199b3220d0c2157ce
         />
         {obj.displayLink ? <Links /> : <Links visibility='hide' />}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
