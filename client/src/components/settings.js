@@ -86,7 +86,15 @@ class Settings extends Component{
         )
     }
 
-    photoTab(x){ 
+    photoTab(x){
+        const bgHistory = this.props.backgroundHistory;
+        const history = bgHistory.map((item, i) => {
+            return(
+                <a className="settings-img-container"target="_blank" href={item.pictureLink} key={i}>
+                    <img className="settings-img" src={item.img} alt="river"/>
+                </a>
+            )
+        });
         return(
             <div key="photoTab">
                 <h3>Photos</h3>
@@ -94,34 +102,9 @@ class Settings extends Component{
                 <div className="settings-subnav">
                     <h4>Favorites</h4><h4>History</h4>
                 </div>
-                
                 <div>
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                    </a>
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                    </a>
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                    </a>
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                    </a>
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                    </a>
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                    </a>        
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://images.unsplash.com/photo-1496254738104-fc408389bbac?ixlib=rb-0.3.5&q=99&fm=jpg&crop=entropy&cs=tinysrgb&w=2048&fit=max&s=f4e7453c212e7ba544a08d62a70c012c" alt="river"/>
-                    </a>
-                    <a className="settings-img-container"target="_blank" href="">
-                        <img className="settings-img" src="https://farm3.staticflickr.com/2821/33503322524_d90beda2d4_t.jpg" alt="river"/>
-                    </a>
+                    {history}
                 </div>
-                
             </div>
         )
     }
