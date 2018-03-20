@@ -52,7 +52,7 @@ class App extends Component{
      timeElapsed = null;
     }
     //Store background history in localStorage
-    if(timeElapsed > this.state.customTimer){
+    if(timeElapsed > this.state.customGeneral.customTimer){
         const tempObj = Object.assign({}, JSON.parse(getLocalBackground));
         var newArray = JSON.parse(backgroundHistory);
         // Check if image is already stored
@@ -68,7 +68,7 @@ class App extends Component{
         this.setState({backgroundHistory:JSON.parse(backgroundHistory)});
     }
     //Store background in localStorage
-    if(timeElapsed > this.state.customTimer || timeElapsed === null){
+    if(timeElapsed > this.state.customGeneral.customTimer || timeElapsed === null){
       fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
         .then(res => res.json())
         .then(data => {
