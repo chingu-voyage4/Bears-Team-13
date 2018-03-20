@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import WeatherSettings from './weather-settings';
+import update from 'immutability-helper';
+
 class Weather extends Component {
     constructor(props) {
         super(props);
@@ -42,7 +44,7 @@ class Weather extends Component {
                 if (res.data.query.results === null) {
                     return;
                 }
-                
+
                 //load response into state for rendering
                 self.setState({
                     city: res.data.query.results.channel.location.city,
@@ -67,26 +69,31 @@ class Weather extends Component {
                     day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code
                 });
 
+                console.log(self.state);
+
                 var altUnits = {
                     activeTemp: 0,
-                    first: {},
-                    second: {},
-                    third: {},
-                    fourth: {},
-                    fifth: {},
+                    '0': {},
+                    '1': {},
+                    '2': {},
+                    '3': {},
+                    '4': {},
                 };
-
+                
                 altUnits.activeTemp = convertToC(res.data.query.results.channel.item.condition.temp);
-                altUnits.first.high = convertToC(res.data.query.results.channel.item.forecast[0].high);
-                altUnits.first.low = convertToC(res.data.query.results.channel.item.forecast[0].low);
-                altUnits.second.high = convertToC(res.data.query.results.channel.item.forecast[1].high);
-                altUnits.second.low = convertToC(res.data.query.results.channel.item.forecast[1].low);
-                altUnits.third.high = convertToC(res.data.query.results.channel.item.forecast[2].high);
-                altUnits.third.low = convertToC(res.data.query.results.channel.item.forecast[2].low);
-                altUnits.fourth.high = convertToC(res.data.query.results.channel.item.forecast[3].high);
-                altUnits.fourth.low = convertToC(res.data.query.results.channel.item.forecast[3].low);
-                altUnits.fifth.high = convertToC(res.data.query.results.channel.item.forecast[4].high);
-                altUnits.fifth.low = convertToC(res.data.query.results.channel.item.forecast[4].low);
+                altUnits['0'].high = convertToC(res.data.query.results.channel.item.forecast[0].high);
+                altUnits['0'].low = convertToC(res.data.query.results.channel.item.forecast[0].low);
+                altUnits['1'].high = convertToC(res.data.query.results.channel.item.forecast[1].high);
+                altUnits['1'].low = convertToC(res.data.query.results.channel.item.forecast[1].low);
+                altUnits['2'].high = convertToC(res.data.query.results.channel.item.forecast[2].high);
+                altUnits['2'].low = convertToC(res.data.query.results.channel.item.forecast[2].low);
+                altUnits['3'].high = convertToC(res.data.query.results.channel.item.forecast[3].high);
+                altUnits['3'].low = convertToC(res.data.query.results.channel.item.forecast[3].low);
+                altUnits['4'].high = convertToC(res.data.query.results.channel.item.forecast[4].high);
+                altUnits['4'].low = convertToC(res.data.query.results.channel.item.forecast[4].low);
+
+                self.setState({altUnits: altUnits});
+                
             });
         }
 
@@ -123,8 +130,28 @@ class Weather extends Component {
         }
     }
 
-    changeUnits(thing) {
-        this.setState({showFahr: !this.state.showFahr})
+    changeUnits() {
+        for (var i = 0; i < 5; i++) {
+            var temp = this.state['day' + (i + 1)];
+            temp.high = this.state.altUnits[i.toString()].high;
+            temp.low = this.state.altUnits[i.toString()].low;
+            var day = 'day' + (i + 1).toString();
+            this.setState({day: temp});
+            console.log(temp);
+        }
+
+        this.setState({showFahr: !this.state.showFahr, activeTemp: this.state.altUnits.activeTemp});
+        
+        if (this.state.showingDay == '1') {
+            this.setState({todayHighTemp: this.state.altUnits.activeTemp});
+        }
+
+        else {
+            this.setState({
+                todayHighTemp: this.state.altUnits[(this.state.showingDay - 1).toString()].high, 
+                todayLowTemp: this.state.altUnits[(this.state.showingDay - 1).toString()].low
+            });
+        }
     }
 
     render() {
