@@ -40,7 +40,7 @@ class Todo extends Component {
     render(){
         return(
         <div className={`bottom-right ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
-            <button className="btn todo-btn" onClick={this.dropUp}>
+            <button className="btn todo-btn btn-dropUp" onClick={this.dropUp}>
                 Todo
             </button>  
             <div id="todo-dropup" className="todo-panel d-up">

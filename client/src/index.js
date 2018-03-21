@@ -10,7 +10,8 @@ import Links from './components/links';
 import './style/index.css';
 import Todo from './components/todo';
 import './style/main.css';
-import './style/weather-icons.css'
+import './style/weather-icons.css';
+import 'font-awesome/css/font-awesome.min.css';
 import Settings from './components/settings';
 import BackgroundCredit from './components/background-credit';
 import axios from 'axios';

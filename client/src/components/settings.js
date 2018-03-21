@@ -87,8 +87,8 @@ class Settings extends Component{
     }
     
     photoTab(x){
-        function handleActive(x){
-            var elems = document.querySelectorAll(".toggle-options");     
+        function handleActive(x, selector){
+            var elems = document.querySelectorAll(selector);     
             [].forEach.call(elems, function(el) {
                 el.classList.remove("active");
             });
@@ -98,9 +98,6 @@ class Settings extends Component{
         const timer = this.props.general.customTimer;
             setTimeout(function(){  
                     switch(timer){
-                case 900000:
-                    document.getElementById('15min').classList.add('active');
-                    break;
                 case 3600000:
                     document.getElementById('1hour').classList.add('active');
                     break;
@@ -109,6 +106,9 @@ class Settings extends Component{
                     break;
                 case 86400000:
                     document.getElementById('24hours').classList.add('active');
+                    break;
+                default:
+                document.getElementById('15min').classList.add('active');
                     break;
             }
             }, 0);
@@ -119,17 +119,17 @@ class Settings extends Component{
                 <p>See a new inspiring photo each day</p>
                 <h4>Refresh Background Every...</h4>
                 <span>
-                    <span className="toggle-options" id="15min" onClick={e => {this.props.toggle('customTimer', 900000);handleActive(e.target)}}>15 Minutes</span>
-                    <span> | </span>
-                    <span className="toggle-options" id="1hour"onClick={e => {this.props.toggle('customTimer', 3600000);handleActive(e.target)}}>1 Hour</span>
-                    <span> | </span>
-                    <span className="toggle-options" id="12hours"onClick={e => {this.props.toggle('customTimer', 43200000);handleActive(e.target)}}>12 Hours</span>
-                    <span> | </span>
-                    <span className="toggle-options" id="24hours"onClick={e => {this.props.toggle('customTimer', 86400000);handleActive(e.target)}}>24 Hours</span>
+                    <span className="toggle-options" id="15min" onClick={e => {this.props.toggle('customTimer', 900000);handleActive(e.target, ".toggle-options")}}>15 Minutes</span>
+                        <span> | </span>
+                    <span className="toggle-options" id="1hour"onClick={e => {this.props.toggle('customTimer', 3600000);handleActive(e.target, ".toggle-options")}}>1 Hour</span>
+                        <span> | </span>
+                    <span className="toggle-options" id="12hours"onClick={e => {this.props.toggle('customTimer', 43200000);handleActive(e.target, ".toggle-options")}}>12 Hours</span>
+                        <span> | </span>
+                    <span className="toggle-options" id="24hours"onClick={e => {this.props.toggle('customTimer', 86400000);handleActive(e.target, ".toggle-options")}}>24 Hours</span>
                 </span>
                 <div className="settings-subnav">
-                    <h4 onClick= {(event) => this.setState({active: this.photoTab('Favorites'),subTab:'Favorites'})}>Favorites</h4>
-                    <h4 onClick= {(event) => this.setState({active: this.photoTab('History'),subTab:'History'})}>History</h4>
+                    <h4 className="picSub" onClick= {(event) => {this.setState({active: this.photoTab('Favorites'),subTab:'Favorites'}); handleActive(event.target, ".picSub")}}>Favorites</h4>
+                    <h4 className="picSub active" onClick= {(event) => {this.setState({active: this.photoTab('History'),subTab:'History'}); handleActive(event.target, ".picSub")}}>History</h4>
                 </div>
                 {this.photoSubTab(x)}
             </div>
@@ -198,8 +198,8 @@ class Settings extends Component{
         console.log('hit')
         return (    
             <div className="bottom-left">
-                <button className="btn todo-btn" onClick={this.dropUp}>
-                    <i className="fa fa-cog"></i>
+                <button className="btn settings-btn" onClick={this.dropUp}>
+                    <i className="fa fa-cog" aria-hidden="true"></i>
                 </button>
                 <div id="settings-dropup" className="settings-panel s-up">
                 <ul className="settings-nav">

@@ -49,15 +49,15 @@ class Quote extends Component {
                         </div>
                         <div className="like" onClick={this.changeLikeStatus}>
                             <span className={this.state.liked ? 'hidden' : ''}>
-                                <i className="far fa-heart"></i>
+                                <i className="fa fa-heart"></i>
                             </span>
                             <span className={this.state.liked ? 'fadeIn red-background' : 'hidden'}>
-                                <i className="fas fa-heart"></i>
+                                <i className="fa fa-heart"></i>
                             </span>
                         </div>
                         <div className="twitterIcon">
                             <a href={this.state.tweet} target="_blank">
-                                <i className="fab fa-twitter"></i>
+                                <i className="fa fa-twitter"></i>
                             </a>
                         </div>
                     </div>
