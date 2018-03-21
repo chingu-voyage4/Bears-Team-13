@@ -7,7 +7,7 @@ class Settings extends Component{
         super(props);
         this.state = {
             active: this.genTab(),
-            subTab: this.photoTab('History')
+            subTab: 'History'
         };
     this.dropUp = this.dropUp.bind(this);
     this.pickTab = this.pickTab.bind(this);
@@ -18,7 +18,6 @@ class Settings extends Component{
         console.log(res);
     });
     }
-    
     dropUp(x){
         document.getElementById("settings-dropup").classList.toggle("show");
     }
@@ -58,7 +57,6 @@ class Settings extends Component{
                 <h4 className="settings-header">Show</h4>
                 <ul className="settings-list">
                     <li className="slide-toggle"> <span>Links</span>{this.toggle("displayLink")} </li>
-                    <li className="slide-toggle"> <span>Bookmarks Bar</span>{this.toggle("displayBookmarks")} </li>
                     <li className="slide-toggle"> <span>Search</span>{this.toggle("displaySearch")} </li>
                     <li className="slide-toggle"> <span>Weather</span>{this.toggle("displayWeather")} </li>
                     <li className="slide-toggle"> <span>Focus</span>{this.toggle("displayFocus")} </li>
@@ -89,16 +87,53 @@ class Settings extends Component{
     }
     
     photoTab(x){
+        function handleActive(x){
+            var elems = document.querySelectorAll(".toggle-options");     
+            [].forEach.call(elems, function(el) {
+                el.classList.remove("active");
+            });
+            x.classList.add('active');
+        }
+        //Highlight initial timer
+        const timer = this.props.general.customTimer;
+            setTimeout(function(){  
+                    switch(timer){
+                case 900000:
+                    document.getElementById('15min').classList.add('active');
+                    break;
+                case 3600000:
+                    document.getElementById('1hour').classList.add('active');
+                    break;
+                case 43200000:
+                    document.getElementById('12hours').classList.add('active');
+                    break;
+                case 86400000:
+                    document.getElementById('24hours').classList.add('active');
+                    break;
+            }
+            }, 0);
+
         return(
             <div key="photoTab">
                 <h3>Photos</h3>
                 <p>See a new inspiring photo each day</p>
+                <h4>Refresh Background Every...</h4>
+                <span>
+                    <span className="toggle-options" id="15min" onClick={e => {this.props.toggle('customTimer', 900000);handleActive(e.target)}}>15 Minutes</span>
+                    <span> | </span>
+                    <span className="toggle-options" id="1hour"onClick={e => {this.props.toggle('customTimer', 3600000);handleActive(e.target)}}>1 Hour</span>
+                    <span> | </span>
+                    <span className="toggle-options" id="12hours"onClick={e => {this.props.toggle('customTimer', 43200000);handleActive(e.target)}}>12 Hours</span>
+                    <span> | </span>
+                    <span className="toggle-options" id="24hours"onClick={e => {this.props.toggle('customTimer', 86400000);handleActive(e.target)}}>24 Hours</span>
+                </span>
                 <div className="settings-subnav">
-                    <h4 onClick= {(event) => this.setState({subTab:this.photoTab('Favorites')})}>Favorites</h4>
-                    <h4 onClick= {(event) => this.setState({subTab:this.photoTab('History')})}>History</h4>
+                    <h4 onClick= {(event) => this.setState({active: this.photoTab('Favorites'),subTab:'Favorites'})}>Favorites</h4>
+                    <h4 onClick= {(event) => this.setState({active: this.photoTab('History'),subTab:'History'})}>History</h4>
                 </div>
                 {this.photoSubTab(x)}
             </div>
+                
         )
     }
 
@@ -137,11 +172,10 @@ class Settings extends Component{
     linkTab(x){
         return(
             <div key="linkTab">
-                <h3>Links & Bookmarks Bar</h3>
+                <h3>Links</h3>
                 <p>Quick access to your favorite links</p>
                 <ul className="settings-list">
                     <li className="slide-toggle"> <span>Show Links</span>{this.toggle('displayLink')} </li>
-                    <li className="slide-toggle"> <span>Show Bookmarks Bar</span>{this.toggle(11)} </li>
                     <li className="slide-toggle"> <span>Show Chrome Tab in</span><span className="text-toggle">Links | Bookmarks | Dash | None</span> </li>
                     <li className="slide-toggle"> <span>Show Apps in</span><span className="text-toggle">Links | Bookmarks | Dash | None</span> </li>
                     <li className="slide-toggle bottom-toggle"> <span>Open links in a new tab</span>{this.toggle(12)} </li>
@@ -150,14 +184,7 @@ class Settings extends Component{
                 <ul className="settings-list">
                     <li className="slide-toggle bottom-toggle"> <span>Stay Open</span>{this.toggle(13)} </li>
                 </ul>
-                <h4 className="settings-header">Bookmarks Bar</h4>
-                <ul className="settings-list">
-                    <li className="slide-toggle"> <span>Icons Only</span>{this.toggle(14)} </li>
-                    <li className="slide-toggle"> <span>Show Most Visited</span>{this.toggle(15)} </li>
-                    <li className="slide-toggle"> <span>Start in Most Visited</span>{this.toggle(16)}</li>
-                    <li className="slide-toggle"> <span>Show Bookmarks Manager</span>{this.toggle(17)} </li>
-                    <li className="slide-toggle bottom-toggle"> <span>Show Other Bookmarks</span>{this.toggle(18)} </li>
-                </ul>
+
             </div>
         )
     }
@@ -178,7 +205,7 @@ class Settings extends Component{
                 <ul className="settings-nav">
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.genTab())}>General</li>
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.todoTab())}>Todo</li>
-                    <li className="settings-nav-item" onClick={() => this.pickTab(this.state.subTab)}>Photos</li>
+                    <li className="settings-nav-item" onClick={() => this.pickTab(this.photoTab(this.state.subTab))}>Photos</li>
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.quoteTab())}>Quotes</li>
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.linkTab())}>Links</li>
                     <div className='login-nav' onClick={() => this.pickTab(this.loginTab())}>Log In</div>

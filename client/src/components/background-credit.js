@@ -1,18 +1,22 @@
 import React from 'react';
 
+
+
 const BackgroundCredit = (props) => {
-    const link = props.pictureLink;
+    const background = props.background;
+        var likeFav;
+        !background.favorite ? likeFav = 'like' : likeFav = 'favorite';
     return(
         <div className="BGHolder">
             <div className="BGTextWrapper animation-element">
                 <div className="BGText">
-                    {props.pictureLocation}
+                    {background.pictureLocation}
                 </div>
                 <div className="authorLikeTwitter animation-element">
                     <div className="BGAuthor">
-                        <a className="unsplash-link" href={link}>Photo by {props.pictureByName} / Unsplash </a>
+                        <a className="unsplash-link" href={background.pictureLink}>Photo by {background.pictureByName} / Unsplash </a>
                     </div>
-                    <div className="like">
+                    <div className= {likeFav}  onClick={e => props.favorite('background', e.target)}>
                         <i className="far fa-heart"></i>
                     </div>
                 </div>

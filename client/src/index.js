@@ -15,6 +15,8 @@ import Settings from './components/settings';
 import BackgroundCredit from './components/background-credit';
 import axios from 'axios';
 
+
+
 class App extends Component{
  constructor(props){
      super(props);
@@ -34,6 +36,7 @@ class App extends Component{
         },
         loggedInUser: false                //Non-logged in user: false | Logged in user: First name of user
      }
+     this.handleFavorite = this.handleFavorite.bind(this)
  }
  
  componentWillMount() {
@@ -59,7 +62,7 @@ class App extends Component{
         var found = newArray.find((x)=>{ return x.img === tempObj.img })
         // if not, push new image to history
         if(found === undefined || newArray.length === 0){
-        newArray = [tempObj, ...newArray.slice(0, 14)] 
+        newArray = [tempObj, ...newArray.slice(0, 49)] 
         localStorage.setItem('backgroundHistory', JSON.stringify(newArray))
         } 
         this.setState({backgroundHistory:newArray});
@@ -81,6 +84,7 @@ class App extends Component{
                     pictureLink:data.pictureLink,
                     pictureByName:data.pictureByName,
                     pictureLocation:data.pictureLocation,
+                    favorite: false
                 } })
             })
         .catch(err => {
@@ -128,13 +132,15 @@ class App extends Component{
         }
       ));
     }
-
-    componentDidMount() {
-        // if (typeof window !== 'undefined') {
-            window.addEventListener('storage',e => console.log(e))
-        // }
+    handleFavorite(widget, x){
+        var bool = !this.state[widget].favorite;
+        this.setState( prevState => ({
+          [widget]:{
+            ...prevState[widget], favorite: bool
+            }
+        })
+    );
     }
-    
     
  render(){
     const backgroundImgStyles = {
@@ -161,10 +167,8 @@ class App extends Component{
         {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}
         {obj.displayTodo ? <Todo blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser}/> : <Todo visibility='hide' blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser} />}
         <BackgroundCredit
-            pictureLink={this.state.background.pictureLink}
-            pictureByName={this.state.background.pictureByName}
-            pictureLocation={this.state.background.pictureLocation}
-            pictureUrl={this.state.background.pictureUrl}
+            favorite = {this.handleFavorite}
+            background={this.state.background}
         />
 
      </div>
