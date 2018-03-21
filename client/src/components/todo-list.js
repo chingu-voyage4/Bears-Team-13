@@ -24,17 +24,18 @@ class TodoList extends Component {
     }
     
     componentWillMount(){
+        var {loggedInUser} = this.props;
         const populate = JSON.parse(customLocalStorage.getItem('todo'));
         if(populate !== null){
         populate.map(x => x.isEditing = false);
-        customLocalStorage.setItem('todo', JSON.stringify(populate)) 
+        customLocalStorage.setItem('todo', JSON.stringify(populate), loggedInUser) 
         this.setState({todo:populate});
         }
     }
 
     componentWillUpdate(nextProps, nextState){
-        var isLoggedIn = this.props.loggedInUser;
-        customLocalStorage.setItem('todo', JSON.stringify(nextState.todo), isLoggedIn);
+        var {loggedInUser} = this.props;
+        customLocalStorage.setItem('todo', JSON.stringify(nextState.todo), loggedInUser);
     }
 
     onInputChange(term){

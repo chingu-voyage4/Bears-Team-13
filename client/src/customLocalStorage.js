@@ -2,17 +2,17 @@ import axios from 'axios';
 
 export default {
     setItem: (key, value, loggedInUser = false) => {
+      localStorage.setItem('lastUpdateTime', Date.now());
       const returnValue = localStorage.setItem(key, value);
-
       if (loggedInUser) {
-        axios('https://momentum-server-bt13.herokuapp.com/api/update_todo', {
+        axios('https://momentum-server-bt13.herokuapp.com/api/updateLocalStorage', {
                 method: 'post',
-                data: JSON.parse(localStorage.getItem('todo')),
+                data: localStorage,
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'text/plain'
+                    'Content-Type': 'application/json'
                 }
-            }).then(res => console.log(res))
+            }).then(res => console.log(res.data))
             .catch(err => console.log(err));
       }
 
