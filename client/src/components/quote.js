@@ -14,7 +14,10 @@ class Quote extends Component {
         var self = this;
         axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
             //example returned quote data
-            self.setState({text: res.data.quoteText, author: res.data.quoteAuthor});
+            self.setState({
+                text: res.data.quoteText, 
+                author: res.data.quoteAuthor, 
+                tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'});
         });
     }
 
@@ -33,7 +36,9 @@ class Quote extends Component {
                             <i className="far fa-heart"></i>
                         </div>
                         <div className="twitterIcon">
-                            <i className="fab fa-twitter"></i>
+                            <a href={this.state.tweet} target="_blank">
+                                <i className="fab fa-twitter"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
