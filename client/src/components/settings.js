@@ -6,7 +6,8 @@ class Settings extends Component{
     constructor(props){
         super(props);
         this.state = {
-            active: this.genTab()
+            active: this.genTab(),
+            subTab: this.photoTab('History')
         };
     this.dropUp = this.dropUp.bind(this);
     this.pickTab = this.pickTab.bind(this);
@@ -17,6 +18,7 @@ class Settings extends Component{
         console.log(res);
     });
     }
+    
     dropUp(x){
         document.getElementById("settings-dropup").classList.toggle("show");
     }
@@ -85,29 +87,42 @@ class Settings extends Component{
             </div>
         )
     }
-
+    
     photoTab(x){
-        const bgHistory = this.props.backgroundHistory;
-        const history = bgHistory.map((item, i) => {
-            return(
-                <a className="settings-img-container"target="_blank" href={item.pictureLink} key={i}>
-                    <img className="settings-img" src={item.img} alt="river"/>
-                </a>
-            )
-        });
         return(
             <div key="photoTab">
                 <h3>Photos</h3>
                 <p>See a new inspiring photo each day</p>
                 <div className="settings-subnav">
-                    <h4>Favorites</h4><h4>History</h4>
+                    <h4 onClick= {(event) => this.setState({subTab:this.photoTab('Favorites')})}>Favorites</h4>
+                    <h4 onClick= {(event) => this.setState({subTab:this.photoTab('History')})}>History</h4>
                 </div>
-                <div>
-                    {history}
-                </div>
+                {this.photoSubTab(x)}
             </div>
         )
     }
+
+    photoSubTab(x){
+        let bgHistory = this.props.backgroundHistory;
+        if(x === 'Favorites'){
+            bgHistory = bgHistory.filter((obj)=>{
+            return obj.favorite === true;
+        })
+        }
+        let historyOrFavorite = bgHistory.map((item, i) => {
+        return(
+            <a className="settings-img-container"target="_blank" href={item.pictureLink} key={item.pictureLink}>
+                <img className="settings-img" src={item.img} alt="river"/>
+            </a>
+            )
+        });
+        return (
+            <div key={x}>
+            {historyOrFavorite}
+            </div>
+        )
+    }
+    
     quoteTab(x){
         return(
             <div key="quoteTab">
@@ -153,6 +168,7 @@ class Settings extends Component{
     }
 
     render(){
+        console.log('hit')
         return (    
             <div className="bottom-left">
                 <button className="btn todo-btn" onClick={this.dropUp}>
@@ -162,7 +178,7 @@ class Settings extends Component{
                 <ul className="settings-nav">
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.genTab())}>General</li>
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.todoTab())}>Todo</li>
-                    <li className="settings-nav-item" onClick={() => this.pickTab(this.photoTab())}>Photos</li>
+                    <li className="settings-nav-item" onClick={() => this.pickTab(this.state.subTab)}>Photos</li>
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.quoteTab())}>Quotes</li>
                     <li className="settings-nav-item" onClick={() => this.pickTab(this.linkTab())}>Links</li>
                     <div className='login-nav' onClick={() => this.pickTab(this.loginTab())}>Log In</div>

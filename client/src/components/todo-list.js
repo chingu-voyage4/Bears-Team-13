@@ -6,6 +6,7 @@ import update from 'immutability-helper';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TodoListItem from './todo-list-item';
+import customLocalStorage from '../customLocalStorage';
 
 class TodoList extends Component { 
     constructor(props){
@@ -23,28 +24,17 @@ class TodoList extends Component {
     }
     
     componentWillMount(){
-        const populate = JSON.parse(localStorage.getItem('todo'));
+        const populate = JSON.parse(customLocalStorage.getItem('todo'));
         if(populate !== null){
         populate.map(x => x.isEditing = false);
-        localStorage.setItem('todo', JSON.stringify(populate)) 
+        customLocalStorage.setItem('todo', JSON.stringify(populate)) 
         this.setState({todo:populate});
         }
     }
 
     componentWillUpdate(nextProps, nextState){
-        localStorage.setItem('todo', JSON.stringify(nextState.todo));
         var isLoggedIn = this.props.loggedInUser;
-        if(isLoggedIn){
-            axios('https://momentum-server-bt13.herokuapp.com/api/update_todo', {
-                method: 'post',
-                data: JSON.parse(localStorage.getItem('todo')),
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'text/plain'
-                }
-            }).then(res => console.log(res))
-            .catch(err => console.log(err));
-        }
+        customLocalStorage.setItem('todo', JSON.stringify(nextState.todo), isLoggedIn);
     }
 
     onInputChange(term){

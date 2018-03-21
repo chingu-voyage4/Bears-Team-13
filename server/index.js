@@ -50,7 +50,7 @@ require("./routes/authRoutes")(app);
 setInterval(function() {
   require("./utils/getPicture")();
   require("./utils/getQuote")();
-}, 90 * 1000);
+}, 900000);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(`Listening to port ${process.env.PORT || 5000}`)

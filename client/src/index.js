@@ -128,6 +128,13 @@ class App extends Component{
         }
       ));
     }
+
+    componentDidMount() {
+        // if (typeof window !== 'undefined') {
+            window.addEventListener('storage',e => console.log(e))
+        // }
+    }
+    
     
  render(){
     const backgroundImgStyles = {
