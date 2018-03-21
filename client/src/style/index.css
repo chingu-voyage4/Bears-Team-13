@@ -217,6 +217,7 @@ body {
     background-color: transparent;
     font-size: 2em;
     text-align: center;
+    box-shadow:0px 1px rgb(0,0,0);
 }
 
 #focus-item:focus {
