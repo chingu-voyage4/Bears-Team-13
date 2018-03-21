@@ -6,8 +6,11 @@ class Quote extends Component {
         super(props);
         this.state = {
             text: '',
-            author: ''
+            author: '',
+            tweet: '',
+            liked: false
         }
+        this.changeLikeStatus = this.changeLikeStatus.bind(this);
     }
 
     componentWillMount() {
@@ -21,6 +24,18 @@ class Quote extends Component {
         });
     }
 
+    changeLikeStatus() {
+        if (this.state.liked) {
+            this.setState({liked: false});
+            //post to backend to save
+        }
+
+        else {
+            this.setState({liked: true});
+            //post to backend to save
+        }
+    }
+
     render() {
         return (
             <div className={`quoteHolder ${this.props.visibility}`}>
@@ -32,8 +47,13 @@ class Quote extends Component {
                         <div className="quoteAuthor">
                             - {this.state.author}
                         </div>
-                        <div className="like">
-                            <i className="far fa-heart"></i>
+                        <div className="like" onClick={this.changeLikeStatus}>
+                            <span className={this.state.liked ? 'hidden' : ''}>
+                                <i className="far fa-heart"></i>
+                            </span>
+                            <span className={this.state.liked ? 'fadeIn red-background' : 'hidden'}>
+                                <i className="fas fa-heart"></i>
+                            </span>
                         </div>
                         <div className="twitterIcon">
                             <a href={this.state.tweet} target="_blank">

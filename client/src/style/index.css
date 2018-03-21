@@ -178,6 +178,10 @@ body {
     transition: color 0.3s linear;
 }
 
+.red-background {
+    color: #EE2625; 
+}
+
 .twitterIcon:hover {
     color: #1dcaff;
     cursor: pointer;
