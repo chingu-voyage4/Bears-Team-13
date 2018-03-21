@@ -62,7 +62,7 @@ class App extends Component{
         var found = newArray.find((x)=>{ return x.img === tempObj.img })
         // if not, push new image to history
         if(found === undefined || newArray.length === 0){
-        newArray = [tempObj, ...newArray.slice(0, 14)] 
+        newArray = [tempObj, ...newArray.slice(0, 49)] 
         localStorage.setItem('backgroundHistory', JSON.stringify(newArray))
         } 
         this.setState({backgroundHistory:newArray});
