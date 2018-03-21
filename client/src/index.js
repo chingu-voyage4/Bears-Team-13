@@ -15,6 +15,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Settings from './components/settings';
 import BackgroundCredit from './components/background-credit';
 import axios from 'axios';
+import customLocalStorage from './customLocalStorage';
 
 
 
@@ -40,7 +41,34 @@ class App extends Component{
      this.handleFavorite = this.handleFavorite.bind(this)
  }
  
- componentWillMount() {
+async syncDataWithServer() { 
+    //get user's logged in status from server
+    var response, temporaryLocalStorage;
+    const localStorageLastUpdateTime = customLocalStorage.getItem('lastUpdateTime');
+    try {
+        response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true});
+        
+        if (response.data) {
+            this.setState({loggedInUser: response.data.name});
+            response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/getLocalStorage', {withCredentials: true});
+            const serverLocalStorage = response.data.localStorage;
+            //compare local lastUpdateTime with server's and update localStorage if stale
+            if (localStorageLastUpdateTime && (localStorageLastUpdateTime < serverLocalStorage.lastUpdateTime)) {
+                Object.keys(serverLocalStorage).forEach(key => {
+                    customLocalStorage.setItem(key, serverLocalStorage[key]);
+                });
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+componentWillMount() {
+
+    this.syncDataWithServer();
+
     const getLocalBackground = localStorage.getItem('background');
     //Handle first time history storage
     if(localStorage.getItem('backgroundHistory') === null){
@@ -116,9 +144,6 @@ class App extends Component{
         customGeneral: JSON.parse(getGeneralSettings)
     });
 
-    axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(res => {
-        this.setState({loggedInUser: res.data.name})
-    });
  }
     componentWillUpdate(nextProps, nextState){
         localStorage.setItem('background', JSON.stringify(nextState.background));

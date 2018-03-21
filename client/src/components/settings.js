@@ -18,7 +18,6 @@ class Settings extends Component{
         console.log(res);
     });
     }
-
     dropUp(x){
         document.getElementById("settings-dropup").classList.toggle("show");
     }
@@ -205,6 +204,7 @@ class Settings extends Component{
   }
   
     render(){
+        console.log('hit')
         return (    
             <div className="bottom-left" tabIndex="1" onBlur={this.onBlur}>
                 <button className="btn settings-btn" onClick={this.dropUp}>

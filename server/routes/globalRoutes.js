@@ -22,19 +22,28 @@ module.exports = app => {
     res.sendFile(require("path").join(__dirname + "/logout.html"));
   });
 
-  app.post("/api/update_todo", async (req, res) => {
+  app.post("/api/updateLocalStorage", async (req, res) => {
     if (!req.user) {
       return res.status(401).send("Please login to Sync");
     }
+    console.log(req.body);
     const User = mongoose.model("users");
     const newUser = await User.findByIdAndUpdate(
       req.user.id,
       {
-        todo: JSON.stringify(req.body)
+        localStorage: req.body
       },
       { new: true }
     );
-    console.log(newUser);
-    res.send("Todo Updated");
+    res.send(newUser);
+  });
+
+  app.get("/api/getLocalStorage", async (req, res) => {
+    if (!req.user) {
+      return res.status(401).send("Please login to Sync");
+    }
+    const User = mongoose.model("users");
+    const localStorage = await User.findById(req.user.id, "localStorage");
+    res.send(localStorage);
   });
 };
