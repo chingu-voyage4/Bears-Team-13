@@ -131,14 +131,26 @@ class Weather extends Component {
     }
 
     changeUnits() {
+        var newAltUnits = {
+            activeTemp: 0,
+                '0': {},
+                '1': {},
+                '2': {},
+                '3': {},
+                '4': {},
+        };
+
         for (var i = 0; i < 5; i++) {
             var temp = this.state['day' + (i + 1)];
+            newAltUnits[i.toString()].high = temp.high;
+            newAltUnits[i.toString()].low = temp.low;
             temp.high = this.state.altUnits[i.toString()].high;
             temp.low = this.state.altUnits[i.toString()].low;
             var day = 'day' + (i + 1).toString();
             this.setState({day: temp});
-            console.log(temp);
         }
+
+        newAltUnits.activeTemp = this.state.activeTemp;
 
         this.setState({showFahr: !this.state.showFahr, activeTemp: this.state.altUnits.activeTemp});
         
@@ -152,6 +164,8 @@ class Weather extends Component {
                 todayLowTemp: this.state.altUnits[(this.state.showingDay - 1).toString()].low
             });
         }
+
+        this.setState({altUnits: newAltUnits});
     }
 
     render() {
