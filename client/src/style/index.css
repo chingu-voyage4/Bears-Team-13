@@ -14,9 +14,14 @@ body {
 .links-wrapper button {
     border: none;
     background-color: transparent;
-    color: #fff;
     cursor: pointer;
     padding: 0;
+    color: rgb(255,255,255);
+    text-shadow:
+    1px 1px 1px rgb(0,0,0),
+    1px -1px 1px rgb(0,0,0),
+    -1px -1px 1px rgb(0,0,0),
+    -1px 1px 1px rgb(0,0,0);
 }
 .links-wrapper button:focus {
     outline:0;
@@ -282,8 +287,13 @@ input[type=text]#focus-item {
 
 .button-updates {
     background-color: transparent;
-    color: white;
     padding-left: 20rem;
+    color: rgb(255,255,255);
+    text-shadow:
+    1px 1px 1px rgb(0,0,0),
+    1px -1px 1px rgb(0,0,0),
+    -1px -1px 1px rgb(0,0,0),
+    -1px 1px 1px rgb(0,0,0);
 }
 
 .button-updates:focus {
@@ -298,6 +308,7 @@ input[type=text]#focus-item {
 }
 
 .dropdown-wrapper {
+    text-shadow:none
 }
 
 .weather-widget-row-small {

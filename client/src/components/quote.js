@@ -30,10 +30,10 @@ class Quote extends Component {
                             - {this.state.author}
                         </div>
                         <div className="like">
-                            <i className="far fa-heart"></i>
+                            <i className="fa fa-heart"></i>
                         </div>
                         <div className="twitterIcon">
-                            <i className="fab fa-twitter"></i>
+                            <i className="fa fa-twitter"></i>
                         </div>
                     </div>
                 </div>

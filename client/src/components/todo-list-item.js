@@ -101,7 +101,7 @@ const TDList =
         }
         <div className=" todo-options dropdown" id={`${this.props.key}-op`}>
             <button className="btn todo-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i className="fas fa-ellipsis-h"></i>
+            <i className="fa fa-ellipsis-h"></i>
             </button>
             <div id={`${this.props.key}-o`}className="todo-panel-o dropdown-menu">
             <ul className="todo-ul-o">

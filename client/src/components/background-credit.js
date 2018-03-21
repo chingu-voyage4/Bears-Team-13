@@ -17,7 +17,7 @@ const BackgroundCredit = (props) => {
                         <a className="unsplash-link" href={background.pictureLink}>Photo by {background.pictureByName} / Unsplash </a>
                     </div>
                     <div className= {likeFav}  onClick={e => props.favorite('background', e.target)}>
-                        <i className="far fa-heart"></i>
+                        <i className="fa fa-heart"></i>
                     </div>
                 </div>
             </div>
