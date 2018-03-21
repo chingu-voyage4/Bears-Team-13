@@ -191,6 +191,7 @@ ul, ol {
 
 .BGTextWrapper{
     animation-name: reset;
+    width: 250px;
 }
 
 .BGTextWrapper:hover{
@@ -350,6 +351,24 @@ ul, ol {
     padding-top:15px;
     display: inline-block;
 }
+
+.toggle-options {
+    padding: 3px;
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.6
+}
+.toggle-options.active{
+    opacity: 1 !important
+}
+/****************** Like Button ******************/
+.favorite{
+    color: #EE2625;
+    cursor: pointer;
+    display: inline;
+    margin-right: .5%;
+}
+
 /****************** Show/Hide ******************/
 .hide{
     visibility:hidden;
