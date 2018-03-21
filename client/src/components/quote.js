@@ -6,16 +6,34 @@ class Quote extends Component {
         super(props);
         this.state = {
             text: '',
-            author: ''
+            author: '',
+            tweet: '',
+            liked: false
         }
+        this.changeLikeStatus = this.changeLikeStatus.bind(this);
     }
 
     componentWillMount() {
         var self = this;
         axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
             //example returned quote data
-            self.setState({text: res.data.quoteText, author: res.data.quoteAuthor});
+            self.setState({
+                text: res.data.quoteText, 
+                author: res.data.quoteAuthor, 
+                tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'});
         });
+    }
+
+    changeLikeStatus() {
+        if (this.state.liked) {
+            this.setState({liked: false});
+            //post to backend to save
+        }
+
+        else {
+            this.setState({liked: true});
+            //post to backend to save
+        }
     }
 
     render() {
@@ -29,11 +47,18 @@ class Quote extends Component {
                         <div className="quoteAuthor">
                             - {this.state.author}
                         </div>
-                        <div className="like">
-                            <i className="fa fa-heart"></i>
+                        <div className="like" onClick={this.changeLikeStatus}>
+                            <span className={this.state.liked ? 'hidden' : ''}>
+                                <i className="fa fa-heart"></i>
+                            </span>
+                            <span className={this.state.liked ? 'fadeIn red-background' : 'hidden'}>
+                                <i className="fa fa-heart"></i>
+                            </span>
                         </div>
                         <div className="twitterIcon">
-                            <i className="fa fa-twitter"></i>
+                            <a href={this.state.tweet} target="_blank">
+                                <i className="fa fa-twitter"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
