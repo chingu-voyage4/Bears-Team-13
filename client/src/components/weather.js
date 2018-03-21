@@ -8,6 +8,7 @@ class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            animation: '',
             city: '',
             activeDay: {},
             activeTemp: '',
@@ -121,7 +122,7 @@ class Weather extends Component {
     onFocus(event) {
         if (event.target.classList.contains('top-button-identifier')) {
             if (this.state.showingWeather) {
-            this.setState({showingWeather: false, dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper'});
+                this.setState({showingWeather: false, dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper'});
             }
 
             else {
