@@ -36,7 +36,8 @@ class App extends Component{
             todoBlur:true,
             customTimer: 900000
         },
-        loggedInUser: false                //Non-logged in user: false | Logged in user: First name of user
+        loggedInUser: false,                //Non-logged in user: false | Logged in user: First name of user
+        dataInStorage: 'local'
      }
      this.handleFavorite = this.handleFavorite.bind(this)
  }
@@ -53,12 +54,13 @@ async syncDataWithServer() {
             response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/getLocalStorage', {withCredentials: true});
             const serverLocalStorage = response.data.localStorage;
             //compare local lastUpdateTime with server's and update localStorage if stale
-            if (localStorageLastUpdateTime && (localStorageLastUpdateTime < serverLocalStorage.lastUpdateTime)) {
+            // if (localStorageLastUpdateTime && (localStorageLastUpdateTime < serverLocalStorage.lastUpdateTime)) {
                 Object.keys(serverLocalStorage).forEach(key => {
-                    customLocalStorage.setItem(key, serverLocalStorage[key]);
+                    localStorage.setItem(key, serverLocalStorage[key]);
                 });
-                window.location.reload();
-            }
+                this.setState({dataInStorage: 'server'});
+                // window.location.reload();
+            // }
         }
 
     } catch (error) {
@@ -192,7 +194,7 @@ componentWillMount() {
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
         {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}
-        {obj.displayTodo ? <Todo blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser}/> : <Todo visibility='hide' blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser} />}
+        {obj.displayTodo ? <Todo blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/> : <Todo visibility='hide' blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser}  dataInStorage={this.state.dataInStorage}/>}
         <BackgroundCredit
             favorite = {this.handleFavorite}
             background={this.state.background}
