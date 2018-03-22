@@ -54,13 +54,12 @@ async syncDataWithServer() {
             response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/getLocalStorage', {withCredentials: true});
             const serverLocalStorage = response.data.localStorage;
             //compare local lastUpdateTime with server's and update localStorage if stale
-            // if (localStorageLastUpdateTime && (localStorageLastUpdateTime < serverLocalStorage.lastUpdateTime)) {
+            if (localStorageLastUpdateTime && (localStorageLastUpdateTime < serverLocalStorage.lastUpdateTime)) {
                 Object.keys(serverLocalStorage).forEach(key => {
                     localStorage.setItem(key, serverLocalStorage[key]);
                 });
                 this.setState({dataInStorage: 'server'});
-                // window.location.reload();
-            // }
+            }
         }
 
     } catch (error) {
