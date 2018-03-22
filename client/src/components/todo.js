@@ -19,7 +19,9 @@ class Todo extends Component {
     }
     
     dropUp(x){
-        document.getElementById("todo-dropup").classList.toggle("show");
+        const dUp =  document.getElementById("todo-dropup").classList;
+       dUp.toggle("show");
+
     }
     
     dropDown(x){
@@ -30,7 +32,7 @@ class Todo extends Component {
     if(this.props.blurOn !== true){
     setTimeout(function() {
       if (!currentTarget.contains(document.activeElement)) {
-          document.getElementById("todo-dropup").classList.toggle("show");
+          document.getElementById("todo-dropup").classList.remove("show");
       }
     }, 0);
     }
@@ -39,7 +41,7 @@ class Todo extends Component {
     
     render(){
         return(
-        <div className={`bottom-right ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
+        <div className={`bottom-right ${this.props.visibility}`} id="test1" tabIndex="1" onBlur={this.onBlur}>
             <button className="btn todo-btn btn-dropUp" onClick={this.dropUp}>
                 Todo
             </button>  
