@@ -439,6 +439,7 @@ input[type=text]#focus-item {
     color: white;
     text-align: center;
     padding: .25rem;
+    transform: translate3d(-162px, 30px, 0px) !important;
 }
 
 .activeUnits {
