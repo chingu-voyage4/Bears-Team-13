@@ -56,7 +56,7 @@ class Todo extends Component {
                         </ul>
                     </div>
                 </div>
-                <TodoList loggedInUser={this.props.loggedInUser} viewBox={this.state.viewBox} />
+                <TodoList loggedInUser={this.props.loggedInUser} viewBox={this.state.viewBox}  dataInStorage={this.props.dataInStorage}/>
             </div>
         </div>
         )

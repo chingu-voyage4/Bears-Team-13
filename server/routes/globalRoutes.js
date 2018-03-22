@@ -26,7 +26,6 @@ module.exports = app => {
     if (!req.user) {
       return res.status(401).send("Please login to Sync");
     }
-    console.log(req.body);
     const User = mongoose.model("users");
     const newUser = await User.findByIdAndUpdate(
       req.user.id,
