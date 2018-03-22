@@ -1,4 +1,5 @@
 const passport = require("passport");
+const keys = require("../config/keys");
 
 module.exports = app => {
   app.get(
@@ -10,16 +11,14 @@ module.exports = app => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-      res.redirect("https://momentum1-ehutc00f.c9users.io/");
-      // res.redirect("http://localhost:3000/");
+      res.redirect(keys.homePage);
       res.send();
     }
   );
 
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.redirect("https://momentum1-ehutc00f.c9users.io/");
-    // res.redirect("http://localhost:3000/");
+    res.redirect(keys.homePage);
     res.send();
   });
 

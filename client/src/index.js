@@ -57,6 +57,7 @@ async syncDataWithServer() {
                 Object.keys(serverLocalStorage).forEach(key => {
                     customLocalStorage.setItem(key, serverLocalStorage[key]);
                 });
+                window.location.reload();
             }
         }
 
