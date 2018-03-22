@@ -1,12 +1,16 @@
-body{
+body {
     width:100%;
     height:100%;
     color: rgb(255,255,255);
-    text-shadow:
-    1px 1px 1px rgb(0,0,0),
-    1px -1px 1px rgb(0,0,0),
-    -1px -1px 1px rgb(0,0,0),
-    -1px 1px 1px rgb(0,0,0);
+}
+
+/* Text shadow */
+body, 
+.settings-btn,
+.btn-dropUp,
+.links-wrapper button,
+.button-updates {
+    text-shadow: 0 1px 5px rgba(0,0,0,.3);
 }
 
 .main{
@@ -100,13 +104,8 @@ ul, ol {
     color: rgb(255,255,255);
     box-shadow:none !important;
 }
-.btn-dropUp{
+.btn-dropUp {
         color: rgb(255,255,255);
-    text-shadow:
-    1px 1px 1px rgb(0,0,0),
-    1px -1px 1px rgb(0,0,0),
-    -1px -1px 1px rgb(0,0,0),
-    -1px 1px 1px rgb(0,0,0);
 }
 .todo-panel-o{
     display: none;
@@ -230,10 +229,9 @@ ul, ol {
     left:10px;
     position: absolute;
 }
-.settings-btn{
+.settings-btn {
     background: transparent;
     color: rgb(255,255,255);
-    text-shadow: 1px 1px 1px rgb(0,0,0), 1px -1px 1px rgb(0,0,0), -1px -1px 1px rgb(0,0,0), -1px 1px 1px rgb(0,0,0);
     box-shadow:none !important;
 }
 

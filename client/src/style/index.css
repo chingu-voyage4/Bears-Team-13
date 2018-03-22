@@ -5,7 +5,7 @@ body {
     overflow: hidden;
 }
 
-/** Links widget **/
+/****** Links widget ******/
 .links-wrapper {
     position: absolute;
     top: 15px;
@@ -17,43 +17,67 @@ body {
     cursor: pointer;
     padding: 0;
     color: rgb(255,255,255);
-    text-shadow:
-    1px 1px 1px rgb(0,0,0),
-    1px -1px 1px rgb(0,0,0),
-    -1px -1px 1px rgb(0,0,0),
-    -1px 1px 1px rgb(0,0,0);
 }
 .links-wrapper button:focus {
-    outline:0;
+    outline: 0;
 }
-.links-wrapper ul {
+#links-panel {
     opacity: 0;
     transform: translate3d(0, -5px, 0);
-    list-style-type: none;
     background: rgba(15,15,15,.65);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.925);
     margin: 10px 0 0 0;
     padding: 10px;
     width: 240px;
 }
-.links-wrapper ul a {
+#links-panel a {
     color:#fff;
     text-decoration: none;
     opacity: .7;
     transition: all .1s;
+    display: block;
 }
-.links-wrapper ul a:hover {
+#links-panel a:hover {
     opacity: 1;
 }
-.links-wrapper ul svg {
+#links-panel i {
     margin-right: 5px;
 }
-#links-input {
+#links-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.link-list-item {
+    cursor: pointer;
+}
+.links-input {
     background-color: transparent;
     border: none;
     color: #fff;
     opacity: .9;
     font-size: .9em;
+    width: 94%;
+}
+.links-input:focus {
+    outline: 0;
+}
+#links-close-btn,
+.links-delete-btn {
+    opacity: 0.5;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+}
+.links-delete-btn {
+    opacity: 0;
+    float: right;
+}
+#links-input-url,
+#links-close-btn,
+#links-list {
+    /* Hide initially */
+    display: none; 
 }
 #links-input:focus {
     outline: 0;
@@ -116,6 +140,14 @@ body {
       transform: none;
     }
 }
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
 @keyframes fadeInUp {
     0% {
       opacity: 1;
@@ -176,7 +208,9 @@ body {
 .quoteTextWrapper:hover .authorLikeTwitter{
     animation-name: fadeInDown;
 }
-
+.link-list-item:hover .links-delete-btn {
+    animation-name: fadeIn;
+}
 .like:hover {
     color: #EE2625;
     cursor: pointer;
@@ -294,11 +328,6 @@ input[type=text]#focus-item {
     background-color: transparent;
     padding-left: 20rem;
     color: rgb(255,255,255);
-    text-shadow:
-    1px 1px 1px rgb(0,0,0),
-    1px -1px 1px rgb(0,0,0),
-    -1px -1px 1px rgb(0,0,0),
-    -1px 1px 1px rgb(0,0,0);
 }
 
 .button-updates:focus {
