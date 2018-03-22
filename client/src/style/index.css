@@ -58,35 +58,21 @@ body {
 #links-input:focus {
     outline: 0;
 }
+
+/** Clock Classes **/
+.clock {
+    font-size: 8.5em;
+}
+
 .center-horizontally {
     width: 100%;
     text-align: center;
 }
 
-.quoteHolder {
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 10px;
-    text-align: center;
-    max-width: 50%;
-}
-
-.clock {
-    font-size: 8.5em;
-}
+/** Greeting Classes **/
 
 .greeting {
     font-size: 4em;
-}
-  
-.quoteAuthor, .like, .twitterIcon {
-    display: inline;
-    margin-right: .5%;
-}
-
-.authorLikeTwitter {
-    width: 100%;
-    opacity: 0;
 }
 
 /** CSS animations **/
@@ -177,12 +163,32 @@ body {
     animation-name: fadeInDown;
 }
 
+/** Quote Classes **/
+.quoteHolder {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    max-width: 50%;
+}
+  
+.quoteAuthor, .like, .twitterIcon {
+    display: inline;
+    margin-right: .5%;
+}
+
+.authorLikeTwitter {
+    width: 100%;
+    opacity: 0;
+}
+
 .like:hover {
     color: #EE2625;
     cursor: pointer;
     transition: color 0.3s linear;
 }
 
+/** fill in heart on click **/
 .red-background {
     color: #EE2625; 
 }
@@ -203,6 +209,8 @@ body {
     height: 100%;
 }
 
+/** Focus Classes **/
+
 .focus-question {
     margin-top: 5%;
     margin-bottom: 2%;
@@ -217,6 +225,7 @@ body {
     background-color: transparent;
     font-size: 2em;
     text-align: center;
+    box-shadow:0px 1px rgb(0,0,0);
 }
 
 #focus-item:focus {
@@ -231,9 +240,7 @@ input[type=text]#focus-item {
     color: white;
 }
 
-
 .current-focus {
-    width: 25%;
     text-align: center;
     margin: 0 auto;
     padding-bottom: 1em;
@@ -274,6 +281,8 @@ input[type=text]#focus-item {
     padding-top: 4em;
 }
 
+/** Weather Classes **/
+
 .weather-wrapper {
     position: absolute;
     top: 1%;
@@ -312,7 +321,7 @@ input[type=text]#focus-item {
 }
 
 .dropdown-wrapper {
-    text-shadow:none
+    text-shadow: none;
 }
 
 .weather-widget-row-small {
@@ -372,17 +381,6 @@ input[type=text]#focus-item {
     font-weight: bold;
 }
 
-.more-options-ellipsis {
-    position: absolute;
-    top: -10%;
-    right: 3%;
-    font-size: 2em;
-}
-
-.more-options-ellipsis:hover {
-    cursor: pointer;
-}
-
 .large-weather-icon, .large-current-temperature {
     line-height: 100%;
 }
@@ -411,10 +409,22 @@ input[type=text]#focus-item {
     display: none;
 }
 
+/** Weather Settings Classes **/
+.more-options-ellipsis {
+    position: absolute;
+    top: -10%;
+    right: 3%;
+    font-size: 2em;
+}
+
+.more-options-ellipsis:hover {
+    cursor: pointer;
+}
+
 .top-button-identifier {
     /***
     /*** Do not add styles to this class
-    /*** Serves as Id for onClick handler ***/
+    /*** Serves as ID for onClick handler ***/
 }
 
 .dropdown-menu:focus {
@@ -438,6 +448,7 @@ input[type=text]#focus-item {
     color: white;
     text-align: center;
     padding: .25rem;
+    transform: translate3d(-162px, 30px, 0px) !important;
 }
 
 .activeUnits {

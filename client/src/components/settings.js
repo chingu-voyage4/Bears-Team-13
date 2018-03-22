@@ -193,11 +193,20 @@ class Settings extends Component{
     pickTab(tab){
         this.setState({active:tab});
     }
-
+    
+    onBlur(e) {
+    var currentTarget = e.currentTarget;
+    setTimeout(function() {
+      if (!currentTarget.contains(document.activeElement)) {
+          document.getElementById("settings-dropup").classList.toggle("show");
+      }
+    }, 0);
+  }
+  
     render(){
         console.log('hit')
         return (    
-            <div className="bottom-left">
+            <div className="bottom-left" tabIndex="1" onBlur={this.onBlur}>
                 <button className="btn settings-btn" onClick={this.dropUp}>
                     <i className="fa fa-cog" aria-hidden="true"></i>
                 </button>

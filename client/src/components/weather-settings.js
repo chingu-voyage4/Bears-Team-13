@@ -10,7 +10,7 @@ class WeatherSettings extends Component {
         if (this.props.showFahr) {
             this.props.changeUnits();
         }
-
+        //already showing C ignore click
         else {
             return;
         }
@@ -20,7 +20,7 @@ class WeatherSettings extends Component {
         if (!this.props.showFahr) {
             this.props.changeUnits();
         }
-
+        //already showing F ignore click
         else {
             return;
         }
