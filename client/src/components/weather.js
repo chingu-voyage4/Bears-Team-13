@@ -37,6 +37,7 @@ class Weather extends Component {
         }
 
         var self = this;
+
         function showPosition(position) {
             axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
             + position.coords.latitude + ',' + position.coords.longitude + ')%22)&format=json').then(function(res) {
@@ -70,8 +71,7 @@ class Weather extends Component {
                     day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code
                 });
 
-                console.log(self.state);
-
+                //build object to hold temperature in units that aren't currently being displayed
                 var altUnits = {
                     activeTemp: 0,
                     '0': {},
@@ -98,6 +98,7 @@ class Weather extends Component {
             });
         }
 
+        //check to make sure geolocation is enabled, then call function to get weather data
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         }
@@ -106,7 +107,7 @@ class Weather extends Component {
             console.log('no geo');
         }
     }
-
+    //switch which day's high/low temp is displayed in weather pop out
     highlightDay(day, isToday, dayNumber) {
         if (isToday) {
             this.setState({todayHighTemp: this.state.activeTemp, todayLowTemp: '', activeDescription: this.state.day1.text, showLowTemp: 'hidden', showingDay: '1'});
@@ -118,7 +119,7 @@ class Weather extends Component {
 
         this.setState({activeDayName: moment(day.date, 'DD MMM YYY').format('dddd'), activeIconClass: 'wi wi-yahoo-' + day.code});
     }
-
+    //show weather pop out
     onFocus(event) {
         if (event.target.classList.contains('top-button-identifier')) {
             if (this.state.showingWeather) {
@@ -132,6 +133,7 @@ class Weather extends Component {
     }
 
     changeUnits() {
+        //temporary object to hold units being switched out, so they arent lost and can be switched back to in the future
         var newAltUnits = {
             activeTemp: 0,
                 '0': {},
@@ -142,19 +144,27 @@ class Weather extends Component {
         };
 
         for (var i = 0; i < 5; i++) {
+            //save in day object from state to be updated
             var temp = this.state['day' + (i + 1)];
+
+            //switch high/low to new unit
             newAltUnits[i.toString()].high = temp.high;
             newAltUnits[i.toString()].low = temp.low;
+
+            //set new units in state
             temp.high = this.state.altUnits[i.toString()].high;
             temp.low = this.state.altUnits[i.toString()].low;
+
+            //build day number to set in state
             var day = 'day' + (i + 1).toString();
             this.setState({day: temp});
         }
-
+        //set active temp in new units that will be displayed on homescreen
         newAltUnits.activeTemp = this.state.activeTemp;
 
         this.setState({showFahr: !this.state.showFahr, activeTemp: this.state.altUnits.activeTemp});
         
+        //check to see which day is currently highlighted in weather pop out, to update those temps to new units
         if (this.state.showingDay == '1') {
             this.setState({todayHighTemp: this.state.altUnits.activeTemp});
         }

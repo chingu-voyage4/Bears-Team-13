@@ -95,12 +95,9 @@ class Focus extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.setState({hasTodo: true});
-        //axios.post('/submitFocus?focus=' + this.state.focus);
     }
 
     getNewTodo() {
-        //TODO
-        //call back end to delete the stored focus
         this.setState({hasTodo: false, focus: '', isComplete: false, group1: '', group2: 'hidden', todoTextClasses: 'focus-text stack'});
     }
 

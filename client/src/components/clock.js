@@ -16,6 +16,7 @@ class Clock extends Component {
     }
 
     componentWillMount() {
+        //determine clock format
         if (this.props.militaryTime === true) {
             var currentTime = moment().format('hh:mm');
         }
@@ -30,7 +31,8 @@ class Clock extends Component {
     componentDidMount() {
 
         var self = this;
-        //update clock, may lengthen interval if there are performance issues but sacrifices accuracy
+        
+        //determine clock format
         window.setInterval(function() {
             
             if (self.props.militaryTime === true) {
