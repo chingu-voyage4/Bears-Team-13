@@ -144,6 +144,7 @@ class Settings extends Component{
             return obj.favorite === true;
         })
         }
+        if(bgHistory.length > 0 ){
         let historyOrFavorite = bgHistory.map((item, i) => {
         return(
             <a className="settings-img-container"target="_blank" href={item.pictureLink} key={item.pictureLink}>
@@ -151,12 +152,13 @@ class Settings extends Component{
             </a>
             )
         });
+        
         return (
             <div key={x}>
             {historyOrFavorite}
             </div>
         )
-    }
+    }}
     
     quoteTab(x){
         return(
@@ -198,13 +200,12 @@ class Settings extends Component{
     var currentTarget = e.currentTarget;
     setTimeout(function() {
       if (!currentTarget.contains(document.activeElement)) {
-          document.getElementById("settings-dropup").classList.toggle("show");
+          document.getElementById("settings-dropup").classList.remove("show");
       }
     }, 0);
   }
   
     render(){
-        console.log('hit')
         return (    
             <div className="bottom-left" tabIndex="1" onBlur={this.onBlur}>
                 <button className="btn settings-btn" onClick={this.dropUp}>

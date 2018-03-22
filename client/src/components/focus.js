@@ -59,10 +59,10 @@ class Focus extends Component {
                     <div>
                         <div className="check-box stack" onClick={this.completeTodo}>
                             <div className={this.state.group1}>
-                                <i className="far fa-square"></i>
+                                <i class="fa fa-square-o" aria-hidden="true"></i>
                             </div>
                             <div className={this.state.group2}>
-                                <i className="far fa-check-square"></i>
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div className={this.state.todoTextClasses}>
@@ -70,10 +70,10 @@ class Focus extends Component {
                         </div>
                         <div className="remove-focus stack" onClick={this.getNewTodo}>
                             <div className={this.state.group1}>
-                                <i className="fas fa-trash-alt"></i>
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </div>
                             <div className={this.state.group2}>
-                                <i className="fas fa-plus"></i>
+                                <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -95,12 +95,9 @@ class Focus extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.setState({hasTodo: true});
-        //axios.post('/submitFocus?focus=' + this.state.focus);
     }
 
     getNewTodo() {
-        //TODO
-        //call back end to delete the stored focus
         this.setState({hasTodo: false, focus: '', isComplete: false, group1: '', group2: 'hidden', todoTextClasses: 'focus-text stack'});
     }
 
