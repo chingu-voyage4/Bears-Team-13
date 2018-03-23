@@ -1,3 +1,5 @@
+/* global localStorage, fetch*/
+
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Clock from './components/clock';
@@ -37,12 +39,14 @@ class App extends Component{
             customTimer: 900000
         },
         loggedInUser: false,                //Non-logged in user: false | Logged in user: First name of user
-        dataInStorage: 'local'
+        dataInStorage: 'local',
+        fetching:false
      }
      this.handleFavorite = this.handleFavorite.bind(this)
  }
  
 async syncDataWithServer() { 
+    this.setState({fetching:true});
     //get user's logged in status from server
     var response, temporaryLocalStorage;
     const localStorageLastUpdateTime = customLocalStorage.getItem('lastUpdateTime');
@@ -54,78 +58,24 @@ async syncDataWithServer() {
             response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/getLocalStorage', {withCredentials: true});
             const serverLocalStorage = response.data.localStorage;
             //compare local lastUpdateTime with server's and update localStorage if stale
-            if (localStorageLastUpdateTime && (localStorageLastUpdateTime < serverLocalStorage.lastUpdateTime)) {
+            if (localStorageLastUpdateTime && (localStorageLastUpdateTime !== serverLocalStorage.lastUpdateTime)) {
                 Object.keys(serverLocalStorage).forEach(key => {
-                    localStorage.setItem(key, serverLocalStorage[key]);
+                    customLocalStorage.setItem(key, serverLocalStorage[key]);
                 });
                 this.setState({dataInStorage: 'server'});
-            }
-        }
 
+            }
+
+        }
     } catch (error) {
         console.log(error);
     }
+        this.setState({fetching:false});
 }
 
 componentWillMount() {
-
     this.syncDataWithServer();
-
-    const getLocalBackground = localStorage.getItem('background');
-    //Handle first time history storage
-    if(localStorage.getItem('backgroundHistory') === null){
-            localStorage.setItem('backgroundHistory', '[]');
-    }
-    const backgroundHistory = localStorage.getItem('backgroundHistory');
-     //Check last time new image was fetched
-    const storedTime = JSON.parse(getLocalBackground)
-    let timeElapsed;
-    if(storedTime !== null){
-     timeElapsed = new Date().getTime() - storedTime.time
-    } else {
-     timeElapsed = null;
-    }
-    //Store background history in localStorage
-    if(timeElapsed > this.state.customGeneral.customTimer){
-        const tempObj = Object.assign({}, JSON.parse(getLocalBackground));
-        var newArray = JSON.parse(backgroundHistory);
-        // Check if image is already stored
-        var found = newArray.find((x)=>{ return x.img === tempObj.img })
-        // if not, push new image to history
-        if(found === undefined || newArray.length === 0){
-        newArray = [tempObj, ...newArray.slice(0, 49)] 
-        localStorage.setItem('backgroundHistory', JSON.stringify(newArray))
-        } 
-        this.setState({backgroundHistory:newArray});
-    } else{
-    //If history does not need updated, populate photos with current history array 
-        this.setState({backgroundHistory:JSON.parse(backgroundHistory)});
-    }
-    //Store background in localStorage
-    if(timeElapsed > this.state.customGeneral.customTimer || timeElapsed === null){
-      fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
-        .then(res => res.json())
-        .then(data => {
-            const time = new Date().getTime();
-            this.setState({
-                background:{
-                    img: data.pictureUrl, 
-                    time: time, 
-                    date: moment().format('YYYY-MM-DD'),
-                    pictureLink:data.pictureLink,
-                    pictureByName:data.pictureByName,
-                    pictureLocation:data.pictureLocation,
-                    favorite: false
-                } })
-            })
-        .catch(err => {
-			console.log('Error happened during fetching!', err);
-        })
-    } else {
-        getLocalBackground && this.setState({
-            background:JSON.parse(getLocalBackground)
-        });
-    }
+    this.handleBackground();
     
      //determine what to use in the greeting
     var currentHour = moment().get('hour');
@@ -147,11 +97,67 @@ componentWillMount() {
     });
 
  }
-    componentWillUpdate(nextProps, nextState){
-        localStorage.setItem('background', JSON.stringify(nextState.background));
-        localStorage.setItem('customGeneral', JSON.stringify(nextState.customGeneral))
-
+componentWillUpdate(nextProps, nextState){
+    console.log('update')
+    customLocalStorage.setItem('background', JSON.stringify(nextState.background));
+    customLocalStorage.setItem('customGeneral', JSON.stringify(nextState.customGeneral))
+}
+    
+handleBackground(){
+    const getLocalBackground = localStorage.getItem('background');
+    const backgroundHistory = localStorage.getItem('backgroundHistory');
+    //Handle first time history storage
+    if(backgroundHistory === null){
+        customLocalStorage.setItem('backgroundHistory', '[]');
     }
+    //Check last time new image was fetched
+    const storedTime = JSON.parse(getLocalBackground)
+    let timeElapsed;
+    if(storedTime !== null){
+        timeElapsed = new Date().getTime() - storedTime.time
+    } else {
+        timeElapsed = null;
+    }
+    //Store background in localStorage
+    if(timeElapsed > this.state.customGeneral.customTimer || timeElapsed === null){
+    //Store background history in localStorage
+        if(timeElapsed !== null){
+            const tempObj = Object.assign({}, JSON.parse(getLocalBackground));
+            var newArray = JSON.parse(backgroundHistory);
+            // Check if image is already stored
+            var found = newArray.find((x)=>{ return x.img === tempObj.img })
+            // if not, push new image to history
+            if(found === undefined || newArray.length === 0){
+                newArray = [tempObj, ...newArray.slice(0, 49)] 
+                customLocalStorage.setItem('backgroundHistory', JSON.stringify(newArray))
+            } 
+            this.setState({backgroundHistory:newArray});
+        }
+        fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
+        .then(res => res.json())
+        .then(data => {
+            const time = new Date().getTime();
+            this.setState({
+                background:{
+                    img: data.pictureUrl, 
+                    time: time, 
+                    date: moment().format('YYYY-MM-DD'),
+                    pictureLink:data.pictureLink,
+                    pictureByName:data.pictureByName,
+                    pictureLocation:data.pictureLocation,
+                    favorite: false
+                } })
+            })
+        .catch(err => {
+    		console.log('Error happened during fetching!', err);
+        })
+    } else {
+        getLocalBackground && this.setState({
+            background:JSON.parse(getLocalBackground)
+        });
+        this.setState({backgroundHistory:JSON.parse(backgroundHistory)});
+    }
+}
     updateCustomGeneral(widget, checked){
         this.setState( prevState =>({
           customGeneral:{
@@ -171,14 +177,16 @@ componentWillMount() {
     }
     
  render(){
+     if(this.state.fetching){
+         return <div>Loading...</div>
+     }
+     console.log(this.state.customGeneral)
     const backgroundImgStyles = {
         backgroundImage: `url("${this.state.background.img}")`,
         height: '100vh',
         backgroundSize: 'cover'
     };
-    
     const obj = this.state.customGeneral;
-    
      //render everything here
      return (
      <div className="main fadeIn" style={backgroundImgStyles}>

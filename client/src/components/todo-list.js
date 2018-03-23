@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-
+// import axios from 'axios';
 import TodoListInput from './todo-list-input';
 import update from 'immutability-helper';
 import { DragDropContext } from 'react-dnd';

@@ -97,20 +97,20 @@ class Settings extends Component{
         //Highlight initial timer
         const timer = this.props.general.customTimer;
             setTimeout(function(){  
-                    switch(timer){
-                case 3600000:
-                    document.getElementById('1hour').classList.add('active');
-                    break;
-                case 43200000:
-                    document.getElementById('12hours').classList.add('active');
-                    break;
-                case 86400000:
-                    document.getElementById('24hours').classList.add('active');
-                    break;
-                default:
-                document.getElementById('15min').classList.add('active');
-                    break;
-            }
+                switch(timer){
+                    case 3600000:
+                        document.getElementById('1hour').classList.add('active');
+                        break;
+                    case 43200000:
+                        document.getElementById('12hours').classList.add('active');
+                        break;
+                    case 86400000:
+                        document.getElementById('24hours').classList.add('active');
+                        break;
+                    default:
+                    document.getElementById('15min').classList.add('active');
+                        break;
+                }
             }, 0);
 
         return(
@@ -141,24 +141,24 @@ class Settings extends Component{
         let bgHistory = this.props.backgroundHistory;
         if(x === 'Favorites'){
             bgHistory = bgHistory.filter((obj)=>{
-            return obj.favorite === true;
-        })
+                return obj.favorite === true;
+            })
         }
-        if(bgHistory.length > 0 ){
-        let historyOrFavorite = bgHistory.map((item, i) => {
-        return(
-            <a className="settings-img-container"target="_blank" href={item.pictureLink} key={item.pictureLink}>
-                <img className="settings-img" src={item.img} alt="river"/>
-            </a>
+        if(bgHistory !== null ){
+            let historyOrFavorite = bgHistory.map((item, i) => {
+                return(
+                    <a className="settings-img-container"target="_blank" href={item.pictureLink} key={item.pictureLink}>
+                        <img className="settings-img" src={item.img} alt="river"/>
+                    </a>
+                    )
+            });
+            return (
+                <div key={x}>
+                    {historyOrFavorite}
+                </div>
             )
-        });
-        
-        return (
-            <div key={x}>
-            {historyOrFavorite}
-            </div>
-        )
-    }}
+        }
+    }
     
     quoteTab(x){
         return(
@@ -197,13 +197,13 @@ class Settings extends Component{
     }
     
     onBlur(e) {
-    var currentTarget = e.currentTarget;
-    setTimeout(function() {
-      if (!currentTarget.contains(document.activeElement)) {
-          document.getElementById("settings-dropup").classList.remove("show");
-      }
-    }, 0);
-  }
+        var currentTarget = e.currentTarget;
+        setTimeout(function() {
+            if (!currentTarget.contains(document.activeElement)) {
+                document.getElementById("settings-dropup").classList.remove("show");
+            }
+        }, 0);
+    }
   
     render(){
         return (    
