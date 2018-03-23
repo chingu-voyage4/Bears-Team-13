@@ -18,7 +18,7 @@ class Quote extends Component {
         axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
             self.setState({
                 text: res.data.quoteText, 
-                author: res.data.quoteAuthor, 
+                author: res.data.quoteAuthor || 'Unknown', 
                 tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'});
         });
     }
