@@ -48,7 +48,7 @@ class App extends Component{
 async syncDataWithServer() { 
     this.setState({fetching:true});
     //get user's logged in status from server
-    var response, temporaryLocalStorage;
+    var response;
     const localStorageLastUpdateTime = customLocalStorage.getItem('lastUpdateTime');
     try {
         response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true});
@@ -58,12 +58,16 @@ async syncDataWithServer() {
             response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/getLocalStorage', {withCredentials: true});
             const serverLocalStorage = response.data.localStorage;
             //compare local lastUpdateTime with server's and update localStorage if stale
-            if (localStorageLastUpdateTime && (localStorageLastUpdateTime !== serverLocalStorage.lastUpdateTime)) {
+            if (!localStorageLastUpdateTime || (localStorageLastUpdateTime && (localStorageLastUpdateTime !== serverLocalStorage.lastUpdateTime))) {
                 Object.keys(serverLocalStorage).forEach(key => {
                     customLocalStorage.setItem(key, serverLocalStorage[key]);
                 });
                 this.setState({dataInStorage: 'server'});
-
+                this.setState({
+                    background: JSON.parse(customLocalStorage.getItem('background')),
+                    backgroundHistory: JSON.parse(customLocalStorage.getItem('backgroundHistory')),
+                    customGeneral: JSON.parse(customLocalStorage.getItem('customGeneral'))
+                });
             }
 
         }
