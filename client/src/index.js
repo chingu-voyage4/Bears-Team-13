@@ -62,12 +62,12 @@ async syncDataWithServer() {
                 Object.keys(serverLocalStorage).forEach(key => {
                     customLocalStorage.setItem(key, serverLocalStorage[key]);
                 });
-                this.setState({dataInStorage: 'server'});
                 this.setState({
                     background: JSON.parse(customLocalStorage.getItem('background')),
                     backgroundHistory: JSON.parse(customLocalStorage.getItem('backgroundHistory')),
                     customGeneral: JSON.parse(customLocalStorage.getItem('customGeneral'))
                 });
+                this.setState({dataInStorage: 'server'});
             }
 
         }
