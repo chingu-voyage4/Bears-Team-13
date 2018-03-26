@@ -28,6 +28,7 @@ class Todo extends Component {
         document.getElementById('myDropdown').classList.toggle('show')
     }
      onBlur(e) {
+         console.log(e.currentTarget)
     var currentTarget = e.currentTarget;
     if(this.props.blurOn !== true){
     setTimeout(function() {

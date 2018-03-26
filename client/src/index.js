@@ -26,6 +26,7 @@ class App extends Component{
      super(props);
      this.state = {
         timeOfDay: '',
+        time:'',
         background: {
         },
         backgroundHistory: [],
@@ -36,7 +37,8 @@ class App extends Component{
             displayQuote:true,
             displayTodo:true,
             todoBlur:true,
-            customTimer: 900000
+            customTimer: 900000,
+            militaryTime: false
         },
         loggedInUser: false,                //Non-logged in user: false | Logged in user: First name of user
         dataInStorage: 'local',
@@ -101,6 +103,21 @@ componentWillMount() {
     });
 
  }
+//  componentDidMount(){
+//      var self = this;
+        
+//         //determine clock format
+//         window.setInterval(function() {
+            
+//             if (self.props.militaryTime === true) {
+//                 self.setState({time: moment().format('hh:mm')});
+//             }
+    
+//             else {
+//                 self.setState({time: moment().format('h:mm A')});
+//             }
+//         }, 1000)
+//  }
 componentWillUpdate(nextProps, nextState){
     console.log('update')
     customLocalStorage.setItem('background', JSON.stringify(nextState.background));
@@ -201,7 +218,7 @@ handleBackground(){
         />
         {obj.displayLink ? <Links /> : <Links visibility='hide' />}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
-        <Clock />
+        <Clock militaryTime={this.state.customGeneral.militaryTime} toggle={(a, b) => this.updateCustomGeneral(a, b)}/>
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
         {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}

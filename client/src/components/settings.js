@@ -50,6 +50,21 @@ class Settings extends Component{
         )
     }
     genTab(x){
+        
+        function toggleClock(x){
+            const military = document.getElementById('24time');
+            const standard = document.getElementById('12time');
+            military.classList.remove('active');
+            standard.classList.remove('active');
+        x ? military.classList.add('active') : standard.classList.add('active');  
+        }
+        setTimeout( () => {
+            var militaryTime = this.props.general.militaryTime;
+            const military = document.getElementById('24time');
+            const standard = document.getElementById('12time');
+            militaryTime ? military.classList.add('active') : standard.classList.add('active')  
+        }, 0)
+
         return(
             <div key="genTab">
                 <h3>General</h3>
@@ -65,8 +80,12 @@ class Settings extends Component{
                 </ul>
                 <h4 className="settings-header">Options</h4>
                 <ul className="settings-list">
-                    <li className="slide-toggle"><span>Clock Format</span><span className="text-toggle">12 Hour | 24 Hour</span></li>
-                    <li className="slide-toggle"><span>Percent Clock</span><span>{this.toggle(8)}</span></li>
+                    <li className="slide-toggle"><span>Clock Format</span><span className="text-toggle"><span>
+                    <span className="toggle-options" id="12time" onClick={e => {this.props.toggle('militaryTime', false); toggleClock(false)}}>12 Hour</span>
+                        <span> | </span>
+                    <span className="toggle-options" id="24time" onClick={e => {this.props.toggle('militaryTime', true); toggleClock(true)}}>24 Hour</span></span>
+                    </span>
+                    </li>
                     <li className="slide-toggle bottom-toggle"><span>Search Provider</span><span className="text-toggle">Google | Bing</span></li>
                 </ul>
             </div>
@@ -213,12 +232,12 @@ class Settings extends Component{
                 </button>
                 <div id="settings-dropup" className="settings-panel s-up">
                 <ul className="settings-nav">
-                    <li className="settings-nav-item" onClick={() => this.pickTab(this.genTab())}>General</li>
-                    <li className="settings-nav-item" onClick={() => this.pickTab(this.todoTab())}>Todo</li>
-                    <li className="settings-nav-item" onClick={() => this.pickTab(this.photoTab(this.state.subTab))}>Photos</li>
-                    <li className="settings-nav-item" onClick={() => this.pickTab(this.quoteTab())}>Quotes</li>
-                    <li className="settings-nav-item" onClick={() => this.pickTab(this.linkTab())}>Links</li>
-                    <div className='login-nav' onClick={() => this.pickTab(this.loginTab())}>Log In</div>
+                    <li className="settings-nav-item" key="general-tab"onClick={() => this.pickTab(this.genTab())}>General</li>
+                    <li className="settings-nav-item" key="todo-tab"onClick={() => this.pickTab(this.todoTab())}>Todo</li>
+                    <li className="settings-nav-item" key="photo-tab"onClick={() => this.pickTab(this.photoTab(this.state.subTab))}>Photos</li>
+                    <li className="settings-nav-item" key="quote-tab"onClick={() => this.pickTab(this.quoteTab())}>Quotes</li>
+                    <li className="settings-nav-item" key="link-tab"onClick={() => this.pickTab(this.linkTab())}>Links</li>
+                    <div className='login-nav' key="login-tab"onClick={() => this.pickTab(this.loginTab())}>Log In</div>
                 </ul>
                 <div className="settings-container">
                     {this.state.active}
