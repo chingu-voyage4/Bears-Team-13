@@ -41,7 +41,6 @@ class Weather extends Component {
         function showPosition(position) {
             axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
             + position.coords.latitude + ',' + position.coords.longitude + ')%22)&format=json').then(function(res) {
-                console.log(res.data);
 
                 if (res.data.query.results === null) {
                     return;
@@ -56,7 +55,7 @@ class Weather extends Component {
                     activeIconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
                     activeTemp: res.data.query.results.channel.item.condition.temp,
                     activeDescription: res.data.query.results.channel.item.forecast[0].text,
-                    activeDayName: 'Today',
+                    activeDayName: moment().format('dddd'),
                     showingDay: '1',
                     showLowTemp: 'hidden',
                     day1: res.data.query.results.channel.item.forecast[0],

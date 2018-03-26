@@ -18,12 +18,11 @@ class Clock extends Component {
     componentWillMount() {
         //determine clock format
         if (this.props.militaryTime === true) {
-            var currentTime = moment().format('hh:mm');
+            this.setState({time: moment().format('hh:mm')}); 
         }
 
         else {
-            var currentTime = moment().format('h:mm A');
-            this.setState({time: currentTime});    
+            this.setState({time: moment().format('h:mm A')});    
         }
         
     }
@@ -36,14 +35,12 @@ class Clock extends Component {
         window.setInterval(function() {
             
             if (self.props.militaryTime === true) {
-                var currentTime = moment().format('hh:mm');
+                self.setState({time: moment().format('hh:mm')});
             }
     
             else {
-                var currentTime = moment().format('h:mm A');
+                self.setState({time: moment().format('h:mm A')});
             }
-
-            self.setState({time: currentTime});
         }, 1000)
     }
 

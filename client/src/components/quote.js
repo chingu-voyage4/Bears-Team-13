@@ -19,7 +19,25 @@ class Quote extends Component {
             self.setState({
                 text: res.data.quoteText, 
                 author: res.data.quoteAuthor || 'Unknown', 
-                tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'});
+                tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'
+            });
+
+            var newQuote = {
+                text: res.data.quoteText,
+                author: res.data.quoteAuthor || 'Unknown',
+            };
+    
+            var storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+            var existingQuote = storedQuotes.find(function(object) {
+               return object.text === res.data.quoteText;
+            }) === undefined;
+
+            console.log(existingQuote);
+    
+            if (existingQuote) {
+                storedQuotes.push(newQuote);
+                localStorage.setItem('quotes', JSON.stringify(storedQuotes));
+            }
         });
     }
 
