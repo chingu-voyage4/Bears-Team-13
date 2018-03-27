@@ -14,31 +14,39 @@ class Quote extends Component {
     }
 
     componentWillMount() {
+        var storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+        var currentTime = new Date().getTime();
         var self = this;
-        axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
-            self.setState({
-                text: res.data.quoteText, 
-                author: res.data.quoteAuthor || 'Unknown', 
-                tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'
-            });
+        //check to see if previous quote was stored more than 15 min ago
+        if (storedQuotes.length == 0 || storedQuotes[storedQuotes.length - 1].time + 90000 < currentTime) {
+            
+            axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
+                self.setState({
+                    text: res.data.quoteText, 
+                    author: res.data.quoteAuthor || 'Unknown', 
+                    tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'
+                });
 
-            var newQuote = {
-                text: res.data.quoteText,
-                author: res.data.quoteAuthor || 'Unknown',
-            };
-    
-            var storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
-            var existingQuote = storedQuotes.find(function(object) {
-               return object.text === res.data.quoteText;
-            }) === undefined;
+                var newQuote = {
+                    text: res.data.quoteText,
+                    author: res.data.quoteAuthor || 'Unknown',
+                    time: currentTime,
+                    liked: false
+                };
 
-            console.log(existingQuote);
-    
-            if (existingQuote) {
                 storedQuotes.push(newQuote);
+                //set max amount of quotes to 20 and remove any excess quotes from beginning of array (oldest ones)
+                if (storedQuotes.length > 20) {
+                    storedQuotes.pop();
+                }
+
                 localStorage.setItem('quotes', JSON.stringify(storedQuotes));
-            }
-        });
+            });
+        }
+
+        else {
+            self.setState({text: storedQuotes[storedQuotes.length - 1].text, author: storedQuotes[storedQuotes.length - 1].author, liked: storedQuotes[storedQuotes.length - 1].liked});
+        }
     }
 
     changeLikeStatus() {
@@ -51,6 +59,10 @@ class Quote extends Component {
             this.setState({liked: true});
             //post to backend to save
         }
+
+        var quotes = JSON.parse(localStorage.getItem('quotes'));
+        quotes[quotes.length-1].liked = !quotes[quotes.length-1].liked;
+        localStorage.setItem('quotes', JSON.stringify(quotes));
     }
 
     render() {
