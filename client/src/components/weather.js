@@ -21,7 +21,6 @@ class Weather extends Component {
             day4: {},
             day5: {},
             dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper',
-            showingWeather: false, 
             showFahr: true
         };
 
@@ -118,18 +117,6 @@ class Weather extends Component {
 
         this.setState({activeDayName: moment(day.date, 'DD MMM YYY').format('dddd'), activeIconClass: 'wi wi-yahoo-' + day.code});
     }
-    //show weather pop out
-    onFocus(event) {
-        if (event.target.classList.contains('top-button-identifier')) {
-            if (this.state.showingWeather) {
-                this.setState({showingWeather: false, dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper'});
-            }
-
-            else {
-                this.setState({showingWeather: true, dropdownClasses: 'dropdown-menu dropdown-menu-left dropdown-wrapper show'});
-            }
-        }
-    }
 
     changeUnits() {
         //temporary object to hold units being switched out, so they arent lost and can be switched back to in the future
@@ -178,10 +165,25 @@ class Weather extends Component {
         this.setState({altUnits: newAltUnits});
     }
 
+    onBlur(e) {
+        var currentTarget = e.currentTarget;
+        setTimeout(function() {
+            if (!currentTarget.contains(document.activeElement)) {
+                document.getElementById("weather-button").classList.remove("show");
+            }
+        }, 0);
+    }
+
+    //show weather pop out
+    onFocus(event) {
+        document.getElementById('weather-button').classList.toggle('show');
+        console.log(event.target);
+    }
+
     render() {
         return (
-            <div className={`weather-wrapper ${this.props.visibility}`}>
-                <div className="btn-group" onClick={(event) => {this.onFocus(event)}}>
+            <div className={`weather-wrapper ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
+                <div id="weather-focus" className="btn-group" onClick={this.onFocus}>
                     <button type="button" className="btn button-updates top-button-identifier">
                         <div className="weather-icon top-button-identifier">
                             <i className={this.state.todayIconClass}></i>
@@ -193,7 +195,7 @@ class Weather extends Component {
                             {this.state.city}
                         </div>
                     </button>
-                    <div className={this.state.dropdownClasses}>
+                    <div className="dropdown-menu dropdown-menu-left dropdown-wrapper" id="weather-button">
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
                                 <div className="city-name">

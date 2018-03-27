@@ -52,12 +52,10 @@ class Quote extends Component {
     changeLikeStatus() {
         if (this.state.liked) {
             this.setState({liked: false});
-            //post to backend to save
         }
 
         else {
             this.setState({liked: true});
-            //post to backend to save
         }
 
         var quotes = JSON.parse(localStorage.getItem('quotes'));
