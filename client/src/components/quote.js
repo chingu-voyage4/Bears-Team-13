@@ -26,7 +26,7 @@ class Quote extends Component {
                     author: res.data.quoteAuthor || 'Unknown', 
                     tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'
                 });
- //testing git
+
                 var newQuote = {
                     text: res.data.quoteText,
                     author: res.data.quoteAuthor || 'Unknown',
