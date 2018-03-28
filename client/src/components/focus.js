@@ -10,7 +10,7 @@ class Focus extends Component {
             isComplete: false,
             todoTextClasses: 'focus-text stack',
             group1: '',
-            group2: 'hidden'
+            group2: 'hidden',
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +32,33 @@ class Focus extends Component {
         localStorage.setItem('focus', JSON.stringify(nextState.focus));
     }
 
+    onInputChange(focus) {
+        this.setState({focus});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        var self = this;
+        document.getElementById('saving-animation').classList.toggle('show');
+        setTimeout(function() {
+            self.setState({hasTodo: true});
+        },1500);
+    }
+
+    getNewTodo() {
+        this.setState({hasTodo: false, focus: '', isComplete: false, group1: '', group2: 'hidden', todoTextClasses: 'focus-text stack'});
+    }
+
+    completeTodo() {
+        if (this.state.isComplete) {
+            this.setState({todoTextClasses: 'focus-text stack', group1: '', group2: 'hidden',isComplete: false});
+        }
+
+        else {
+            this.setState({todoTextClasses: 'focus-text stack crossout', group1: 'hidden', group2: '', isComplete: true});
+        }
+    }
+
     setFocus() {
         return (
             <div className={`center-horizontally focus-element ${this.props.visibility}`}>
@@ -44,6 +71,9 @@ class Focus extends Component {
                         onChange={event => this.onInputChange(event.target.value)}
                         />
                     </form>
+                </div>
+                <div id="saving-animation">
+                    <p className="saving">Saving<span className="big-dots">.</span><span className="big-dots">.</span><span className="big-dots">.</span></p>
                 </div>
             </div>
         ); 
@@ -59,10 +89,10 @@ class Focus extends Component {
                     <div>
                         <div className="check-box stack" onClick={this.completeTodo}>
                             <div className={this.state.group1}>
-                                <i class="fa fa-square-o" aria-hidden="true"></i>
+                                <i className="fa fa-square-o" aria-hidden="true"></i>
                             </div>
                             <div className={this.state.group2}>
-                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                <i className="fa fa-check-square-o" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div className={this.state.todoTextClasses}>
@@ -70,10 +100,10 @@ class Focus extends Component {
                         </div>
                         <div className="remove-focus stack" onClick={this.getNewTodo}>
                             <div className={this.state.group1}>
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                <i className="fa fa-trash-o" aria-hidden="true"></i>
                             </div>
                             <div className={this.state.group2}>
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                <i className="fa fa-plus" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -86,29 +116,6 @@ class Focus extends Component {
         return (
             this.state.hasTodo ? this.showFocus() : this.setFocus() 
         );
-    }
-
-    onInputChange(focus) {
-        this.setState({focus});
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.setState({hasTodo: true});
-    }
-
-    getNewTodo() {
-        this.setState({hasTodo: false, focus: '', isComplete: false, group1: '', group2: 'hidden', todoTextClasses: 'focus-text stack'});
-    }
-
-    completeTodo() {
-        if (this.state.isComplete) {
-            this.setState({todoTextClasses: 'focus-text stack', group1: '', group2: 'hidden',isComplete: false});
-        }
-
-        else {
-            this.setState({todoTextClasses: 'focus-text stack crossout', group1: 'hidden', group2: '', isComplete: true});
-        }
     }
 }
 

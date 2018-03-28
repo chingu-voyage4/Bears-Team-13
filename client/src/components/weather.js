@@ -177,14 +177,13 @@ class Weather extends Component {
     //show weather pop out
     onFocus(event) {
         document.getElementById('weather-button').classList.toggle('show');
-        console.log(event.target);
     }
 
     render() {
         return (
             <div className={`weather-wrapper ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
-                <div id="weather-focus" className="btn-group" onClick={this.onFocus}>
-                    <button type="button" className="btn button-updates top-button-identifier">
+                <div id="weather-focus" className="btn-group" >
+                    <button type="button" className="btn button-updates top-button-identifier" onClick={this.onFocus}>
                         <div className="weather-icon top-button-identifier">
                             <i className={this.state.todayIconClass}></i>
                         </div>
