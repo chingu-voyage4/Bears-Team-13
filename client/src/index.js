@@ -201,7 +201,6 @@ handleBackground(){
      if(this.state.fetching){
          return <div>Loading...</div>
      }
-     console.log(this.state.customGeneral)
     const backgroundImgStyles = {
         backgroundImage: `url("${this.state.background.img}")`,
         height: '100vh',
@@ -219,9 +218,9 @@ handleBackground(){
         {obj.displayLink ? <Links /> : <Links visibility='hide' />}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
         <Clock militaryTime={this.state.customGeneral.militaryTime} toggle={(a, b) => this.updateCustomGeneral(a, b)}/>
-        <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
+        <Greeting name={this.state.loggedInUser} timeOfDay={this.state.timeOfDay} />
         {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
-        {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}
+        {obj.displayQuote ? <Quote/> : <Quote visibility='hide' />}
         {obj.displayTodo ? <Todo blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/> : <Todo visibility='hide' blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser}  dataInStorage={this.state.dataInStorage}/>}
         <BackgroundCredit
             favorite = {this.handleFavorite}

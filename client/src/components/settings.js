@@ -189,24 +189,63 @@ class Settings extends Component{
     }
     
     quoteTab(x){
+        function handleActive(x, selector){
+            var elems = document.querySelectorAll(selector);     
+            [].forEach.call(elems, function(el) {
+                el.classList.remove("active");
+            });
+            x.classList.add('active');
+        }
         let quotes = this.state.quote;
-        let compiled = quotes.map((x, index)=> {
-            return(
-            <li className="slide-toggle" key={`${x.author}-${index}`}>{x.text} - {x.author}</li>    
-            )
-        })
+        // let compiled = quotes.map((x, index)=> {
+        //     if(x.liked){
+        //         console.log('no error')
+        //     }
+        //     return(
+        //     <li className="slide-toggle" key={`${x.author}-${index}`}>{x.text} - {x.author}</li>    
+        //     )
+        // })
         return(
             <div key="quoteTab">
                 <h3>Quotes</h3>
                 <p>A daily reminder for inspiration and growth</p>
                 <div className="settings-subnav">
-                    <h4>Favorites</h4><h4>History</h4>
+                    <h4 className="quoteSub" onClick= {(event) => {this.setState({active: this.quoteTab('Favorites'),subTab:'Favorites'}); handleActive(event.target, ".quoteSub")}}>Favorites</h4>
+                    <h4 className="quoteSub active" onClick= {(event) => {this.setState({active: this.quoteTab('History'),subTab:'History'}); handleActive(event.target, ".quoteSub")}}>History</h4>
                 </div>
                 <ul className="settings-list">
-                    {compiled}
+                    {this.quoteSubTab(x)}
                 </ul>
             </div>
         )
+    }
+    
+    quoteSubTab(x){
+        let quotes = this.state.quote.reverse();
+        if(x === 'Favorites'){
+            quotes = quotes.filter((obj)=>{
+                return obj.liked === true;
+            })
+        }
+        if(quotes !== null){
+            let historyOrFavorite = quotes.map((item, i) => {
+                if(item.liked){
+                return(
+                    <li className="slide-toggle quoteHistLiked" key={`${item.author}-${i}`}>{item.text} - {item.author}</li>   
+                ) 
+                } else {
+                return(
+                    <li className="slide-toggle quoteHist" key={`${item.author}-${i}`}>{item.text} - {item.author}</li>   
+                    )
+                }
+                
+            });
+            return (
+                <div key={x}>
+                    {historyOrFavorite}
+                </div>
+            )
+        }
     }
     linkTab(x){
         return(
