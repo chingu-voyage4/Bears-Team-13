@@ -41,7 +41,7 @@ class Quote extends Component {
                     storedQuotes.pop();
                 }
 
-                customLocalStorage.setItem('quotes', JSON.stringify(storedQuotes), this.props.loggedInUser);
+                customLocalStorage.setItem('quotes', JSON.stringify(storedQuotes), self.props.loggedInUser);
             });
         }
 
