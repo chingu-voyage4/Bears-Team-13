@@ -221,7 +221,7 @@ handleBackground(){
         <Clock militaryTime={this.state.customGeneral.militaryTime} toggle={(a, b) => this.updateCustomGeneral(a, b)}/>
         <Greeting name={'George'} timeOfDay={this.state.timeOfDay} />
         {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
-        {obj.displayQuote ? <Quote /> : <Quote visibility='hide' />}
+        {obj.displayQuote ? <Quote loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/> : <Quote visibility='hide' loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/>}
         {obj.displayTodo ? <Todo blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/> : <Todo visibility='hide' blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser}  dataInStorage={this.state.dataInStorage}/>}
         <BackgroundCredit
             favorite = {this.handleFavorite}

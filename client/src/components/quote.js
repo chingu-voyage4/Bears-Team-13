@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import customLocalStorage from '../customLocalStorage';
 
 class Quote extends Component {
     constructor(props){
@@ -14,7 +15,7 @@ class Quote extends Component {
     }
 
     componentWillMount() {
-        var storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+        var storedQuotes = JSON.parse(customLocalStorage.getItem('quotes')) || [];
         var currentTime = new Date().getTime();
         var self = this;
         //check to see if previous quote was stored more than 15 min ago
@@ -40,12 +41,49 @@ class Quote extends Component {
                     storedQuotes.pop();
                 }
 
-                localStorage.setItem('quotes', JSON.stringify(storedQuotes));
+                customLocalStorage.setItem('quotes', JSON.stringify(storedQuotes), this.props.loggedInUser);
             });
         }
 
         else {
             self.setState({text: storedQuotes[storedQuotes.length - 1].text, author: storedQuotes[storedQuotes.length - 1].author, liked: storedQuotes[storedQuotes.length - 1].liked});
+        }
+    }
+
+    //For Sync
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.dataInStorage === 'server') {
+            var storedQuotes = JSON.parse(customLocalStorage.getItem('quotes')) || [];
+            var currentTime = new Date().getTime();
+            var self = this;
+            //check to see if previous quote was stored more than 15 min ago
+            if (storedQuotes.length == 0 || storedQuotes[storedQuotes.length - 1].time + 90000 < currentTime) {
+                
+                axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
+                    self.setState({
+                        text: res.data.quoteText, 
+                        author: res.data.quoteAuthor || 'Unknown', 
+                        tweet: 'https://twitter.com/intent/tweet?text=' + res.data.quoteText + '- ' + res.data.quoteAuthor + 'via @chingumentum'
+                    });
+
+                    var newQuote = {
+                        text: res.data.quoteText,
+                        author: res.data.quoteAuthor || 'Unknown',
+                        time: currentTime,
+                        liked: false
+                    };
+
+                    storedQuotes.push(newQuote);
+                    //set max amount of quotes to 20 and remove any excess quotes from beginning of array (oldest ones)
+                    if (storedQuotes.length > 20) {
+                        storedQuotes.pop();
+                    }
+                });
+            }
+
+            else {
+                self.setState({text: storedQuotes[storedQuotes.length - 1].text, author: storedQuotes[storedQuotes.length - 1].author, liked: storedQuotes[storedQuotes.length - 1].liked});
+            }
         }
     }
 
@@ -58,9 +96,9 @@ class Quote extends Component {
             this.setState({liked: true});
         }
 
-        var quotes = JSON.parse(localStorage.getItem('quotes'));
+        var quotes = JSON.parse(customLocalStorage.getItem('quotes'));
         quotes[quotes.length-1].liked = !quotes[quotes.length-1].liked;
-        localStorage.setItem('quotes', JSON.stringify(quotes));
+        customLocalStorage.setItem('quotes', JSON.stringify(quotes), this.props.loggedInUser);
     }
 
     render() {
