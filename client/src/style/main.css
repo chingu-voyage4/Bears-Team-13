@@ -380,9 +380,16 @@ ul, ol {
     opacity: 0.6
 }
 .toggle-options.active,
-.picSub.active{
+.picSub.active,
+.quoteSub.active,
+.quoteHistLiked{
     opacity: 1 !important
 }
+
+.quoteHist{
+    opacity: 0.6 !important;
+}
+
 /****************** Like Button ******************/
 .favorite{
     color: #EE2625;
