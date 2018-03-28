@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import customLocalStorage from '../customLocalStorage';
 
 
 class Settings extends Component{
@@ -7,12 +8,20 @@ class Settings extends Component{
         super(props);
         this.state = {
             active: this.genTab(),
-            subTab: 'History'
+            subTab: 'History',
+            quote:[]
         };
     this.dropUp = this.dropUp.bind(this);
     this.pickTab = this.pickTab.bind(this);
 
         }
+        
+    componentDidMount(){
+        const quote = customLocalStorage.getItem('quotes');
+        quote && this.setState({
+            quote: JSON.parse(quote)
+        });
+    }
     getUser() {
     axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(function(res) {
         console.log(res);
@@ -180,6 +189,12 @@ class Settings extends Component{
     }
     
     quoteTab(x){
+        let quotes = this.state.quote;
+        let compiled = quotes.map((x, index)=> {
+            return(
+            <li className="slide-toggle" key={`${x.author}-${index}`}>{x.text} - {x.author}</li>    
+            )
+        })
         return(
             <div key="quoteTab">
                 <h3>Quotes</h3>
@@ -187,6 +202,9 @@ class Settings extends Component{
                 <div className="settings-subnav">
                     <h4>Favorites</h4><h4>History</h4>
                 </div>
+                <ul className="settings-list">
+                    {compiled}
+                </ul>
             </div>
         )
     }
