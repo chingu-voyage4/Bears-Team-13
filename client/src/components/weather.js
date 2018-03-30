@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import WeatherSettings from './weather-settings';
-import update from 'immutability-helper';
 
 class Weather extends Component {
     constructor(props) {
@@ -27,78 +26,78 @@ class Weather extends Component {
         this.highlightDay = this.highlightDay.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.changeUnits = this.changeUnits.bind(this);
+        this.showPosition = this.showPosition.bind(this);
+        this.onDoubleClick = this.onDoubleClick.bind(this);
+    }
+
+    convertToC(value) { 
+        return Math.round((parseInt(value) - 32) * (5/9), 0);
+    }
+
+    showPosition(position) {
+        var self = this;
+
+        axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
+        + position.coords.latitude + ',' + position.coords.longitude + ')%22)&format=json').then(function(res) {
+
+            if (res.data.query.results === null) {
+                return;
+            }
+
+            //load response into state for rendering
+            self.setState({
+                city: res.data.query.results.channel.location.city,
+                activeDay: res.data.query.results.channel.item.forecast[0],
+                todayHighTemp: res.data.query.results.channel.item.condition.temp,
+                todayIconClass: 'top-button-identifier wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
+                activeIconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
+                activeTemp: res.data.query.results.channel.item.condition.temp,
+                activeDescription: res.data.query.results.channel.item.forecast[0].text,
+                activeDayName: moment().format('dddd'),
+                showingDay: '1',
+                showLowTemp: 'hidden',
+                day1: res.data.query.results.channel.item.forecast[0],
+                day1IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
+                day2: res.data.query.results.channel.item.forecast[1],
+                day2IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[1].code,
+                day3: res.data.query.results.channel.item.forecast[2],
+                day3IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[2].code,
+                day4: res.data.query.results.channel.item.forecast[3],
+                day4IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[3].code,
+                day5: res.data.query.results.channel.item.forecast[4],
+                day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code
+            });
+
+            //build object to hold temperature in units that aren't currently being displayed
+            var altUnits = {
+                activeTemp: 0,
+                '0': {},
+                '1': {},
+                '2': {},
+                '3': {},
+                '4': {},
+            };
+            
+            altUnits.activeTemp = self.convertToC(res.data.query.results.channel.item.condition.temp);
+            altUnits['0'].high = self.convertToC(res.data.query.results.channel.item.forecast[0].high);
+            altUnits['0'].low = self.convertToC(res.data.query.results.channel.item.forecast[0].low);
+            altUnits['1'].high = self.convertToC(res.data.query.results.channel.item.forecast[1].high);
+            altUnits['1'].low = self.convertToC(res.data.query.results.channel.item.forecast[1].low);
+            altUnits['2'].high = self.convertToC(res.data.query.results.channel.item.forecast[2].high);
+            altUnits['2'].low = self.convertToC(res.data.query.results.channel.item.forecast[2].low);
+            altUnits['3'].high = self.convertToC(res.data.query.results.channel.item.forecast[3].high);
+            altUnits['3'].low = self.convertToC(res.data.query.results.channel.item.forecast[3].low);
+            altUnits['4'].high = self.convertToC(res.data.query.results.channel.item.forecast[4].high);
+            altUnits['4'].low = self.convertToC(res.data.query.results.channel.item.forecast[4].low);
+            self.setState({altUnits: altUnits});
+        });
     }
 
     componentDidMount() {
-        
-        function convertToC(value) { 
-            return Math.round((parseInt(value) - 32) * (5/9), 0);
-        }
-
         var self = this;
-
-        function showPosition(position) {
-            axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
-            + position.coords.latitude + ',' + position.coords.longitude + ')%22)&format=json').then(function(res) {
-
-                if (res.data.query.results === null) {
-                    return;
-                }
-
-                //load response into state for rendering
-                self.setState({
-                    city: res.data.query.results.channel.location.city,
-                    activeDay: res.data.query.results.channel.item.forecast[0],
-                    todayHighTemp: res.data.query.results.channel.item.condition.temp,
-                    todayIconClass: 'top-button-identifier wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
-                    activeIconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
-                    activeTemp: res.data.query.results.channel.item.condition.temp,
-                    activeDescription: res.data.query.results.channel.item.forecast[0].text,
-                    activeDayName: moment().format('dddd'),
-                    showingDay: '1',
-                    showLowTemp: 'hidden',
-                    day1: res.data.query.results.channel.item.forecast[0],
-                    day1IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
-                    day2: res.data.query.results.channel.item.forecast[1],
-                    day2IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[1].code,
-                    day3: res.data.query.results.channel.item.forecast[2],
-                    day3IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[2].code,
-                    day4: res.data.query.results.channel.item.forecast[3],
-                    day4IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[3].code,
-                    day5: res.data.query.results.channel.item.forecast[4],
-                    day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code
-                });
-
-                //build object to hold temperature in units that aren't currently being displayed
-                var altUnits = {
-                    activeTemp: 0,
-                    '0': {},
-                    '1': {},
-                    '2': {},
-                    '3': {},
-                    '4': {},
-                };
-                
-                altUnits.activeTemp = convertToC(res.data.query.results.channel.item.condition.temp);
-                altUnits['0'].high = convertToC(res.data.query.results.channel.item.forecast[0].high);
-                altUnits['0'].low = convertToC(res.data.query.results.channel.item.forecast[0].low);
-                altUnits['1'].high = convertToC(res.data.query.results.channel.item.forecast[1].high);
-                altUnits['1'].low = convertToC(res.data.query.results.channel.item.forecast[1].low);
-                altUnits['2'].high = convertToC(res.data.query.results.channel.item.forecast[2].high);
-                altUnits['2'].low = convertToC(res.data.query.results.channel.item.forecast[2].low);
-                altUnits['3'].high = convertToC(res.data.query.results.channel.item.forecast[3].high);
-                altUnits['3'].low = convertToC(res.data.query.results.channel.item.forecast[3].low);
-                altUnits['4'].high = convertToC(res.data.query.results.channel.item.forecast[4].high);
-                altUnits['4'].low = convertToC(res.data.query.results.channel.item.forecast[4].low);
-
-                self.setState({altUnits: altUnits});
-                
-            });
-        }
-
         //check to make sure geolocation is enabled, then call function to get weather data
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(self.showPosition);
         }
 
         else {
@@ -151,7 +150,7 @@ class Weather extends Component {
         this.setState({showFahr: !this.state.showFahr, activeTemp: this.state.altUnits.activeTemp});
         
         //check to see which day is currently highlighted in weather pop out, to update those temps to new units
-        if (this.state.showingDay == '1') {
+        if (this.state.showingDay === '1') {
             this.setState({todayHighTemp: this.state.altUnits.activeTemp});
         }
 
@@ -179,6 +178,12 @@ class Weather extends Component {
         document.getElementById('weather-button').classList.toggle('show');
     }
 
+    onDoubleClick(e) {
+        console.log('hjkldsafjkhdfskjhdsf');
+        e.target.contentEditable = true;
+        //this.showPosition(33138);
+    }
+
     render() {
         return (
             <div className={`weather-wrapper ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
@@ -197,7 +202,7 @@ class Weather extends Component {
                     <div className="dropdown-menu dropdown-menu-left dropdown-wrapper" id="weather-button">
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
-                                <div className="city-name">
+                                <div className="city-name" onDoubleClick={this.onDoubleClick}>
                                     {this.state.city} <span className="active-day-name">{this.state.activeDayName}</span> 
                                 </div>
                                 <div className="current-weather-description">

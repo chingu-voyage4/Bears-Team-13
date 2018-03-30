@@ -19,7 +19,7 @@ class Quote extends Component {
         var currentTime = new Date().getTime();
         var self = this;
         //check to see if previous quote was stored more than 15 min ago
-        if (storedQuotes.length == 0 || storedQuotes[storedQuotes.length - 1].time + 90000 < currentTime) {
+        if (storedQuotes.length === 0 || storedQuotes[storedQuotes.length - 1].time + 900000 < currentTime) {
             
             axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
                 self.setState({
@@ -57,7 +57,7 @@ class Quote extends Component {
             var currentTime = new Date().getTime();
             var self = this;
             //check to see if previous quote was stored more than 15 min ago
-            if (storedQuotes.length == 0 || storedQuotes[storedQuotes.length - 1].time + 90000 < currentTime) {
+            if (storedQuotes.length === 0 || storedQuotes[storedQuotes.length - 1].time + 900000 < currentTime) {
                 
                 axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
                     self.setState({
@@ -88,15 +88,8 @@ class Quote extends Component {
     }
 
     changeLikeStatus() {
-        if (this.state.liked) {
-            this.setState({liked: false});
-            this.props.favorite(false);
-        }
-
-        else {
-            this.setState({liked: true});
-             this.props.favorite(true);
-        }
+        this.setState({liked: !this.state.liked});
+        this.props.favorite(this.state.liked)
 
         var quotes = JSON.parse(customLocalStorage.getItem('quotes'));
         quotes[quotes.length-1].liked = !quotes[quotes.length-1].liked;

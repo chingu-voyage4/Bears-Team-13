@@ -416,7 +416,6 @@ input[type=text]#focus-item {
 
 .button-updates {
     background-color: transparent;
-    padding-left: 20rem;
     color: rgb(255,255,255);
 }
 
@@ -429,6 +428,11 @@ input[type=text]#focus-item {
     height: 12rem;
     background-color: rgba(37, 37, 37, 0.7);
     color: white;
+}
+
+.dropdown-menu-left {
+    position: absolute;
+    left: -450%;
 }
 
 .dropdown-wrapper {

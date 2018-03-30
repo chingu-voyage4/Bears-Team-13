@@ -40,9 +40,7 @@ class Focus extends Component {
         event.preventDefault();
         var self = this;
         document.getElementById('saving-animation').classList.toggle('show');
-        setTimeout(function() {
-            self.setState({hasTodo: true});
-        },1500);
+        self.setState({hasTodo: true});
     }
 
     getNewTodo() {
@@ -51,7 +49,7 @@ class Focus extends Component {
 
     completeTodo() {
         if (this.state.isComplete) {
-            this.setState({todoTextClasses: 'focus-text stack', group1: '', group2: 'hidden',isComplete: false});
+            this.setState({todoTextClasses: 'focus-text stack', group1: '', group2: 'hidden', isComplete: false});
         }
 
         else {

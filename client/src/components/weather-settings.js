@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 
 class WeatherSettings extends Component {
-    constructor(props) {
-        super(props);
-        
-    };
 
     setC = () => {
         if (this.props.showFahr) {
