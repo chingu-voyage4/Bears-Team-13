@@ -40,6 +40,7 @@ class App extends Component{
             customTimer: 900000,
             militaryTime: false
         },
+        quoteFavorite:false,
         loggedInUser: false,                //Non-logged in user: false | Logged in user: First name of user
         dataInStorage: 'local',
         fetching:false
@@ -196,8 +197,12 @@ handleBackground(){
         })
     );
     }
+    quoteFavorite(bool){
+        this.setState({quoteFavorite: bool})
+    }
     
  render(){
+     console.log(this.state.quoteFavorite)
      if(this.state.fetching){
          return <div>Loading...</div>
      }
@@ -214,13 +219,14 @@ handleBackground(){
                   toggle={(a, b) => this.updateCustomGeneral(a, b)}
                   backgroundHistory={this.state.backgroundHistory}
                   loggedInUser={this.state.loggedInUser} 
+                  quoteFavorite={this.state.quoteFavorite}
         />
         {obj.displayLink ? <Links /> : <Links visibility='hide' />}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
         <Clock militaryTime={this.state.customGeneral.militaryTime} toggle={(a, b) => this.updateCustomGeneral(a, b)}/>
         <Greeting name={this.state.loggedInUser} timeOfDay={this.state.timeOfDay} />
         {obj.displayFocus ? <Focus /> : <Focus visibility='hide' />}
-        {obj.displayQuote ? <Quote loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/> : <Quote visibility='hide' loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/>}
+        {obj.displayQuote ? <Quote loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage} favorite={(bool) => this.quoteFavorite(bool)}/> : <Quote visibility='hide' loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/>}
         {obj.displayTodo ? <Todo blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser} dataInStorage={this.state.dataInStorage}/> : <Todo visibility='hide' blurOn={obj.todoBlur} loggedInUser={this.state.loggedInUser}  dataInStorage={this.state.dataInStorage}/>}
         <BackgroundCredit
             favorite = {this.handleFavorite}

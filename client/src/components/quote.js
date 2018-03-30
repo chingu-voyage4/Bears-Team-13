@@ -90,10 +90,12 @@ class Quote extends Component {
     changeLikeStatus() {
         if (this.state.liked) {
             this.setState({liked: false});
+            this.props.favorite(false);
         }
 
         else {
             this.setState({liked: true});
+             this.props.favorite(true);
         }
 
         var quotes = JSON.parse(customLocalStorage.getItem('quotes'));
