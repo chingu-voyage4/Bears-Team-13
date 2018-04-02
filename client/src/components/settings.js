@@ -8,7 +8,8 @@ class Settings extends Component{
         super(props);
         this.state = {
             active: this.genTab(),
-            subTab: 'History',
+            photoSubTab: 'History',
+            quoteSubTab: 'History',
             quote:[]
         };
     this.dropUp = this.dropUp.bind(this);
@@ -19,8 +20,21 @@ class Settings extends Component{
     componentDidMount(){
         const quote = customLocalStorage.getItem('quotes');
         quote && this.setState({
-            quote: JSON.parse(quote)
+            quote: JSON.parse(quote).reverse()
         });
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.state.active.key === 'quoteTab'){
+            const quote = customLocalStorage.getItem('quotes');
+            quote && this.setState({
+                quote: JSON.parse(quote).reverse()
+            },() => this.pickTab(this.quoteTab(this.state.quoteSubTab)));
+        } else {
+            const quote = customLocalStorage.getItem('quotes');
+            quote && this.setState({
+                quote: JSON.parse(quote).reverse()
+            },() => this.quoteTab());
+        }
     }
     getUser() {
     axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(function(res) {
@@ -59,7 +73,6 @@ class Settings extends Component{
         )
     }
     genTab(x){
-        
         function toggleClock(x){
             const military = document.getElementById('24time');
             const standard = document.getElementById('12time');
@@ -140,7 +153,6 @@ class Settings extends Component{
                         break;
                 }
             }, 0);
-
         return(
             <div key="photoTab">
                 <h3>Photos</h3>
@@ -156,8 +168,8 @@ class Settings extends Component{
                     <span className="toggle-options" id="24hours"onClick={e => {this.props.toggle('customTimer', 86400000);handleActive(e.target, ".toggle-options")}}>24 Hours</span>
                 </span>
                 <div className="settings-subnav">
-                    <h4 className="picSub" onClick= {(event) => {this.setState({active: this.photoTab('Favorites'),subTab:'Favorites'}); handleActive(event.target, ".picSub")}}>Favorites</h4>
-                    <h4 className="picSub active" onClick= {(event) => {this.setState({active: this.photoTab('History'),subTab:'History'}); handleActive(event.target, ".picSub")}}>History</h4>
+                    {this.state.photoSubTab === "Favorites" ? <h4 className="picSub active" onClick= {(event) => {this.setState({active: this.photoTab('Favorites'),photoSubTab:'Favorites'}); handleActive(event.target, ".picSub")}}>Favorites</h4> : <h4 className="picSub" onClick= {(event) => {this.setState({active: this.photoTab('Favorites'),photoSubTab:'Favorites'}); handleActive(event.target, ".picSub")}}>Favorites</h4>}
+                    {this.state.photoSubTab === "History" ? <h4 className="picSub active" onClick= {(event) => {this.setState({active: this.photoTab('History'),photoSubTab:'History'}); handleActive(event.target, ".picSub")}}>History</h4> : <h4 className="picSub" onClick= {(event) => {this.setState({active: this.photoTab('History'),photoSubTab:'History'}); handleActive(event.target, ".picSub")}}>History</h4>}
                 </div>
                 {this.photoSubTab(x)}
             </div>
@@ -196,22 +208,13 @@ class Settings extends Component{
             });
             x.classList.add('active');
         }
-        let quotes = this.state.quote;
-        // let compiled = quotes.map((x, index)=> {
-        //     if(x.liked){
-        //         console.log('no error')
-        //     }
-        //     return(
-        //     <li className="slide-toggle" key={`${x.author}-${index}`}>{x.text} - {x.author}</li>    
-        //     )
-        // })
         return(
             <div key="quoteTab">
                 <h3>Quotes</h3>
                 <p>A daily reminder for inspiration and growth</p>
                 <div className="settings-subnav">
-                    <h4 className="quoteSub" onClick= {(event) => {this.setState({active: this.quoteTab('Favorites'),subTab:'Favorites'}); handleActive(event.target, ".quoteSub")}}>Favorites</h4>
-                    <h4 className="quoteSub active" onClick= {(event) => {this.setState({active: this.quoteTab('History'),subTab:'History'}); handleActive(event.target, ".quoteSub")}}>History</h4>
+                    {this.state.quoteSubTab === 'Favorites' ? <h4 className="quoteSub active" onClick= {(event) => {this.setState({active: this.quoteTab('Favorites'),quoteSubTab:'Favorites'}); handleActive(event.target, ".quoteSub")}}>Favorites</h4>: <h4 className="quoteSub" onClick= {(event) => {this.setState({active: this.quoteTab('Favorites'),quoteSubTab:'Favorites'}); handleActive(event.target, ".quoteSub")}}>Favorites</h4>}
+                    {this.state.quoteSubTab === 'History' ? <h4 className="quoteSub active" onClick= {(event) => {this.setState({active: this.quoteTab('History'),quoteSubTab:'History'}); handleActive(event.target, ".quoteSub")}}>History</h4> : <h4 className="quoteSub" onClick= {(event) => {this.setState({active: this.quoteTab('History'),quoteSubTab:'History'}); handleActive(event.target, ".quoteSub")}}>History</h4>}
                 </div>
                 <ul className="settings-list">
                     {this.quoteSubTab(x)}
@@ -221,7 +224,7 @@ class Settings extends Component{
     }
     
     quoteSubTab(x){
-        let quotes = this.state.quote.reverse();
+        let quotes = this.state.quote;
         if(x === 'Favorites'){
             quotes = quotes.filter((obj)=>{
                 return obj.liked === true;
@@ -291,8 +294,8 @@ class Settings extends Component{
                 <ul className="settings-nav">
                     <li className="settings-nav-item" key="general-tab"onClick={() => this.pickTab(this.genTab())}>General</li>
                     <li className="settings-nav-item" key="todo-tab"onClick={() => this.pickTab(this.todoTab())}>Todo</li>
-                    <li className="settings-nav-item" key="photo-tab"onClick={() => this.pickTab(this.photoTab(this.state.subTab))}>Photos</li>
-                    <li className="settings-nav-item" key="quote-tab"onClick={() => this.pickTab(this.quoteTab())}>Quotes</li>
+                    <li className="settings-nav-item" key="photo-tab"onClick={() => this.pickTab(this.photoTab(this.state.photoSubTab))}>Photos</li>
+                    <li className="settings-nav-item" key="quote-tab"onClick={() => this.pickTab(this.quoteTab(this.state.quoteSubTab))}>Quotes</li>
                     <li className="settings-nav-item" key="link-tab"onClick={() => this.pickTab(this.linkTab())}>Links</li>
                     <div className='login-nav' key="login-tab"onClick={() => this.pickTab(this.loginTab())}>Log In</div>
                 </ul>

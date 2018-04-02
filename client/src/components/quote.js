@@ -89,7 +89,7 @@ class Quote extends Component {
 
     changeLikeStatus() {
         this.setState({liked: !this.state.liked});
-        this.props.favorite(this.state.liked)
+        this.props.favorite(!this.state.liked)
 
         var quotes = JSON.parse(customLocalStorage.getItem('quotes'));
         quotes[quotes.length-1].liked = !quotes[quotes.length-1].liked;
