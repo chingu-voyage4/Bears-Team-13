@@ -12,6 +12,8 @@ class Links extends Component {
         this.handleWidgetOpen = this.handleWidgetOpen.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleLinkClose = this.handleLinkClose.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleWidgetOpen() {
@@ -46,6 +48,17 @@ class Links extends Component {
         linksCloseBtn.style.display = 'none';
         linksInputUrl.style.display = 'none';
     }
+    onBlur(e) {
+    var currentTarget = e.currentTarget;
+    let linksPanel = document.getElementById('links-panel');
+    if(this.props.blurOn !== true){
+    setTimeout(function() {
+      if (!currentTarget.contains(document.activeElement)) {
+        linksPanel.className = 'animation-element fadePanelUp hide';
+      }
+    }, 0);
+    }
+  }
 
     handleSubmit(e) {
         let linksInputTitle = document.getElementById('links-input-title');
@@ -71,9 +84,9 @@ class Links extends Component {
 
                 // Display list
                 linksList.style.display = 'block';
-                linkItem.setAttribute('href', `${linksInputUrl}`);
+                linkItem.setAttribute('href', `http://${linksInputUrl.value}`);
                 linkItem.setAttribute('target', 'blank');
-
+                console.log('hit')
                 linksCloseBtn.addEventListener('click', function(){
                     this.parentNode.parentNode.removeChild(this.parentNode);
                 }) 
@@ -89,7 +102,7 @@ class Links extends Component {
 
     render() {
         return (
-            <div className={`links-wrapper ${this.props.visibility}`}>
+            <div className={`links-wrapper ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
                 <button id="links-button" onClick={this.handleWidgetOpen}>Links</button>
                 <div id="links-panel" className="animation-element fadePanelUp hide">
                     <a href="chrome-search://local-ntp/local-ntp.html"><i className="fa fa-chrome"></i>Chrome Tab</a>

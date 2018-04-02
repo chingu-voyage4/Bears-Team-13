@@ -257,13 +257,11 @@ class Settings extends Component{
                 <p>Quick access to your favorite links</p>
                 <ul className="settings-list">
                     <li className="slide-toggle"> <span>Show Links</span>{this.toggle('displayLink')} </li>
-                    <li className="slide-toggle"> <span>Show Chrome Tab in</span><span className="text-toggle">Links | Bookmarks | Dash | None</span> </li>
-                    <li className="slide-toggle"> <span>Show Apps in</span><span className="text-toggle">Links | Bookmarks | Dash | None</span> </li>
-                    <li className="slide-toggle bottom-toggle"> <span>Open links in a new tab</span>{this.toggle(12)} </li>
+                    <li className="slide-toggle bottom-toggle"> <span>Open links in a new tab</span>{this.toggle('linkNewTab')} </li>
                 </ul>
                 <h4 className="settings-header">Links</h4>
                 <ul className="settings-list">
-                    <li className="slide-toggle bottom-toggle"> <span>Stay Open</span>{this.toggle(13)} </li>
+                    <li className="slide-toggle bottom-toggle"> <span>Stay Open</span>{this.toggle("linkBlur")}</li>
                 </ul>
 
             </div>

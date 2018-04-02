@@ -37,6 +37,8 @@ class App extends Component{
             displayQuote:true,
             displayTodo:true,
             todoBlur:true,
+            linkBlur:true,
+            linkNewTab: true,
             customTimer: 900000,
             militaryTime: false
         },
@@ -221,7 +223,7 @@ handleBackground(){
                   loggedInUser={this.state.loggedInUser} 
                   quoteFavorite={this.state.quoteFavorite}
         />
-        {obj.displayLink ? <Links /> : <Links visibility='hide' />}
+        {obj.displayLink ? <Links newTab={obj.linkNewTab} blurOn={obj.linkBlur} /> : <Links newTab={obj.linkNewTab} visibility='hide' />}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
         <Clock militaryTime={this.state.customGeneral.militaryTime} toggle={(a, b) => this.updateCustomGeneral(a, b)}/>
         <Greeting name={this.state.loggedInUser} timeOfDay={this.state.timeOfDay} />

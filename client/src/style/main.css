@@ -62,7 +62,7 @@ ul, ol {
     bottom:10px;
     right:0;
     position: absolute;
-        outline:none;
+    outline:none;
 }
 
 
@@ -75,6 +75,7 @@ ul, ol {
     color:white;
     z-index:0;
     position: relative;
+    outline:none;
 }
 
 .todo-panel {
