@@ -494,6 +494,7 @@ input[type=text]#focus-item {
 .city-name {
     font-size: 1.3em;
     font-weight: bold;
+    width: 180%;
 }
 
 .large-weather-icon, .large-current-temperature {
@@ -522,6 +523,10 @@ input[type=text]#focus-item {
 
 .hidden {
     display: none;
+}
+
+.current-weather-description {
+    width: 50%;
 }
 
 /** Weather Settings Classes **/

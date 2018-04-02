@@ -179,9 +179,20 @@ class Weather extends Component {
     }
 
     onDoubleClick(e) {
-        console.log('hjkldsafjkhdfskjhdsf');
-        e.target.contentEditable = true;
+        console.log(e.target);
+        document.getElementById('city-name').contentEditable = true;
         //this.showPosition(33138);
+    }
+
+    updateCity(event) {
+        if (event.key == 'Enter') {
+            event.preventDefault();
+            console.log(document.getElementById('city-name').innerHTML);
+        }
+    }
+
+    submitNewCity(event) {
+        console.log(event.target.innerHTML);
     }
 
     render() {
@@ -203,7 +214,7 @@ class Weather extends Component {
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
                                 <div className="city-name" onDoubleClick={this.onDoubleClick}>
-                                    {this.state.city} <span className="active-day-name">{this.state.activeDayName}</span> 
+                                    <span id="city-name" onKeyPress={this.updateCity} onBlur={this.submitNewCity}>{this.state.city}</span> <span className="active-day-name">{this.state.activeDayName}</span> 
                                 </div>
                                 <div className="current-weather-description">
                                     {this.state.activeDescription}
