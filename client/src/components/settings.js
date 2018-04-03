@@ -66,7 +66,7 @@ class Settings extends Component{
                 <p>Sign in or sign up!</p>
                 <ul className="settings-list">
                     {!this.props.loggedInUser ? <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/auth/google">Login with Google</a></li> : ""}
-                    {this.props.loggedInUser ? <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li> : ""}
+                    {this.props.loggedInUser ? <li className="slide-toggle"><a onClick={() => customLocalStorage.clear()} href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li> : ""}
                     <li className="slide-toggle bottom-toggle" onClick={this.getUser}>Get User</li>
                 </ul>
             </div>
