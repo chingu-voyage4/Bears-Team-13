@@ -28,6 +28,7 @@ class Weather extends Component {
         this.changeUnits = this.changeUnits.bind(this);
         this.showPosition = this.showPosition.bind(this);
         this.onDoubleClick = this.onDoubleClick.bind(this);
+        this.updateCity = this.updateCity.bind(this);
     }
 
     convertToC(value) { 
@@ -37,8 +38,17 @@ class Weather extends Component {
     showPosition(position) {
         var self = this;
 
-        axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
-        + position.coords.latitude + ',' + position.coords.longitude + ')%22)&format=json').then(function(res) {
+        if (position.coords) {
+            var queryString = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text=%22('
+                + position.coords.latitude + ',' + position.coords.longitude + ')%22)&format=json';
+        }
+
+        else {
+            var queryString = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D' + position + '%20and%20u%3D%22f%22&format=json';
+        }
+        
+
+        axios.get(queryString).then(function(res) {
 
             if (res.data.query.results === null) {
                 return;
@@ -181,13 +191,24 @@ class Weather extends Component {
     onDoubleClick(e) {
         console.log(e.target);
         document.getElementById('city-name').contentEditable = true;
-        //this.showPosition(33138);
     }
 
     updateCity(event) {
-        if (event.key == 'Enter') {
+        var self = this;
+        if (event.key === 'Enter') {
             event.preventDefault();
-            console.log(document.getElementById('city-name').innerHTML);
+            //this.showPosition(event.target.innerHTML);
+            axios.get('https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22' + event.target.innerHTML + '%22&format=json').then(
+                function(res) {
+                    console.log(res.data);
+                    if (res.data.query.count === 0) {
+                        document.getElementById('city-name').innerHTML = self.state.city;
+                        return;
+                    }
+
+                    self.showPosition(res.data.query.results.place[0].woeid);
+                }
+            );
         }
     }
 
