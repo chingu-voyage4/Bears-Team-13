@@ -86,7 +86,6 @@ class Links extends Component {
                 linksList.style.display = 'block';
                 linkItem.setAttribute('href', `http://${linksInputUrl.value}`);
                 linkItem.setAttribute('target', 'blank');
-                console.log('hit')
                 linksCloseBtn.addEventListener('click', function(){
                     this.parentNode.parentNode.removeChild(this.parentNode);
                 }) 
