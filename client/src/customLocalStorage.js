@@ -22,5 +22,7 @@ export default {
     getItem: (key) => {
       const returnValue = localStorage.getItem(key);
       return returnValue;
-    }
+    },
+
+    clear: () => localStorage.clear()
 }
