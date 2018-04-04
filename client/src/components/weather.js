@@ -29,6 +29,7 @@ class Weather extends Component {
         this.showPosition = this.showPosition.bind(this);
         this.onDoubleClick = this.onDoubleClick.bind(this);
         this.updateCity = this.updateCity.bind(this);
+        this.submitNewCity = this.submitNewCity.bind(this);
     }
 
     convertToC(value) { 
@@ -189,7 +190,6 @@ class Weather extends Component {
     }
 
     onDoubleClick(e) {
-        console.log(e.target);
         document.getElementById('city-name').contentEditable = true;
     }
 
@@ -199,21 +199,42 @@ class Weather extends Component {
             event.preventDefault();
             //this.showPosition(event.target.innerHTML);
             axios.get('https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22' + event.target.innerHTML + '%22&format=json').then(
-                function(res) {
-                    console.log(res.data);
+                function(res) {    
                     if (res.data.query.count === 0) {
                         document.getElementById('city-name').innerHTML = self.state.city;
                         return;
                     }
 
-                    self.showPosition(res.data.query.results.place[0].woeid);
+                    else if (res.data.query.count === 1) {
+                        self.showPosition(res.data.query.results.place.woeid);
+                    }
+
+                    else {
+                        self.showPosition(res.data.query.results.place[0].woeid);
+                    }
                 }
             );
         }
     }
 
     submitNewCity(event) {
-        console.log(event.target.innerHTML);
+        var self = this;
+        axios.get('https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22' + event.target.innerHTML + '%22&format=json').then(
+            function(res) {
+                if (res.data.query.count === 0) {
+                    document.getElementById('city-name').innerHTML = self.state.city;
+                    return;
+                }
+
+                else if (res.data.query.count === 1) {
+                    self.showPosition(res.data.query.results.place.woeid);
+                }
+
+                else {
+                    self.showPosition(res.data.query.results.place[0].woeid);
+                }
+            }
+        );
     }
 
     render() {
