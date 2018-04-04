@@ -36,11 +36,6 @@ class Settings extends Component{
             },() => this.quoteTab());
         }
     }
-    getUser() {
-    axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true}).then(function(res) {
-        console.log(res);
-    });
-    }
     dropUp(x){
         document.getElementById("settings-dropup").classList.toggle("show");
     }
@@ -67,7 +62,6 @@ class Settings extends Component{
                 <ul className="settings-list">
                     {!this.props.loggedInUser ? <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/auth/google">Login with Google</a></li> : ""}
                     {this.props.loggedInUser ? <li className="slide-toggle"><a onClick={() => customLocalStorage.clear()} href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li> : ""}
-                    {/* <li className="slide-toggle bottom-toggle" onClick={this.getUser}>Get User</li> */}
                 </ul>
             </div>
         )
@@ -295,7 +289,7 @@ class Settings extends Component{
                     <li className="settings-nav-item" key="photo-tab"onClick={() => this.pickTab(this.photoTab(this.state.photoSubTab))}>Photos</li>
                     <li className="settings-nav-item" key="quote-tab"onClick={() => this.pickTab(this.quoteTab(this.state.quoteSubTab))}>Quotes</li>
                     <li className="settings-nav-item" key="link-tab"onClick={() => this.pickTab(this.linkTab())}>Links</li>
-                    <div className='login-nav' key="login-tab"onClick={() => this.pickTab(this.loginTab())}>Log In</div>
+                    <div className='login-nav' key="login-tab"onClick={() => this.pickTab(this.loginTab())}> {!this.props.loggedInUser ? <p>Log In</p> : <p>Log Out</p>}</div>
                 </ul>
                 <div className="settings-container">
                     {this.state.active}

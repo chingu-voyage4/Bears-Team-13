@@ -106,23 +106,8 @@ componentWillMount() {
     });
 
  }
-//  componentDidMount(){
-//      var self = this;
-        
-//         //determine clock format
-//         window.setInterval(function() {
-            
-//             if (self.props.militaryTime === true) {
-//                 self.setState({time: moment().format('hh:mm')});
-//             }
-    
-//             else {
-//                 self.setState({time: moment().format('h:mm A')});
-//             }
-//         }, 1000)
-//  }
+
 componentWillUpdate(nextProps, nextState){
-    console.log('update')
     customLocalStorage.setItem('background', JSON.stringify(nextState.background));
     customLocalStorage.setItem('customGeneral', JSON.stringify(nextState.customGeneral))
 }
@@ -143,8 +128,9 @@ handleBackground(){
         timeElapsed = null;
     }
     //Store background in localStorage
-    if(timeElapsed > this.state.customGeneral.customTimer || timeElapsed === null){
+    if(timeElapsed > this.state.customGeneral.customTimer || timeElapsed === null || getLocalBackground.img === undefined){
     //Store background history in localStorage
+
         if(timeElapsed !== null){
             const tempObj = Object.assign({}, JSON.parse(getLocalBackground));
             var newArray = JSON.parse(backgroundHistory);
