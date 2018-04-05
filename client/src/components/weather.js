@@ -261,8 +261,6 @@ class Weather extends Component {
                             {this.state.city}
                         </div>
                     </button>
-                    <div className="test1">
-                    </div>
                     <div className="dropdown-menu dropdown-menu-left dropdown-wrapper" id="weather-button">
                         <div className="weather-widget-row-small">
                             <div className="city-holder">

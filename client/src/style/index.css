@@ -397,12 +397,6 @@ input[type=text]#focus-item {
 
 /** Weather Classes **/
 
-.test1 {
-    position: absolute;
-    top: 100%;
-    right: 300%;
-}
-
 .weather-wrapper {
     position: absolute;
     top: 1%;
