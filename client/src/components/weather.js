@@ -100,19 +100,28 @@ class Weather extends Component {
             altUnits['3'].low = self.convertToC(res.data.query.results.channel.item.forecast[3].low);
             altUnits['4'].high = self.convertToC(res.data.query.results.channel.item.forecast[4].high);
             altUnits['4'].low = self.convertToC(res.data.query.results.channel.item.forecast[4].low);
-            self.setState({altUnits: altUnits});
+            self.setState({altUnits: altUnits, timeDataReceived: new Date()});
+            localStorage.setItem('weather', JSON.stringify(self.state));
         });
     }
 
     componentDidMount() {
         var self = this;
-        //check to make sure geolocation is enabled, then call function to get weather data
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(self.showPosition);
+        var weather = JSON.parse(localStorage.getItem('weather'));
+        if (weather.timeDataReceived + 900000 < new Date()) {
+                //check to make sure geolocation is enabled, then call function to get weather data
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(self.showPosition);
+            }
+
+            else {
+                //set LA to default weather if user denies geolocation access
+                self.showPosition('2442047');
+            }
         }
 
         else {
-            console.log('no geo');
+            self.setState(weather);
         }
     }
     //switch which day's high/low temp is displayed in weather pop out
@@ -252,6 +261,8 @@ class Weather extends Component {
                             {this.state.city}
                         </div>
                     </button>
+                    <div className="test1">
+                    </div>
                     <div className="dropdown-menu dropdown-menu-left dropdown-wrapper" id="weather-button">
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
@@ -351,7 +362,7 @@ class Weather extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
