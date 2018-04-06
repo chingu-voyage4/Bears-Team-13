@@ -9,7 +9,6 @@ class Weather extends Component {
         this.state = {
             animation: '',
             city: '',
-            activeDay: {},
             activeTemp: '',
             activeDescription: '',
             todayHighTemp: '',
@@ -54,11 +53,9 @@ class Weather extends Component {
             if (res.data.query.results === null) {
                 return;
             }
-
             //load response into state for rendering
             self.setState({
                 city: res.data.query.results.channel.location.city,
-                activeDay: res.data.query.results.channel.item.forecast[0],
                 todayHighTemp: res.data.query.results.channel.item.condition.temp,
                 todayIconClass: 'top-button-identifier wi wi-yahoo-' + res.data.query.results.channel.item.condition.code,
                 activeIconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
@@ -100,7 +97,7 @@ class Weather extends Component {
             altUnits['3'].low = self.convertToC(res.data.query.results.channel.item.forecast[3].low);
             altUnits['4'].high = self.convertToC(res.data.query.results.channel.item.forecast[4].high);
             altUnits['4'].low = self.convertToC(res.data.query.results.channel.item.forecast[4].low);
-            self.setState({altUnits: altUnits, timeDataReceived: new Date()});
+            self.setState({altUnits: altUnits, timeDataReceived: moment().valueOf()});
             localStorage.setItem('weather', JSON.stringify(self.state));
         });
     }
@@ -108,7 +105,7 @@ class Weather extends Component {
     componentDidMount() {
         var self = this;
         var weather = JSON.parse(localStorage.getItem('weather'));
-        if (weather.timeDataReceived + 900000 < new Date()) {
+        if (!weather || weather.timeDataReceived + 900000 < moment().valueOf()) {
                 //check to make sure geolocation is enabled, then call function to get weather data
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(self.showPosition);
@@ -182,12 +179,14 @@ class Weather extends Component {
         }
 
         this.setState({altUnits: newAltUnits});
+        //localStorage.setItem('weather', JSON.stringify(this.state));
     }
 
     onBlur(e) {
         var currentTarget = e.currentTarget;
         setTimeout(function() {
             if (!currentTarget.contains(document.activeElement)) {
+                console.log('removing');
                 document.getElementById("weather-button").classList.remove("show");
             }
         }, 0);
@@ -205,8 +204,11 @@ class Weather extends Component {
     updateCity(event) {
         var self = this;
         if (event.key === 'Enter') {
+            document.getElementById('city-name').contentEditable = false;
             event.preventDefault();
+            
             //this.showPosition(event.target.innerHTML);
+
             axios.get('https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22' + event.target.innerHTML + '%22&format=json').then(
                 function(res) {    
                     if (res.data.query.count === 0) {
@@ -228,6 +230,7 @@ class Weather extends Component {
 
     submitNewCity(event) {
         var self = this;
+        document.getElementById('city-name').contentEditable = false;
         axios.get('https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22' + event.target.innerHTML + '%22&format=json').then(
             function(res) {
                 if (res.data.query.count === 0) {
