@@ -53,6 +53,7 @@ class Weather extends Component {
             if (res.data.query.results === null) {
                 return;
             }
+            console.log(position);
             //load response into state for rendering
             self.setState({
                 city: res.data.query.results.channel.location.city,
@@ -65,15 +66,12 @@ class Weather extends Component {
                 showingDay: '1',
                 showLowTemp: 'hidden',
                 day1: res.data.query.results.channel.item.forecast[0],
-                day1IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[0].code,
                 day2: res.data.query.results.channel.item.forecast[1],
-                day2IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[1].code,
                 day3: res.data.query.results.channel.item.forecast[2],
-                day3IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[2].code,
                 day4: res.data.query.results.channel.item.forecast[3],
-                day4IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[3].code,
                 day5: res.data.query.results.channel.item.forecast[4],
-                day5IconClass: 'wi wi-yahoo-' + res.data.query.results.channel.item.forecast[4].code
+                showFahr: true,
+                position: position
             });
 
             //build object to hold temperature in units that aren't currently being displayed
@@ -105,8 +103,8 @@ class Weather extends Component {
     componentDidMount() {
         var self = this;
         var weather = JSON.parse(localStorage.getItem('weather'));
-        if (!weather || weather.timeDataReceived + 900000 < moment().valueOf()) {
-                //check to make sure geolocation is enabled, then call function to get weather data
+        if (!weather) {
+            //check to make sure geolocation is enabled, then call function to get weather data
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(self.showPosition);
             }
@@ -115,6 +113,20 @@ class Weather extends Component {
                 //set LA to default weather if user denies geolocation access
                 self.showPosition('2442047');
             }
+        }
+
+        else if (weather.timeDataReceived + 900000 < moment().valueOf()) {
+            axios.get('https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22' + weather.city + '%22&format=json').then(
+                function(res) {    
+                    if (res.data.query.count === 1) {
+                        self.showPosition(res.data.query.results.place.woeid);
+                    }
+
+                    else {
+                        self.showPosition(res.data.query.results.place[0].woeid);
+                    }
+                }
+            );
         }
 
         else {
@@ -294,7 +306,7 @@ class Weather extends Component {
                                     {this.state.day1.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className={this.state.day1IconClass}></i>
+                                    <i className={'wi wi-yahoo-' + this.state.day1.code}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day1.high}&deg;
@@ -308,7 +320,7 @@ class Weather extends Component {
                                     {this.state.day2.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className={this.state.day2IconClass}></i>
+                                    <i className={'wi wi-yahoo-' + this.state.day2.code}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day2.high}&deg;
@@ -322,7 +334,7 @@ class Weather extends Component {
                                     {this.state.day3.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className={this.state.day3IconClass}></i>
+                                    <i className={'wi wi-yahoo-' + this.state.day3.code}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day3.high}&deg;
@@ -336,7 +348,7 @@ class Weather extends Component {
                                     {this.state.day4.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className={this.state.day4IconClass}></i>
+                                    <i className={'wi wi-yahoo-' + this.state.day4.code}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day4.high}&deg;
@@ -350,7 +362,7 @@ class Weather extends Component {
                                     {this.state.day5.day}
                                 </div>
                                 <div className="five-day-weather-triple">
-                                    <i className={this.state.day5IconClass}></i>
+                                    <i className={'wi wi-yahoo-' + this.state.day5.code}></i>
                                 </div>
                                 <div className="five-day-weather-triple">
                                     {this.state.day5.high}&deg;
