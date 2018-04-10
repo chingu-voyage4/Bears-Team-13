@@ -53,7 +53,6 @@ class Weather extends Component {
             if (res.data.query.results === null) {
                 return;
             }
-            console.log(position);
             //load response into state for rendering
             self.setState({
                 city: res.data.query.results.channel.location.city,
@@ -191,14 +190,12 @@ class Weather extends Component {
         }
 
         this.setState({altUnits: newAltUnits});
-        //localStorage.setItem('weather', JSON.stringify(this.state));
     }
 
     onBlur(e) {
         var currentTarget = e.currentTarget;
         setTimeout(function() {
             if (!currentTarget.contains(document.activeElement)) {
-                console.log('removing');
                 document.getElementById("weather-button").classList.remove("show");
             }
         }, 0);
@@ -218,9 +215,6 @@ class Weather extends Component {
         if (event.key === 'Enter') {
             document.getElementById('city-name').contentEditable = false;
             event.preventDefault();
-            
-            //this.showPosition(event.target.innerHTML);
-
             axios.get('https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22' + event.target.innerHTML + '%22&format=json').then(
                 function(res) {    
                     if (res.data.query.count === 0) {
@@ -282,7 +276,9 @@ class Weather extends Component {
                         <div className="weather-widget-row-small">
                             <div className="city-holder">
                                 <div className="city-name" onDoubleClick={this.onDoubleClick}>
-                                    <span id="city-name" onKeyPress={this.updateCity} onBlur={this.submitNewCity}>{this.state.city}</span> <span className="active-day-name">{this.state.activeDayName}</span> 
+                                    <span id="city-name" 
+                                    onKeyPress={this.updateCity} 
+                                    onBlur={this.submitNewCity}>{this.state.city}</span> <span className="active-day-name">{this.state.activeDayName}</span> 
                                 </div>
                                 <div className="current-weather-description">
                                     {this.state.activeDescription}
