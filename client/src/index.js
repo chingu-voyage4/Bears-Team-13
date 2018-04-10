@@ -190,7 +190,7 @@ handleBackground(){
     }
     
  render(){
-     console.log(this.state.quoteFavorite)
+    //  console.log(this.state.quoteFavorite)
      if(this.state.fetching){
          return <div>Loading...</div>
      }
