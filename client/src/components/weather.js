@@ -266,14 +266,16 @@ class Weather extends Component {
             <div className={`weather-wrapper ${this.props.visibility}`} tabIndex="1" onBlur={this.onBlur}>
                 <div id="weather-focus" className="btn-group" >
                     <button type="button" className="btn button-updates top-button-identifier" onClick={this.onFocus}>
-                        <div className="weather-icon top-button-identifier">
-                            <i className={this.state.todayIconClass}></i>
-                        </div>
-                        <div className="weather-temperature top-button-identifier">
-                            {this.state.activeTemp}&deg;
-                        </div>
-                        <div className="top-button-identifier">
-                            {this.state.city}
+                        <div className="top-button-identifier pull-right">
+                            <div className="weather-icon top-button-identifier">
+                                <i className={this.state.todayIconClass}></i>
+                            </div>
+                            <div className="weather-temperature top-button-identifier">
+                                {this.state.activeTemp}&deg;
+                            </div>
+                            <div className="top-button-identifier">
+                                {this.state.city}
+                            </div>
                         </div>
                     </button>
                     <div className="dropdown-menu dropdown-menu-left dropdown-wrapper" id="weather-button">

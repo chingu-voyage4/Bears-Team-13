@@ -419,6 +419,7 @@ input[type=text]#focus-item {
 .button-updates {
     background-color: transparent;
     color: rgb(255,255,255);
+    width: 400px;
 }
 
 .button-updates:focus {
@@ -434,7 +435,7 @@ input[type=text]#focus-item {
 
 .dropdown-menu-left {
     position: absolute;
-    left: -450%;
+    /*left: -450%;*/
 }
 
 .dropdown-wrapper {
