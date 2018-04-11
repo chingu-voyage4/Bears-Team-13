@@ -86,7 +86,7 @@ class Settings extends Component{
                 <p>Customize your dashboard</p>
                 <h4 className="settings-header">Show</h4>
                 <ul className="settings-list">
-                    <li className="slide-toggle"> <span>Links</span>{this.toggle("displayLink")} </li>
+                    {/* <li className="slide-toggle"> <span>Links</span>{this.toggle("displayLink")} </li> */}
                     <li className="slide-toggle"> <span>Search</span>{this.toggle("displaySearch")} </li>
                     <li className="slide-toggle"> <span>Weather</span>{this.toggle("displayWeather")} </li>
                     <li className="slide-toggle"> <span>Focus</span>{this.toggle("displayFocus")} </li>
@@ -243,23 +243,23 @@ class Settings extends Component{
             )
         }
     }
-    linkTab(x){
-        return(
-            <div key="linkTab">
-                <h3>Links</h3>
-                <p>Quick access to your favorite links</p>
-                <ul className="settings-list">
-                    <li className="slide-toggle"> <span>Show Links</span>{this.toggle('displayLink')} </li>
-                    <li className="slide-toggle bottom-toggle"> <span>Open links in a new tab</span>{this.toggle('linkNewTab')} </li>
-                </ul>
-                <h4 className="settings-header">Links</h4>
-                <ul className="settings-list">
-                    <li className="slide-toggle bottom-toggle"> <span>Stay Open</span>{this.toggle("linkBlur")}</li>
-                </ul>
+    // linkTab(x){
+    //     return(
+    //         <div key="linkTab">
+    //             <h3>Links</h3>
+    //             <p>Quick access to your favorite links</p>
+    //             <ul className="settings-list">
+    //                 <li className="slide-toggle"> <span>Show Links</span>{this.toggle('displayLink')} </li>
+    //                 <li className="slide-toggle bottom-toggle"> <span>Open links in a new tab</span>{this.toggle('linkNewTab')} </li>
+    //             </ul>
+    //             <h4 className="settings-header">Links</h4>
+    //             <ul className="settings-list">
+    //                 <li className="slide-toggle bottom-toggle"> <span>Stay Open</span>{this.toggle("linkBlur")}</li>
+    //             </ul>
 
-            </div>
-        )
-    }
+    //         </div>
+    //     )
+    // }
 
 
     pickTab(tab){
@@ -287,7 +287,7 @@ class Settings extends Component{
                     <li className="settings-nav-item" key="todo-tab"onClick={() => this.pickTab(this.todoTab())}>Todo</li>
                     <li className="settings-nav-item" key="photo-tab"onClick={() => this.pickTab(this.photoTab(this.state.photoSubTab))}>Photos</li>
                     <li className="settings-nav-item" key="quote-tab"onClick={() => this.pickTab(this.quoteTab(this.state.quoteSubTab))}>Quotes</li>
-                    <li className="settings-nav-item" key="link-tab"onClick={() => this.pickTab(this.linkTab())}>Links</li>
+                    {/*<li className="settings-nav-item" key="link-tab"onClick={() => this.pickTab(this.linkTab())}>Links</li> */}
                     <div className='login-nav' key="login-tab"onClick={() => this.pickTab(this.loginTab())}> {!this.props.loggedInUser ? <p>Log In</p> : <p>Log Out</p>}</div>
                 </ul>
                 <div className="settings-container">

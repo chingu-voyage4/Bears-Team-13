@@ -8,7 +8,7 @@ import moment from 'moment';
 import Quote from './components/quote';
 import Focus from './components/focus';
 import Weather from './components/weather';
-import Links from './components/links';
+// import Links from './components/links';
 import './style/index.css';
 import Todo from './components/todo';
 import './style/main.css';
@@ -31,14 +31,14 @@ class App extends Component{
         },
         backgroundHistory: [],
         customGeneral: {
-            displayLink: true,
+            // displayLink: true,
             displayWeather:true,
             displayFocus:true,
             displayQuote:true,
             displayTodo:true,
             todoBlur:true,
-            linkBlur:true,
-            linkNewTab: true,
+            // linkBlur:true,
+            // linkNewTab: true,
             customTimer: 900000,
             militaryTime: false
         },
@@ -209,7 +209,7 @@ handleBackground(){
                   loggedInUser={this.state.loggedInUser} 
                   quoteFavorite={this.state.quoteFavorite}
         />
-        {obj.displayLink ? <Links newTab={obj.linkNewTab} blurOn={obj.linkBlur} /> : <Links newTab={obj.linkNewTab} visibility='hide' />}
+        {/*{obj.displayLink ? <Links newTab={obj.linkNewTab} blurOn={obj.linkBlur} /> : <Links newTab={obj.linkNewTab} visibility='hide' />} */}
         {obj.displayWeather ? <Weather /> : <Weather visibility='hide' />}
         <Clock militaryTime={this.state.customGeneral.militaryTime} toggle={(a, b) => this.updateCustomGeneral(a, b)}/>
         <Greeting name={this.state.loggedInUser} timeOfDay={this.state.timeOfDay} />

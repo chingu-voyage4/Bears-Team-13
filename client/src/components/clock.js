@@ -15,7 +15,9 @@ class Clock extends Component {
         //update highlight in settings
         const military = document.getElementById('24time');
         const standard = document.getElementById('12time');
-        military.classList.remove('active');
+        if(military !== null){
+            military.classList.remove('active');
+        }
         standard.classList.remove('active');
         this.props.toggle('militaryTime', !this.props.militaryTime)
         this.props.militaryTime ? standard.classList.add('active') : military.classList.add('active')
