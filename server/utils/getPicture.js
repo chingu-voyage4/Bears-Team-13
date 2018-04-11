@@ -10,11 +10,16 @@ module.exports = async () => {
         keys.unsplashAppId
       }&orientation=landscape&query=landscape`
     );
+    console.log(res.data);
   } catch (err) {
     console.log(err);
     return;
   }
-  if (res.data.urls.full !== null && res.data.urls.full !== undefined && res.data.urls.full.length > 0) {
+  if (
+    res.data.urls.full !== null &&
+    res.data.urls.full !== undefined &&
+    res.data.urls.full.length > 0
+  ) {
     const Picture = mongoose.model("picture");
     Picture.remove({}).exec();
     const newPicture = new Picture({
