@@ -12,15 +12,16 @@ module.exports = app => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.sendFile(path.join(__dirname + './login.html'));
+      res.sendFile(path.resolve(__dirname, 'login.html'));
       // res.redirect(keys.homePage);
       // res.send();
+      // res.redirect(keys.homePage);
     }
   );
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    res.sendFile(path.join(__dirname + './logout.html'));
+    res.sendFile(path.resolve(__dirname, 'logout.html'));
     // res.redirect(keys.homePage);
     // res.send();
   });
