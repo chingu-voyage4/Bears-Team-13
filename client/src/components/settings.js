@@ -59,8 +59,8 @@ class Settings extends Component{
                 <h3>{this.props.loggedInUser ? `Hi ${this.props.loggedInUser}` : `Log In`}</h3>
                 <p>Sign in or sign up!</p>
                 <ul className="settings-list">
-                    {!this.props.loggedInUser ? <li className="slide-toggle"><a href="https://momentum-server-bt13.herokuapp.com/auth/google">Login with Google</a></li> : ""}
-                    {this.props.loggedInUser ? <li className="slide-toggle"><a onClick={() => customLocalStorage.clear()} href="https://momentum-server-bt13.herokuapp.com/api/logout">Logout</a></li> : ""}
+                    {!this.props.loggedInUser ? <li className="slide-toggle"><a href="/auth/google">Login with Google</a></li> : ""}
+                    {this.props.loggedInUser ? <li className="slide-toggle"><a onClick={() => customLocalStorage.clear()} href="/api/logout">Logout</a></li> : ""}
                 </ul>
             </div>
         )
@@ -87,7 +87,7 @@ class Settings extends Component{
                 <h4 className="settings-header">Show</h4>
                 <ul className="settings-list">
                     {/* <li className="slide-toggle"> <span>Links</span>{this.toggle("displayLink")} </li> */}
-                    <li className="slide-toggle"> <span>Search</span>{this.toggle("displaySearch")} </li>
+                    
                     <li className="slide-toggle"> <span>Weather</span>{this.toggle("displayWeather")} </li>
                     <li className="slide-toggle"> <span>Focus</span>{this.toggle("displayFocus")} </li>
                     <li className="slide-toggle"> <span>Quote</span>{this.toggle("displayQuote")} </li>
@@ -101,7 +101,7 @@ class Settings extends Component{
                     <span className="toggle-options" id="24time" onClick={e => {this.props.toggle('militaryTime', true); toggleClock(true)}}>24 Hour</span></span>
                     </span>
                     </li>
-                    <li className="slide-toggle bottom-toggle"><span>Search Provider</span><span className="text-toggle">Google | Bing</span></li>
+                    
                 </ul>
             </div>
         )

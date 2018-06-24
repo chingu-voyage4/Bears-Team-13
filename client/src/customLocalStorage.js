@@ -5,7 +5,7 @@ export default {
       localStorage.setItem('lastUpdateTime', Date.now());
       const returnValue = localStorage.setItem(key, value);
       if (loggedInUser) {
-        axios('https://momentum-server-bt13.herokuapp.com/api/updateLocalStorage', {
+        axios('/api/updateLocalStorage', {
                 method: 'post',
                 data: localStorage,
                 withCredentials: true,

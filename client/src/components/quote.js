@@ -21,7 +21,7 @@ class Quote extends Component {
         //check to see if previous quote was stored more than 15 min ago
         if (storedQuotes.length === 0 || storedQuotes[storedQuotes.length - 1].time + 900000 < currentTime) {
             
-            axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
+            axios.get('/api/get_quote').then(function(res) {
                 self.setState({
                     text: res.data.quoteText, 
                     author: res.data.quoteAuthor || 'Unknown', 
@@ -59,7 +59,7 @@ class Quote extends Component {
             //check to see if previous quote was stored more than 15 min ago
             if (storedQuotes.length === 0 || storedQuotes[storedQuotes.length - 1].time + 900000 < currentTime) {
                 
-                axios.get('https://momentum-server-bt13.herokuapp.com/api/get_quote').then(function(res) {
+                axios.get('/api/get_quote').then(function(res) {
                     self.setState({
                         text: res.data.quoteText, 
                         author: res.data.quoteAuthor || 'Unknown', 

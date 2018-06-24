@@ -26,5 +26,13 @@
   "description": "",
   "devDependencies": {
     "babel-preset-es2017": "^6.24.1"
+  },
+  "proxy": {
+    "/api/*": {
+      "target": "http://localhost:5000"
+    },
+    "/auth/*": {
+      "target": "http://localhost:5000"
+    }
   }
 }

@@ -56,11 +56,11 @@ async syncDataWithServer() {
     var response;
     const localStorageLastUpdateTime = customLocalStorage.getItem('lastUpdateTime');
     try {
-        response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/current_user', {withCredentials: true});
+        response = await axios.get('/api/current_user', {withCredentials: true});
         
         if (response.data) {
             this.setState({loggedInUser: response.data.name});
-            response = await axios.get('https://momentum-server-bt13.herokuapp.com/api/getLocalStorage', {withCredentials: true});
+            response = await axios.get('/api/getLocalStorage', {withCredentials: true});
             const serverLocalStorage = response.data.localStorage;
             //compare local lastUpdateTime with server's and update localStorage if stale
             if (!localStorageLastUpdateTime || (localStorageLastUpdateTime && (localStorageLastUpdateTime !== serverLocalStorage.lastUpdateTime))) {
@@ -143,7 +143,7 @@ handleBackground(){
             } 
             this.setState({backgroundHistory:newArray});
         }
-        fetch('https://momentum-server-bt13.herokuapp.com/api/get_picture')
+        fetch('/api/get_picture')
         .then(res => res.json())
         .then(data => {
             const time = new Date().getTime();

@@ -105,7 +105,7 @@ const TDList =
             </button>
             <div id={`${this.props.key}-o`}className="todo-panel-o dropdown-menu">
             <ul className="todo-ul-o">
-                <li className="todo-box-o" onClick={this.props.handleEdit}>Edit</li>
+                <li on className="todo-box-o" onClick={this.props.handleEdit}>Edit</li>
                 <li className="todo-box-o">Move To...</li>
                 <li className="todo-box-o" onClick={this.props.handleDelete}>Delete</li>
             </ul>
