@@ -1,7 +1,7 @@
 <h1>ChinguTabs</h1>
 Help start your day. Get the weather and the time, add a todo list and focuses for your day. All customizable.
-<br/>
-
+<br />
+<br />
 
 | Tech Stack  |
 | ------------- | 
